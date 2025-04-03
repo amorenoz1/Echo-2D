@@ -78,5 +78,7 @@ int main (void) {
 
 ```
 ### Bouncing Square Video    
-![](readmemedia/bouncingsquare.mov)
+<p align="center">
+  <img src="readmemeadia/bouncingsquare.gif" width="400">
+</p>
 
