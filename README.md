@@ -78,8 +78,5 @@ int main (void) {
 
 ```
 ### Bouncing Square Video    
-<p align="center">
-<video width="640" height="480" controls>
-<source src="readmemedia/bouncingsquare.mov" type="video/mp4">
-</video>
-</p>
+![](readmemedia/bouncingsquare.mov)
+
