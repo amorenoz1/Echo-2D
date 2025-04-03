@@ -4,6 +4,17 @@ Tiny game engine for 2d games in c++
 
 ## Using Echo-2D 
 
+### Building Project 
+Make sure to have GLM, OpenGL, Glfw
+``` bash
+#in the root directory 
+cmake -B build
+cmake --build build
+
+```
+
+### Linking Dynamically
+
 ```bash
 # for macos
 export DYLD_LIBRARY_PATH=$DYLD_LIBRARY_PATH:/path/to/Echo2D/lib
@@ -76,6 +87,10 @@ int main (void) {
     delete app;
 }
 
+```
+### Compiling and running the bouncingsquares.cpp
+```bash
+clang++ bouncingsquare.cpp -std=c++11 -Wall -Wextra -I/Path/to/Echo2D/include -L/Path/to/Echo2D/lib -lEcho2D -o bouncingsquares 
 ```
 ### Bouncing Square Video    
 ![bouncingsquare](https://github.com/user-attachments/assets/48aa4de6-1022-432c-a723-eba4ab721f12)
