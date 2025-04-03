@@ -78,7 +78,5 @@ int main (void) {
 
 ```
 ### Bouncing Square Video    
-<p align="center">
-  <img src="readmemeadia/bouncingsquare.gif" width="400">
-</p>
+![bouncingsquare](https://github.com/user-attachments/assets/48aa4de6-1022-432c-a723-eba4ab721f12)
 
