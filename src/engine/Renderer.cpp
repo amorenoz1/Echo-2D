@@ -140,7 +140,7 @@ void Renderer::DrawTriangle(glm::vec2 V0, glm::vec2 V1, glm::vec2 V2, glm::vec4 
    glm::vec2 TransformedPos = GetInstance().ScreenToNDC(V0.x, V0.y);
    v0.Position.x = TransformedPos.x;
    v0.Position.y = TransformedPos.y;
-   v0.Position.x = 0.0f;
+   v0.Position.z = 0.0f;
    v0.Color = (1.0f/255.f) * Color;
    v0.TexCoords = {0.0f, 0.0f};
    v0.TextureIndex = -1.0f;
@@ -149,7 +149,7 @@ void Renderer::DrawTriangle(glm::vec2 V0, glm::vec2 V1, glm::vec2 V2, glm::vec4 
    TransformedPos = GetInstance().ScreenToNDC(V1.x, V1.y);
    v1.Position.x = TransformedPos.x;
    v1.Position.y = TransformedPos.y;
-   v1.Position.x = 0.0f;
+   v1.Position.z = 0.0f;
    v1.Color = (1.0f/255.f) * Color;
    v1.TexCoords = {0.0f, 0.0f};
    v1.TextureIndex = -1.0f;
@@ -158,7 +158,7 @@ void Renderer::DrawTriangle(glm::vec2 V0, glm::vec2 V1, glm::vec2 V2, glm::vec4 
    TransformedPos = GetInstance().ScreenToNDC(V2.x, V2.y);
    v2.Position.x = TransformedPos.x;
    v2.Position.y = TransformedPos.y;
-   v2.Position.x = 0.0f;
+   v2.Position.z = 0.0f;
    v2.Color = (1.0f/255.f) * Color;
    v2.TexCoords = {0.0f, 0.0f};
    v2.TextureIndex = -1.0f;
