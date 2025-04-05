@@ -5,7 +5,7 @@ public:
    MyApp () : Engine::Application(800, 600, "HelloThere") {}
    ~MyApp(){}
 
-   // Square and background
+
    glm::vec2 velocity = {50.0f, 50.0f};
    glm::vec2 position = {400.0f, 300.0f};
    glm::vec2 dimensions = {100.0f, 100.0f};

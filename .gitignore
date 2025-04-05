@@ -32,10 +32,7 @@
 *.app
 
 # Ignoring directories
-target/include/
-target/shaders/
-target/lib/
-target/main
+target/
 build/
 .cache/
 

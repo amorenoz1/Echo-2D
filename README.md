@@ -5,7 +5,7 @@ Tiny game engine for 2d games in c++
 ## Using Echo-2D 
 
 ### Building Project 
-Make sure to have GLM, OpenGL, Glfw
+Make sure to have GLM, OpenGL and Glfw
 ``` bash
 #in the root directory 
 cmake -B build

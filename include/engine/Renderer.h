@@ -25,12 +25,14 @@ private:
    GLuint VAO;
    GLuint VBO;
    GLuint EBO;
+   GLuint VBOCurrSize;
+   GLuint EBOCurrSize;
    std::vector<Utils::Vertex> VertexData;
    std::vector<GLuint> IndexData;
    Utils::Shader *Shader;
 
    static glm::vec2 ScreenToNDC(float ScreenX, float ScreenY);
-   static void ExpandBuffers();
+   static void CheckAndExpandBuffers();
 
    Renderer();
    ~Renderer();
