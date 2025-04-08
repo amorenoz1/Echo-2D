@@ -5,7 +5,7 @@
 #include <ctime>   // For seeding rand
 
 const float TRIANGLE_SIZE = 20.0f;
-const int NUM_TRIANGLES = 1000; // Number of triangles in the stress test
+const int NUM_TRIANGLES = 3000; // Number of triangles in the stress test
 
 struct Triangle {
    glm::vec2 pos;
