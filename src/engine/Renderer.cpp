@@ -1,12 +1,11 @@
-#include <algorithm>
-#include <cmath>
 #include <core/core.h>
+#include <utils/ShaderUtils.h>
 #include <engine/ApplicationInfo.h>
 #include <engine/Renderer.h>
-#include <external/glad.h>
-#include <iostream>
-#include <utils/ShaderUtils.h>
 #include <glm/gtc/matrix_transform.hpp>
+#include <algorithm>
+#include <cmath>
+#include <iostream>
 
 namespace Engine {
 
@@ -46,9 +45,11 @@ glEnableVertexAttribArray(2);
 glVertexAttribPointer(3, 1, GL_FLOAT, GL_FALSE, sizeof(Utils::Vertex), (void*)offsetof(Utils::Vertex, TextureIndex));
 glEnableVertexAttribArray(3);
    Shader->Use();
-   int Samplers[] = {0,  1,  2,  3,  4,  5,  6,  7,  8,  9,  10,
-      11, 12, 13, 14, 15};
-   Shader->SetIntV("Textures", 16, Samplers);
+   int MaxSamplers;
+   glGetIntegerv(GL_MAX_TEXTURE_IMAGE_UNITS, &MaxSamplers);
+   int Samplers[MaxSamplers];
+   for (int i = 0; i < MaxSamplers; i++) Samplers[i] = i;
+   Shader->SetIntV("Textures", MaxSamplers, Samplers);
 }
 
 void Renderer::InitDraw() {

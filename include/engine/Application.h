@@ -11,6 +11,7 @@ public:
    virtual ~Application();
 
    void Run();
+   void ShowFPS();
 
 protected:
    WindowHandler *Window;

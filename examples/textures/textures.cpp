@@ -18,6 +18,7 @@ public:
 
    void Init() override {
       dvdIcon = new Engine::Texture("dvd.png");
+      ShowFPS();
    }
 
    void selectRandomColor() {

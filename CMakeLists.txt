@@ -25,8 +25,14 @@ add_library(Echo2D SHARED
    src/engine/Renderer.cpp
    src/external/stb.cpp
    src/external/glad.c
+   src/external/imgui.cpp
+   src/external/imgui_draw.cpp
+   src/external/imgui_demo.cpp
+   src/external/imgui_impl_glfw.cpp
+   src/external/imgui_impl_opengl3.cpp
+   src/external/imgui_tables.cpp
+   src/external/imgui_widgets.cpp
    src/utils/ShaderUtils.cpp
-
 )
 
 # Include directories

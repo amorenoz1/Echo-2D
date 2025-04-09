@@ -5,7 +5,7 @@
 #include <iostream>
 
 namespace Engine {
-void WindowHandler::FramebufferSizeCallback (GLFWwindow *Window, int Width, int Height) {
+static void FramebufferSizeCallback (GLFWwindow *Window, int Width, int Height) {
    glViewport(0, 0, Width, Height);
 }
 
@@ -29,6 +29,7 @@ void WindowHandler::Init() {
    glfwWindowHint(GLFW_POSITION_X, 0);
    glfwWindowHint(GLFW_POSITION_Y, 0);
 
+// Setup Dear ImGui context
    this->Window = glfwCreateWindow(this->Width, this->Height, this->Title, nullptr, nullptr);
 
    if (!this->Window) {
@@ -37,9 +38,10 @@ void WindowHandler::Init() {
       std::exit(1);
    }
 
+
    InputHandler::Init(this->Window);
 
-   glfwSetFramebufferSizeCallback(this->Window, WindowHandler::FramebufferSizeCallback);
+   glfwSetFramebufferSizeCallback(this->Window, FramebufferSizeCallback);
 
    glfwMakeContextCurrent(this->Window);
 
