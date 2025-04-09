@@ -25,6 +25,7 @@ public:
    void SetVec4(const std::string Name, const glm::vec4 &Value) const;
    void SetBool(const std::string Name, bool Value) const;
    void SetInt(const std::string Name, int Value) const;
+   void SetIntV(const std::string Name, GLuint Size, int *Value) const;
    void SetFloat(const std::string Name, float Value) const;
    GLuint GetID();
 

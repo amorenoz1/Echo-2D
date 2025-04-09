@@ -4,6 +4,7 @@
 #include "core/core.h"
 #include "utils/ShaderUtils.h"
 #include "utils/Utils.h"
+#include "engine/Texture.h"
 #include <vector>
 
 namespace Engine {
@@ -11,6 +12,8 @@ namespace Engine {
 struct BatchRendererData {
    uint32_t DrawCalls;
 };
+
+
 
 extern BatchRendererData BatchData;
 
@@ -24,6 +27,7 @@ public:
    static void DrawRect(glm::vec2 Dimensions, glm::vec2 Center, glm::vec4 Color);
    static void DrawTriangle(glm::vec2 V0, glm::vec2 V1, glm::vec2 V2,
                             glm::vec4 Color);
+   static void DrawRectTexture(glm::vec2 Dimensions, glm::vec2 Center, glm::vec4 Tint, Texture Tex);
    static void EndDraw();
    static void Flush();
 
@@ -35,6 +39,7 @@ private:
    GLuint EBOMaxSize;
    std::vector<Utils::Vertex> VertexData;
    std::vector<GLuint> IndexData;
+   std::vector<GLuint> Textures;
    Utils::Shader *Shader;
 
    Renderer();

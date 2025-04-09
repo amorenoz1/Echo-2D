@@ -1,4 +1,5 @@
 #include "core/core.h"
+#include "external/glad.h"
 #include <fstream>
 #include <glm/glm.hpp>
 #include <glm/gtc/type_ptr.hpp>
@@ -101,7 +102,11 @@ void Shader::SetMat4(const std::string Name, const glm::mat4 &Value) const {
 void Shader::SetVec4(const std::string Name, const glm::vec4 &Value) const {
    int Loc = glGetUniformLocation(this->ID, Name.c_str());
    glUniform4fv(Loc, 1, glm::value_ptr(Value));
-   
+}
+
+void Shader::SetIntV(const std::string Name, GLuint Size, int Value[Size]) const {
+   int Loc = glGetUniformLocation(this->ID, Name.c_str());
+   glUniform1iv(Loc, Size, Value);
 }
 
 void Shader::SetBool(const std::string Name, bool Value) const {

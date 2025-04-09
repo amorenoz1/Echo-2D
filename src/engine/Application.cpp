@@ -23,6 +23,7 @@ Application::~Application() {
 void Application::Run() {
    double LastTime = glfwGetTime();
 
+   this->Init();
    while(!this->Window->ShouldWindowClose()) {
 
       double CurrentTime = glfwGetTime();
@@ -56,4 +57,5 @@ void Application::Update(float dt) {}
 
 void Application::Render() const {}
 
+void Application::Init() {}
 }

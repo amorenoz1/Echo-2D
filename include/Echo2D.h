@@ -4,5 +4,6 @@
 #include "engine/Application.h"
 #include "engine/InputHandler.h"
 #include "engine/Renderer.h"
+#include "engine/Texture.h"
 
 #endif

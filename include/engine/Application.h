@@ -17,6 +17,7 @@ protected:
    const int Width;
    const int Height;
 
+   virtual void Init();
    virtual void Update(float dt);
    virtual void Render() const;
 };
