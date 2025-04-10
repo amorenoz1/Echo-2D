@@ -12,6 +12,10 @@ public:
    glm::vec4 color1 = {198.0f, 84.0f, 13.0f, 255.0f};
    glm::vec4 background = {144.0f, 233.0f, 200.0f, 255.0f};
 
+   void Init() override {
+      ShowFPS();
+   }
+
    void Update(float dt) override {
       position.x += velocity.x * dt;
       position.y += velocity.y * dt;

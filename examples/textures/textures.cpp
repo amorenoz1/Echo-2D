@@ -1,6 +1,5 @@
 #include <Echo2D.h>
 #include <cstdlib>
-#include <random>
 
 class MyApp : public Engine::Application {
 public:
@@ -18,7 +17,8 @@ public:
 
    void Init() override {
       dvdIcon = new Engine::Texture("dvd.png");
-      ShowFPS();
+      Debug();
+      SetFPS(500);
    }
 
    void selectRandomColor() {
@@ -36,7 +36,7 @@ public:
          velocity.x *= -1;
          selectRandomColor();
       }
-      
+
       if (position.y <= 0.0f) {
          position.y = 0.0f;
          velocity.y *= -1;

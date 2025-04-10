@@ -1,104 +1,118 @@
 #include "core/core.h"
-#include <engine/ApplicationInfo.h>
-#include <engine/WindowHandler.h>
 #include <engine/Application.h>
+#include <engine/ApplicationInfo.h>
 #include <engine/Renderer.h>
+#include <engine/WindowHandler.h>
 
-#include <iostream>
+#include <numeric>
 #include <thread>
 
 #include "external/imgui.h"
 #include "external/imgui_impl_glfw.h"
 #include "external/imgui_impl_opengl3.h"
 
-namespace Engine{
-
-static bool showFPS = false;
+namespace Engine {
 
 ApplicationInfo AppInfo;
 
-Application::Application (const int Width, const int Height, const char* Title) : Width(Width), Height(Height){
-   this->Window = new WindowHandler(Height, Width, Title);
+Application::Application(const int Width, const int Height, const char *Title) {
+   Window = new WindowHandler(Height, Width, Title);
    AppInfo.ScreenWidth = Width;
    AppInfo.ScreenHeight = Height;
    AppInfo.Title = Title;
 }
 
-Application::~Application() {
-   delete this->Window;
-   ImGui_ImplOpenGL3_Shutdown();
-   ImGui_ImplGlfw_Shutdown();
-   ImGui::DestroyContext();
+Application::~Application() { delete Window; }
+
+void ImGuiNewFrame() {
+   ImGui_ImplOpenGL3_NewFrame();
+   ImGui_ImplGlfw_NewFrame();
+   ImGui::NewFrame();
+}
+
+void ImGuiDraw() {
+   ImGui::Render();
+   ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
+}
+
+void Application::UpdateFpsCounter() {
+   FrameCount++;
+   FpsTimer += DeltaTime;
+
+   FrameTimeHistory.push_back(DeltaTime);
+   if (FrameTimeHistory.size() > MAX_SAMPLES) {
+      FrameTimeHistory.erase(FrameTimeHistory.begin());
+   }
+
+   if (FpsTimer >= 1.0) {
+      CurrentFPS = FrameCount;
+
+      double AverageFrameTime =
+         std::accumulate(FrameTimeHistory.begin(), FrameTimeHistory.end(), 0.0) /
+         FrameTimeHistory.size();
+
+      RollingFPS = static_cast<int>(1.0 / AverageFrameTime);
+
+      FrameCount = 0;
+      FpsTimer = 0;
+   }
 }
 
 void Application::Run() {
-   double LastTime = glfwGetTime();
-   double FPS = 0;
-   const double TargetFrameTime = 1.0 / 500.0; // 2 ms per frame
+   Init();
+   LastFrameTime = glfwGetTime();
 
-   IMGUI_CHECKVERSION();
-   ImGui::CreateContext();
-   ImGuiIO& io = ImGui::GetIO();
-
-   ImGui::StyleColorsDark();
-   ImGui_ImplGlfw_InitForOpenGL(this->Window->Window, true);          
-   ImGui_ImplOpenGL3_Init();
-
-   this->Init();
-
-   while(!this->Window->ShouldWindowClose()) {
-      this->Window->PollEvents();
-
+   while (!Window->ShouldWindowClose()) {
+      // delta time calculation
       double CurrentTime = glfwGetTime();
-      double DeltaTime = CurrentTime - LastTime;
-      LastTime = CurrentTime;
-      FPS = 1.0/DeltaTime;
+      DeltaTime = CurrentTime - LastFrameTime;
+      LastFrameTime = CurrentTime;
 
       BatchData.DrawCalls = 0;
-      this->Window->ClearColor();
-      this->Update(DeltaTime);
 
-      ImGui_ImplOpenGL3_NewFrame();
-      ImGui_ImplGlfw_NewFrame();
+      UpdateFpsCounter();
+
+      ImGuiNewFrame();
 
       Renderer::InitDraw();
-
-      this->Render();
-
+      {
+         Window->ClearColor();
+         Update(static_cast<float>(DeltaTime));
+         Render();
+         RenderImGui();
+      }
       Renderer::EndDraw();
       Renderer::Flush();
-
-      ImGui::NewFrame();
-      if (showFPS) {
+ 
+      if (ShowFPS) {
          ImGui::BeginMainMenuBar();
-         ImGui::Text("FPS: %.2f", (float)FPS);
+         ImGui::Text("FPS: %d, Rolling FPS: %d, Draw Calls: %d, Delta Time: %lf", CurrentFPS,
+                     RollingFPS, BatchData.DrawCalls, DeltaTime);
          ImGui::EndMainMenuBar();
+      }     
+
+      ImGuiDraw();
+
+      Window->SwapBuffers();
+      Window->PollEvents();
+
+      double FrameEndTime = glfwGetTime() - CurrentTime;
+      double SleepTime = TargetFrameTime - FrameEndTime;
+      if (SleepTime > 0.0) {
+         std::this_thread::sleep_for(std::chrono::duration<double>(SleepTime));
       }
-
-      ImGui::Render();
-      ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
-
-         this->Window->SwapBuffers();
-
-      double FrameEndTime = glfwGetTime();
-      double FrameDuration = FrameEndTime - CurrentTime;
-
-      double SleepTime = TargetFrameTime - FrameDuration;
-        if (SleepTime > 0.0) {
-            std::this_thread::sleep_for(std::chrono::duration<double>(SleepTime));
-        }
-      // std::cout << "FPS: " << FPS << std::endl;
    }
-   // std::cout << "Draw Calls From App: " << BatchData.DrawCalls << std::endl;
 }
+void Application::SetFPS(int FPS) {
+   TargetFrameTime = 1.0/FPS;
+}
+void Application::Debug() { ShowFPS = !ShowFPS; }
 
-void Application::ShowFPS() {
-   showFPS = !showFPS;
-}
+void Application::RenderImGui() {}
 
 void Application::Update(float dt) {}
 
 void Application::Render() const {}
 
 void Application::Init() {}
-}
+} // namespace Engine

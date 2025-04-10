@@ -1,5 +1,5 @@
 #include <Echo2D.h>
-#include <Echo2D.h>
+#include <cstdint>
 #include <vector>
 #include <cstdlib> // For rand
 #include <ctime>   // For seeding rand
@@ -34,6 +34,10 @@ public:
    }
 
    ~MyApp() {}
+
+   void Init() override {
+      Debug();
+   }
 
    void Update(float dt) override {
       for (auto& t : triangles) {

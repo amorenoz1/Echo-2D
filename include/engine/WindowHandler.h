@@ -16,8 +16,8 @@ public:
    int GetHeight();
    int GetWidth();
 
-   GLFWwindow *Window;
 private:
+   GLFWwindow *Window;
    int Height;
    int Width;
    const char *Title;

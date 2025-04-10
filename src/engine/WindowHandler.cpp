@@ -4,6 +4,10 @@
 #include <cstdlib>
 #include <iostream>
 
+#include "external/imgui.h"
+#include "external/imgui_impl_glfw.h"
+#include "external/imgui_impl_opengl3.h"
+
 namespace Engine {
 static void FramebufferSizeCallback (GLFWwindow *Window, int Width, int Height) {
    glViewport(0, 0, Width, Height);
@@ -12,6 +16,9 @@ static void FramebufferSizeCallback (GLFWwindow *Window, int Width, int Height) 
 WindowHandler::~WindowHandler() {
    glfwDestroyWindow(this->Window);
    glfwTerminate();
+   ImGui_ImplOpenGL3_Shutdown();
+   ImGui_ImplGlfw_Shutdown();
+   ImGui::DestroyContext();
 }
 
 void WindowHandler::Init() {
@@ -51,6 +58,14 @@ void WindowHandler::Init() {
    }
 
    glViewport(0, 0, this->Width, this->Height);
+
+   IMGUI_CHECKVERSION();
+   ImGui::CreateContext();
+   ImGuiIO& io = ImGui::GetIO();
+
+   ImGui::StyleColorsDark();
+   ImGui_ImplGlfw_InitForOpenGL(Window, true);          
+   ImGui_ImplOpenGL3_Init();
 
 }
 
