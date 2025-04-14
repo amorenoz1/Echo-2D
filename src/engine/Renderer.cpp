@@ -1,11 +1,11 @@
+#include <algorithm>
+#include <cmath>
 #include <core/core.h>
-#include <utils/ShaderUtils.h>
 #include <engine/ApplicationInfo.h>
 #include <engine/Renderer.h>
 #include <glm/gtc/matrix_transform.hpp>
-#include <algorithm>
-#include <cmath>
 #include <iostream>
+#include <utils/ShaderUtils.h>
 
 namespace Engine {
 
@@ -33,22 +33,27 @@ Renderer::Renderer() {
    glBufferData(GL_ELEMENT_ARRAY_BUFFER, this->EBOMaxSize, nullptr,
                 GL_DYNAMIC_DRAW);
 
-glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(Utils::Vertex), (void*)offsetof(Utils::Vertex, Position));
-glEnableVertexAttribArray(0);
+   glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(Utils::Vertex),
+                         (void *)offsetof(Utils::Vertex, Position));
+   glEnableVertexAttribArray(0);
 
-glVertexAttribPointer(1, 4, GL_FLOAT, GL_FALSE, sizeof(Utils::Vertex), (void*)offsetof(Utils::Vertex, Color));
-glEnableVertexAttribArray(1);
+   glVertexAttribPointer(1, 4, GL_FLOAT, GL_FALSE, sizeof(Utils::Vertex),
+                         (void *)offsetof(Utils::Vertex, Color));
+   glEnableVertexAttribArray(1);
 
-glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, sizeof(Utils::Vertex), (void*)offsetof(Utils::Vertex, TexCoords));
-glEnableVertexAttribArray(2);
+   glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, sizeof(Utils::Vertex),
+                         (void *)offsetof(Utils::Vertex, TexCoords));
+   glEnableVertexAttribArray(2);
 
-glVertexAttribPointer(3, 1, GL_FLOAT, GL_FALSE, sizeof(Utils::Vertex), (void*)offsetof(Utils::Vertex, TextureIndex));
-glEnableVertexAttribArray(3);
+   glVertexAttribPointer(3, 1, GL_FLOAT, GL_FALSE, sizeof(Utils::Vertex),
+                         (void *)offsetof(Utils::Vertex, TextureIndex));
+   glEnableVertexAttribArray(3);
    Shader->Use();
    int MaxSamplers;
    glGetIntegerv(GL_MAX_TEXTURE_IMAGE_UNITS, &MaxSamplers);
    int Samplers[MaxSamplers];
-   for (int i = 0; i < MaxSamplers; i++) Samplers[i] = i;
+   for (int i = 0; i < MaxSamplers; i++)
+      Samplers[i] = i;
    Shader->SetIntV("Textures", MaxSamplers, Samplers);
 }
 
@@ -63,7 +68,7 @@ void Renderer::ClearScreenColor(glm::vec4 ScreenColor) {
 }
 
 void Renderer::DrawCircle(float Radius, glm::vec2 Center, glm::vec4 Color) {
-   const int VertexCount = 48;
+   const int VertexCount = 49;
 
    if ((GetInstance().IndexData.size() + (VertexCount - 2) * 3) *
       sizeof(GLuint) >=
@@ -76,6 +81,17 @@ void Renderer::DrawCircle(float Radius, glm::vec2 Center, glm::vec4 Color) {
    }
 
    float Angle = 360.0f / (float)VertexCount;
+
+   // Center vertex
+   Utils::Vertex CenterVertex;
+   CenterVertex.Position.x = ScreenToNDC(Center.x, 0.0f).x;
+   CenterVertex.Position.y = ScreenToNDC(0.0f, Center.y).y;
+   CenterVertex.Position.z = 0.0f;
+   CenterVertex.Color = Color;
+   CenterVertex.TexCoords = {0.0f, 0.0f};
+   CenterVertex.TextureIndex = -1.0f;
+
+   GetInstance().VertexData.push_back(CenterVertex);
 
    // Vertex calculation
    for (int i = 0; i < VertexCount; i++) {
@@ -249,7 +265,9 @@ void Renderer::DrawRectTexture(glm::vec2 Dimensions, glm::vec2 Center,
       GetInstance().Textures.push_back(Tex.ID);
    }
 
-   int Index = std::find(GetInstance().Textures.begin(), GetInstance().Textures.end(), Tex.ID) - GetInstance().Textures.begin();
+   int Index = std::find(GetInstance().Textures.begin(),
+                         GetInstance().Textures.end(), Tex.ID) -
+      GetInstance().Textures.begin();
 
    Utils::Vertex v0;
    glm::vec2 TransformedPos = ScreenToNDC(Center.x, Center.y);
@@ -302,7 +320,138 @@ void Renderer::DrawRectTexture(glm::vec2 Dimensions, glm::vec2 Center,
    for (GLuint index : TempIndexArray) {
       GetInstance().IndexData.push_back(index);
    }
+}
 
+void Renderer::DrawTriangleTexture(glm::vec2 V0, glm::vec2 V1, glm::vec2 V2,
+                                   glm::vec4 Tint, Texture Tex) {
+
+   const GLuint VertexCount = 3;
+
+   if ((GetInstance().IndexData.size() + (VertexCount - 2) * 3) *
+      sizeof(GLuint) >=
+      GetInstance().EBOMaxSize ||
+      (GetInstance().VertexData.size() + VertexCount) * sizeof(Utils::Vertex) >=
+      GetInstance().VBOMaxSize) {
+      EndDraw();
+      Flush();
+      InitDraw();
+   }
+   auto it = std::find(GetInstance().Textures.begin(),
+                       GetInstance().Textures.end(), Tex.ID);
+
+   if (it == GetInstance().Textures.end()) {
+      GetInstance().Textures.push_back(Tex.ID);
+   }
+
+   int Index = std::find(GetInstance().Textures.begin(),
+                         GetInstance().Textures.end(), Tex.ID) -
+                         GetInstance().Textures.begin();
+
+
+   Utils::Vertex v0;
+   glm::vec2 TransformedPos = ScreenToNDC(V0.x, V0.y);
+   v0.Position.x = TransformedPos.x;
+   v0.Position.y = TransformedPos.y;
+   v0.Position.z = 0.0f;
+   v0.Color = (1.0f / 255.f) * Tint;
+   v0.TexCoords = {0.0f, 0.0f};
+   v0.TextureIndex = (float)Index;
+
+   Utils::Vertex v1;
+   TransformedPos = ScreenToNDC(V1.x, V1.y);
+   v1.Position.x = TransformedPos.x;
+   v1.Position.y = TransformedPos.y;
+   v1.Position.z = 0.0f;
+   v1.Color = (1.0f / 255.f) * Tint;
+   v1.TexCoords = {0.5f, 1.0f};
+   v1.TextureIndex = (float)Index;
+
+   Utils::Vertex v2;
+   TransformedPos = ScreenToNDC(V2.x, V2.y);
+   v2.Position.x = TransformedPos.x;
+   v2.Position.y = TransformedPos.y;
+   v2.Position.z = 0.0f;
+   v2.Color = (1.0f / 255.f) * Tint;
+   v2.TexCoords = {1.0f, 0.0f};
+   v2.TextureIndex = (float)Index;
+
+   GetInstance().VertexData.push_back(v0);
+   GetInstance().VertexData.push_back(v1);
+   GetInstance().VertexData.push_back(v2);
+
+   GLuint StartingIndex = GetInstance().VertexData.size() - VertexCount;
+
+   GLuint TempIndexArray[] = {StartingIndex, StartingIndex + 1,
+      StartingIndex + 2};
+
+   for (GLuint index : TempIndexArray) {
+      GetInstance().IndexData.push_back(index);
+   }
+}
+
+void Renderer::DrawCircleTexture(float Radius, glm::vec2 Center, glm::vec4 Tint, Texture Tex) {
+   const int VertexCount = 49;
+
+   if ((GetInstance().IndexData.size() + (VertexCount - 2) * 3) *
+      sizeof(GLuint) >=
+      GetInstance().EBOMaxSize ||
+      (GetInstance().VertexData.size() + VertexCount) * sizeof(Utils::Vertex) >=
+      GetInstance().VBOMaxSize) {
+      EndDraw();
+      Flush();
+      InitDraw();
+   }
+
+   auto it = std::find(GetInstance().Textures.begin(),
+                       GetInstance().Textures.end(), Tex.ID);
+
+   if (it == GetInstance().Textures.end()) {
+      GetInstance().Textures.push_back(Tex.ID);
+   }
+
+   int Index = std::find(GetInstance().Textures.begin(),
+                         GetInstance().Textures.end(), Tex.ID) -
+                         GetInstance().Textures.begin();
+
+   float Angle = 360.0f / (float)VertexCount;
+
+   // Center vertex
+   Utils::Vertex CenterVertex;
+   CenterVertex.Position.x = ScreenToNDC(Center.x, 0.0f).x;
+   CenterVertex.Position.y = ScreenToNDC(0.0f, Center.y).y;
+   CenterVertex.Position.z = 0.0f;
+   CenterVertex.Color = Tint;
+   CenterVertex.TexCoords = {0.5f, 0.5f};
+   CenterVertex.TextureIndex = (float)Index;
+
+   GetInstance().VertexData.push_back(CenterVertex);
+
+   // Vertex calculation
+   for (int i = 0; i < VertexCount; i++) {
+      float CurrAngle = Angle * i;
+      Utils::Vertex TempVert;
+      TempVert.Position.x =
+         ScreenToNDC((Radius * std::cos(glm::radians(CurrAngle))) + Center.x,
+                     0.0f)
+         .x;
+      TempVert.Position.y =
+         ScreenToNDC(0.0f,
+                     (Radius * std::sin(glm::radians(CurrAngle))) + Center.y)
+         .y;
+      TempVert.Position.z = 0.0f;
+      TempVert.Color = (1.0f / 255.0f) * Tint;
+      TempVert.TexCoords = {0.5f * std::cos(glm::radians((CurrAngle))) + 0.5f, 0.5f *std::sin(glm::radians(CurrAngle)) + 0.5};
+      TempVert.TextureIndex = (float)Index;
+      GetInstance().VertexData.push_back(TempVert);
+   }  
+
+   GLuint StartingIndex = GetInstance().VertexData.size() - (GLuint)VertexCount;
+
+   for (GLuint i = 0; i < VertexCount - 2; i++) {
+      GetInstance().IndexData.push_back(StartingIndex);
+      GetInstance().IndexData.push_back(StartingIndex + i + 1);
+      GetInstance().IndexData.push_back(StartingIndex + i + 2);
+   }
 }
 
 void Renderer::EndDraw() {

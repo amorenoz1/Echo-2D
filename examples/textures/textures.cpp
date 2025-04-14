@@ -9,9 +9,12 @@ public:
 
    glm::vec2 velocity = {50.0f, 50.0f};
    glm::vec2 position = {400.0f, 300.0f};
-   glm::vec2 dimensions = {100.0f, 100.0f};
+   glm::vec2 dimensions = {125.0f, 125.0f};
    glm::vec4 color1 = {198.0f, 84.0f, 13.0f, 255.0f};
    glm::vec4 background = {144.0f, 233.0f, 200.0f, 255.0f};
+   glm::vec2 v1 = {300.0f, 300.0f};
+   glm::vec2 v2 = {420.0f, 300.0f};
+   glm::vec2 v0 = {400.0f, 200.0f};
 
    Engine::Texture *dvdIcon = nullptr;
 
@@ -31,26 +34,26 @@ public:
       position.x += velocity.x * dt;
       position.y += velocity.y * dt;
 
-      if (position.x + dimensions.x >= 800.0f) {
-         position.x = 800.0f - dimensions.x;
+      if (position.x + 50.0f >= 800.0f) {
+         position.x = 750.0f;
          velocity.x *= -1;
          selectRandomColor();
       }
 
-      if (position.y <= 0.0f) {
-         position.y = 0.0f;
+      if (position.y - 50.0f<= 0.0f) {
+         position.y = 50.0f;
          velocity.y *= -1;
          selectRandomColor();
       }
 
-      if (position.x <= 0.0f) {
-         position.x = 0.0f;
+      if (position.x - 50.0f <= 0.0f) {
+         position.x = 50.0f;
          velocity.x *= -1;
          selectRandomColor();
       }
 
-      if (position.y + dimensions.y >= 600.0f) {
-         position.y = 600.0f - dimensions.y;
+      if (position.y + 50.0f>= 600.0f) {
+         position.y = 550.0f;
          velocity.y *= -1;
          selectRandomColor();
       }
@@ -58,7 +61,8 @@ public:
 
    void Render() const override {
       Engine::Renderer::ClearScreenColor(background);
-      Engine::Renderer::DrawRectTexture(dimensions, position, color1, *dvdIcon);
+      Engine::Renderer::DrawCircleTexture(50.0f, position, color1, *dvdIcon);
+      Engine::Renderer::DrawTriangleTexture(v0, v1, v2, color1, *dvdIcon);
    }
 
 };

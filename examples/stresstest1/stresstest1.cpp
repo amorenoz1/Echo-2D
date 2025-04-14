@@ -8,7 +8,7 @@ const float TRIANGLE_SIZE = 20.0f;
 const int NUM_TRIANGLES = 3000; // Number of triangles in the stress test
 
 struct Triangle {
-   glm::vec2 pos;
+   glm::vec2 position;
    glm::vec2 velocity;
    glm::vec4 color;
 };
@@ -21,8 +21,8 @@ public:
       // Initialize random triangles
       for (int i = 0; i < NUM_TRIANGLES; ++i) {
          Triangle t;
-         t.pos = { rand() % 800, rand() % 600 };
-         t.velocity = { (rand() % 200 - 100) / 60.0f, (rand() % 200 - 100) / 60.0f }; // -1.6 to +1.6 px/frame
+         t.position = { rand() % 800, rand() % 600 };
+         t.velocity = {55.0f, 55.0f}; // -1.6 to +1.6 px/frame
          t.color = { 
             static_cast<unsigned char>(rand() % 256), 
             static_cast<unsigned char>(rand() % 256), 
@@ -41,18 +41,38 @@ public:
 
    void Update(float dt) override {
       for (auto& t : triangles) {
-         t.pos.x += t.velocity.x;
-         t.pos.y += t.velocity.y;
+         t.position.x += t.velocity.x * dt;
+         t.position.y += t.velocity.y * dt;
 
          // Bounce off walls
-         if (t.pos.x < 0 || t.pos.x > 800) t.velocity.x *= -1;
-         if (t.pos.y < 0 || t.pos.y > 600) t.velocity.y *= -1;
+         t.position.x += t.velocity.x * dt;
+         t.position.y += t.velocity.y * dt;
+
+         if (t.position.x >= 800.0f) {
+            t.position.x = 800.0f;
+            t.velocity.x *= -1;
+         }
+
+         if (t.position.y <= 0.0f) {
+            t.position.y = 0.0f;
+            t.velocity.y *= -1;
+         }
+
+         if (t.position.x <= 0.0f) {
+            t.position.x = 0.0f;
+            t.velocity.x *= -1;
+         }
+
+         if (t.position.y  >= 600.0f) {
+            t.position.y = 600.0f;
+            t.velocity.y *= -1;
+         }
       }
    }
 
    void Render() const override {
       for (const auto& t : triangles) {
-         drawEquilateralTriangle(t.pos, TRIANGLE_SIZE, t.color);
+         drawEquilateralTriangle(t.position, TRIANGLE_SIZE, t.color);
       }
    }
 
