@@ -12,9 +12,7 @@ public:
    glm::vec2 dimensions = {125.0f, 125.0f};
    glm::vec4 color1 = {198.0f, 84.0f, 13.0f, 255.0f};
    glm::vec4 background = {144.0f, 233.0f, 200.0f, 255.0f};
-   glm::vec2 v1 = {300.0f, 300.0f};
-   glm::vec2 v2 = {420.0f, 300.0f};
-   glm::vec2 v0 = {400.0f, 200.0f};
+
 
    Engine::Texture *dvdIcon = nullptr;
 
@@ -62,7 +60,6 @@ public:
    void Render() const override {
       Engine::Renderer::ClearScreenColor(background);
       Engine::Renderer::DrawCircleTexture(50.0f, position, color1, *dvdIcon);
-      Engine::Renderer::DrawTriangleTexture(v0, v1, v2, color1, *dvdIcon);
    }
 
 };

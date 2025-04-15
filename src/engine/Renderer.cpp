@@ -1,10 +1,12 @@
 #include <algorithm>
 #include <cmath>
 #include <core/core.h>
+#include <cstdio>
 #include <engine/ApplicationInfo.h>
 #include <engine/Renderer.h>
 #include <glm/gtc/matrix_transform.hpp>
 #include <iostream>
+#include <ostream>
 #include <utils/ShaderUtils.h>
 
 namespace Engine {
@@ -18,19 +20,19 @@ glm::vec2 ScreenToNDC(float ScreenX, float ScreenY) {
 }
 
 Renderer::Renderer() {
-   this->Shader = new Utils::Shader();
-   this->VBOMaxSize = sizeof(Utils::Vertex) * 1024;
-   this->EBOMaxSize = sizeof(GLuint) * 1024;
+   Shader = new Utils::Shader();
+   VBOMaxSize = sizeof(Utils::Vertex) * 1024;
+   EBOMaxSize = sizeof(GLuint) * 1024;
 
-   glGenVertexArrays(1, &this->VAO);
-   glGenBuffers(1, &this->VBO);
-   glGenBuffers(1, &this->EBO);
+   glGenVertexArrays(1, &VAO);
+   glGenBuffers(1, &VBO);
+   glGenBuffers(1, &EBO);
 
-   glBindVertexArray(this->VAO);
-   glBindBuffer(GL_ARRAY_BUFFER, this->VBO);
-   glBufferData(GL_ARRAY_BUFFER, this->VBOMaxSize, nullptr, GL_DYNAMIC_DRAW);
-   glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, this->EBO);
-   glBufferData(GL_ELEMENT_ARRAY_BUFFER, this->EBOMaxSize, nullptr,
+   glBindVertexArray(VAO);
+   glBindBuffer(GL_ARRAY_BUFFER, VBO);
+   glBufferData(GL_ARRAY_BUFFER, VBOMaxSize, nullptr, GL_DYNAMIC_DRAW);
+   glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
+   glBufferData(GL_ELEMENT_ARRAY_BUFFER, EBOMaxSize, nullptr,
                 GL_DYNAMIC_DRAW);
 
    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(Utils::Vertex),
@@ -48,6 +50,7 @@ Renderer::Renderer() {
    glVertexAttribPointer(3, 1, GL_FLOAT, GL_FALSE, sizeof(Utils::Vertex),
                          (void *)offsetof(Utils::Vertex, TextureIndex));
    glEnableVertexAttribArray(3);
+
    Shader->Use();
    int MaxSamplers;
    glGetIntegerv(GL_MAX_TEXTURE_IMAGE_UNITS, &MaxSamplers);
@@ -55,11 +58,45 @@ Renderer::Renderer() {
    for (int i = 0; i < MaxSamplers; i++)
       Samplers[i] = i;
    Shader->SetIntV("Textures", MaxSamplers, Samplers);
+
+   MaxTextureSlots = (GLuint)MaxSamplers;
 }
 
 void Renderer::InitDraw() {
    GetInstance().VertexData.clear();
    GetInstance().IndexData.clear();
+   GetInstance().Textures.clear();
+}
+
+void Renderer::CheckAndFlush(const GLuint &VertexCount) {
+   if ((GetInstance().IndexData.size() + (VertexCount - 2) * 3) *
+      sizeof(GLuint) >=
+      GetInstance().EBOMaxSize ||
+      (GetInstance().VertexData.size() + VertexCount) * sizeof(Utils::Vertex) >=
+      GetInstance().VBOMaxSize ||
+      GetInstance().Textures.size() >= GetInstance().MaxTextureSlots) {
+      EndDraw();
+      Flush();
+      InitDraw();
+   }
+}
+
+void Renderer::AddTexture(Texture &Texture) {
+   for (int i = 0; i < GetInstance().Textures.size(); i++) {
+      if (Texture.GetID() == GetInstance().Textures.at(i)->GetID()) {
+         return;
+      }
+   }
+   GetInstance().Textures.push_back(&Texture);
+}
+
+int Renderer::FindTextureIndex(Texture &Texture) {
+   for (int i = 0; i < GetInstance().Textures.size(); i++) {
+      if (Texture.GetID() == GetInstance().Textures.at(i)->GetID()) {
+         return i;
+      }
+   }
+   return -1;
 }
 
 void Renderer::ClearScreenColor(glm::vec4 ScreenColor) {
@@ -69,16 +106,8 @@ void Renderer::ClearScreenColor(glm::vec4 ScreenColor) {
 
 void Renderer::DrawCircle(float Radius, glm::vec2 Center, glm::vec4 Color) {
    const int VertexCount = 49;
-
-   if ((GetInstance().IndexData.size() + (VertexCount - 2) * 3) *
-      sizeof(GLuint) >=
-      GetInstance().EBOMaxSize ||
-      (GetInstance().VertexData.size() + VertexCount) * sizeof(Utils::Vertex) >=
-      GetInstance().VBOMaxSize) {
-      EndDraw();
-      Flush();
-      InitDraw();
-   }
+   
+   CheckAndFlush(VertexCount);
 
    float Angle = 360.0f / (float)VertexCount;
 
@@ -126,15 +155,7 @@ void Renderer::DrawRect(glm::vec2 Dimensions, glm::vec2 Center,
                         glm::vec4 Color) {
    const GLuint VertexCount = 4;
 
-   if ((GetInstance().IndexData.size() + (VertexCount - 2) * 3) *
-      sizeof(GLuint) >=
-      GetInstance().EBOMaxSize ||
-      (GetInstance().VertexData.size() + VertexCount) * sizeof(Utils::Vertex) >=
-      GetInstance().VBOMaxSize) {
-      EndDraw();
-      Flush();
-      InitDraw();
-   }
+   CheckAndFlush(VertexCount);
 
    Utils::Vertex v0;
    glm::vec2 TransformedPos = ScreenToNDC(Center.x, Center.y);
@@ -193,15 +214,7 @@ void Renderer::DrawTriangle(glm::vec2 V0, glm::vec2 V1, glm::vec2 V2,
                             glm::vec4 Color) {
    const GLuint VertexCount = 3;
 
-   if ((GetInstance().IndexData.size() + (VertexCount - 2) * 3) *
-      sizeof(GLuint) >=
-      GetInstance().EBOMaxSize ||
-      (GetInstance().VertexData.size() + VertexCount) * sizeof(Utils::Vertex) >=
-      GetInstance().VBOMaxSize) {
-      EndDraw();
-      Flush();
-      InitDraw();
-   }
+   CheckAndFlush(VertexCount);
 
    Utils::Vertex v0;
    glm::vec2 TransformedPos = ScreenToNDC(V0.x, V0.y);
@@ -245,29 +258,13 @@ void Renderer::DrawTriangle(glm::vec2 V0, glm::vec2 V1, glm::vec2 V2,
 }
 
 void Renderer::DrawRectTexture(glm::vec2 Dimensions, glm::vec2 Center,
-                               glm::vec4 Tint, Texture Tex) {
+                               glm::vec4 Tint, Texture &Tex) {
 
    const GLuint VertexCount = 4;
 
-   if ((GetInstance().IndexData.size() + (VertexCount - 2) * 3) *
-      sizeof(GLuint) >=
-      GetInstance().EBOMaxSize ||
-      (GetInstance().VertexData.size() + VertexCount) * sizeof(Utils::Vertex) >=
-      GetInstance().VBOMaxSize) {
-      EndDraw();
-      Flush();
-      InitDraw();
-   }
-   auto it = std::find(GetInstance().Textures.begin(),
-                       GetInstance().Textures.end(), Tex.ID);
-
-   if (it == GetInstance().Textures.end()) {
-      GetInstance().Textures.push_back(Tex.ID);
-   }
-
-   int Index = std::find(GetInstance().Textures.begin(),
-                         GetInstance().Textures.end(), Tex.ID) -
-      GetInstance().Textures.begin();
+   CheckAndFlush(VertexCount);
+   AddTexture(Tex);
+   int Index = FindTextureIndex(Tex);
 
    Utils::Vertex v0;
    glm::vec2 TransformedPos = ScreenToNDC(Center.x, Center.y);
@@ -322,31 +319,13 @@ void Renderer::DrawRectTexture(glm::vec2 Dimensions, glm::vec2 Center,
    }
 }
 
-void Renderer::DrawTriangleTexture(glm::vec2 V0, glm::vec2 V1, glm::vec2 V2,
-                                   glm::vec4 Tint, Texture Tex) {
+void Renderer::DrawTriangleTexture(glm::vec2 V0, glm::vec2 V1, glm::vec2 V2, glm::vec4 Tint, Texture &Tex) {
 
    const GLuint VertexCount = 3;
 
-   if ((GetInstance().IndexData.size() + (VertexCount - 2) * 3) *
-      sizeof(GLuint) >=
-      GetInstance().EBOMaxSize ||
-      (GetInstance().VertexData.size() + VertexCount) * sizeof(Utils::Vertex) >=
-      GetInstance().VBOMaxSize) {
-      EndDraw();
-      Flush();
-      InitDraw();
-   }
-   auto it = std::find(GetInstance().Textures.begin(),
-                       GetInstance().Textures.end(), Tex.ID);
-
-   if (it == GetInstance().Textures.end()) {
-      GetInstance().Textures.push_back(Tex.ID);
-   }
-
-   int Index = std::find(GetInstance().Textures.begin(),
-                         GetInstance().Textures.end(), Tex.ID) -
-                         GetInstance().Textures.begin();
-
+   CheckAndFlush(VertexCount);
+   AddTexture(Tex);
+   int Index = FindTextureIndex(Tex);
 
    Utils::Vertex v0;
    glm::vec2 TransformedPos = ScreenToNDC(V0.x, V0.y);
@@ -389,31 +368,14 @@ void Renderer::DrawTriangleTexture(glm::vec2 V0, glm::vec2 V1, glm::vec2 V2,
    }
 }
 
-void Renderer::DrawCircleTexture(float Radius, glm::vec2 Center, glm::vec4 Tint, Texture Tex) {
+void Renderer::DrawCircleTexture(float Radius, glm::vec2 Center, glm::vec4 Tint, Texture &Tex) {
    const int VertexCount = 49;
 
-   if ((GetInstance().IndexData.size() + (VertexCount - 2) * 3) *
-      sizeof(GLuint) >=
-      GetInstance().EBOMaxSize ||
-      (GetInstance().VertexData.size() + VertexCount) * sizeof(Utils::Vertex) >=
-      GetInstance().VBOMaxSize) {
-      EndDraw();
-      Flush();
-      InitDraw();
-   }
-
-   auto it = std::find(GetInstance().Textures.begin(),
-                       GetInstance().Textures.end(), Tex.ID);
-
-   if (it == GetInstance().Textures.end()) {
-      GetInstance().Textures.push_back(Tex.ID);
-   }
-
-   int Index = std::find(GetInstance().Textures.begin(),
-                         GetInstance().Textures.end(), Tex.ID) -
-                         GetInstance().Textures.begin();
+   CheckAndFlush(VertexCount);
 
    float Angle = 360.0f / (float)VertexCount;
+   AddTexture(Tex);
+   int Index = FindTextureIndex(Tex);
 
    // Center vertex
    Utils::Vertex CenterVertex;
@@ -496,27 +458,32 @@ void Renderer::EndDraw() {
    GetInstance().Shader->SetMat4("model", glm::mat4(1.0f));
    GetInstance().Shader->SetMat4("view", glm::mat4(1.0f));
    GetInstance().Shader->SetVec4("Tint", glm::vec4(1.0f));
+
 }
 
 void Renderer::Flush() {
-   for (int i = 0; i < GetInstance().Textures.size(); i++) {
-      GLuint TexId = GetInstance().Textures.at(i);
-      if (glIsTexture(TexId)) {
-         glActiveTexture(GL_TEXTURE0 + i);
-         glBindTexture(GL_TEXTURE_2D, TexId);
-      }
+   for (uint32_t i = 0; i < GetInstance().Textures.size(); i++) {
+      GetInstance().Textures.at(i)->Bind(i);
    }
+
    glBindVertexArray(GetInstance().VAO);
-   glDrawElements(GL_TRIANGLES, GetInstance().IndexData.size(), GL_UNSIGNED_INT,
-                  0);
+   glDrawElements(GL_TRIANGLES, GetInstance().IndexData.size(), GL_UNSIGNED_INT, 0);
    BatchData.DrawCalls++;
+
+   for (uint32_t i = 0; i < GetInstance().Textures.size(); i++) {
+      GetInstance().Textures.at(i)->Unbind(i);
+   }
 }
 
 Renderer::~Renderer() {
-   delete this->Shader;
-   glDeleteVertexArrays(1, &this->VAO);
-   glDeleteBuffers(1, &this->VBO);
-   glDeleteBuffers(1, &this->EBO);
+   delete Shader;
+   glDeleteVertexArrays(1, &VAO);
+   glDeleteBuffers(1, &VBO);
+   glDeleteBuffers(1, &EBO);
+
+   for (int i = 0; i < Textures.size(); i++) {
+
+   }
 }
 
 } // namespace Engine
