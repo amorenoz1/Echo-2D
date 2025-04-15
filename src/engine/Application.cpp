@@ -45,8 +45,6 @@ void Application::UpdateFpsCounter() {
    }
 
    if (FpsTimer >= 1.0) {
-      CurrentFPS = FrameCount;
-
       double AverageFrameTime =
          std::accumulate(FrameTimeHistory.begin(), FrameTimeHistory.end(), 0.0) /
          FrameTimeHistory.size();
@@ -83,10 +81,12 @@ void Application::Run() {
       }
       Renderer::EndDraw();
       Renderer::Flush();
+   
+      CurrentFPS = 1.0 / DeltaTime;
  
       if (ShowFPS) {
          ImGui::BeginMainMenuBar();
-         ImGui::Text("FPS: %d, Rolling FPS: %d, Draw Calls: %d, Delta Time: %lf", CurrentFPS,
+         ImGui::Text("FPS: %.2lf, Rolling FPS: %d, Draw Calls: %d, Delta Time: %lf", CurrentFPS,
                      RollingFPS, BatchData.DrawCalls, DeltaTime);
          ImGui::EndMainMenuBar();
       }     

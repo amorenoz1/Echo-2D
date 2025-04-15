@@ -27,9 +27,9 @@ private:
    double DeltaTime = 0;
    double FpsTimer = 0;
    double TargetFrameTime = 1.0/60.0;
+   double CurrentFPS = 0;
    bool ShowFPS = false;
    int FrameCount = 0;
-   int CurrentFPS = 0;
    int RollingFPS = 0;
    const int MAX_SAMPLES = 30;
    std::vector<double> FrameTimeHistory;

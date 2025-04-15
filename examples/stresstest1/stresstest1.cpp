@@ -37,6 +37,7 @@ public:
 
    void Init() override {
       Debug();
+      SetFPS(1000);
    }
 
    void Update(float dt) override {

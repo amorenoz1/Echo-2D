@@ -5,6 +5,9 @@
 #define TEXTURE_H
 
 namespace Engine {
+class Font {
+
+};
 
 class Texture {
 public:

@@ -27,6 +27,7 @@ public:
    static void DrawRectTexture(glm::vec2 Dimensions, glm::vec2 Center, glm::vec4 Tint, Texture &Tex);
    static void DrawTriangleTexture(glm::vec2 V0, glm::vec2 V1, glm::vec2 V2, glm::vec4 Tint, Texture &Tex);
    static void DrawCircleTexture(float Radius, glm::vec2 Center, glm::vec4 Tint, Texture &Tex);
+   static void DrawText(std::string Text, glm::vec2 position, float PointSize, Font font);
    static void EndDraw();
    static void Flush();
 

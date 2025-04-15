@@ -1,7 +1,6 @@
-#include <algorithm>
+#include "external/glad.h"
 #include <cmath>
 #include <core/core.h>
-#include <cstdio>
 #include <engine/ApplicationInfo.h>
 #include <engine/Renderer.h>
 #include <glm/gtc/matrix_transform.hpp>
@@ -320,7 +319,6 @@ void Renderer::DrawRectTexture(glm::vec2 Dimensions, glm::vec2 Center,
 }
 
 void Renderer::DrawTriangleTexture(glm::vec2 V0, glm::vec2 V1, glm::vec2 V2, glm::vec4 Tint, Texture &Tex) {
-
    const GLuint VertexCount = 3;
 
    CheckAndFlush(VertexCount);
@@ -480,10 +478,6 @@ Renderer::~Renderer() {
    glDeleteVertexArrays(1, &VAO);
    glDeleteBuffers(1, &VBO);
    glDeleteBuffers(1, &EBO);
-
-   for (int i = 0; i < Textures.size(); i++) {
-
-   }
 }
 
 } // namespace Engine

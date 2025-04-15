@@ -35,4 +35,5 @@
 target/
 build/
 .cache/
+*/.DS_Store 
 
