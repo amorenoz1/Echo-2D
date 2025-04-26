@@ -1,3 +1,9 @@
+/** 
+ * @file Renderer.cpp
+ * @brief Implementation of 2D batch rendering system using OpenGL
+ * @details Handles rendering of geometric primitives and textured shapes with dynamic buffer management.
+ */
+
 #include "external/glad.h"
 #include <cmath>
 #include <core/core.h>
@@ -10,14 +16,24 @@
 
 namespace Engine {
 
-BatchRendererData BatchData = {0};
+BatchRendererData BatchData = {0}; ///< Global batch rendering statistics tracker
 
+/**
+ * @brief Converts screen coordinates to Normalized Device Coordinates (NDC)
+ * @param ScreenX X coordinate in screen space
+ * @param ScreenY Y coordinate in screen space
+ * @return glm::vec2 Coordinates in OpenGL's NDC space (-1 to 1)
+ */
 glm::vec2 ScreenToNDC(float ScreenX, float ScreenY) {
    float ndcX = (2.0f * ScreenX) / AppInfo.ScreenWidth - 1.0f;
    float ndcY = 1.0f - (2.0f * ScreenY) / AppInfo.ScreenHeight;
    return glm::vec2(ndcX, ndcY);
 }
 
+/**
+ * @brief Constructs a Renderer and initializes OpenGL resources
+ * @details Creates VAO/VBO/EBO, sets up vertex attributes, and initializes shader
+ */
 Renderer::Renderer() {
    Shader = new Utils::Shader();
    VBOMaxSize = sizeof(Utils::Vertex) * 1024;
@@ -31,8 +47,7 @@ Renderer::Renderer() {
    glBindBuffer(GL_ARRAY_BUFFER, VBO);
    glBufferData(GL_ARRAY_BUFFER, VBOMaxSize, nullptr, GL_DYNAMIC_DRAW);
    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
-   glBufferData(GL_ELEMENT_ARRAY_BUFFER, EBOMaxSize, nullptr,
-                GL_DYNAMIC_DRAW);
+   glBufferData(GL_ELEMENT_ARRAY_BUFFER, EBOMaxSize, nullptr, GL_DYNAMIC_DRAW);
 
    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(Utils::Vertex),
                          (void *)offsetof(Utils::Vertex, Position));
@@ -61,25 +76,36 @@ Renderer::Renderer() {
    MaxTextureSlots = (GLuint)MaxSamplers;
 }
 
+/**
+ * @brief Prepares for a new drawing batch
+ * @details Clears vertex/index buffers and texture references
+ */
 void Renderer::InitDraw() {
    GetInstance().VertexData.clear();
    GetInstance().IndexData.clear();
    GetInstance().Textures.clear();
 }
 
+/**
+ * @brief Checks if buffers need flushing before adding new vertices
+ * @param VertexCount Number of vertices about to be added
+ * @note Automatically flushes if buffers are full
+ */
 void Renderer::CheckAndFlush(const GLuint &VertexCount) {
-   if ((GetInstance().IndexData.size() + (VertexCount - 2) * 3) *
-      sizeof(GLuint) >=
-      GetInstance().EBOMaxSize ||
-      (GetInstance().VertexData.size() + VertexCount) * sizeof(Utils::Vertex) >=
-      GetInstance().VBOMaxSize ||
-      GetInstance().Textures.size() >= GetInstance().MaxTextureSlots) {
+   if ((GetInstance().IndexData.size() + (VertexCount - 2) * 3) * sizeof(GLuint) >= GetInstance().EBOMaxSize ||
+       (GetInstance().VertexData.size() + VertexCount) * sizeof(Utils::Vertex) >= GetInstance().VBOMaxSize ||
+       GetInstance().Textures.size() >= GetInstance().MaxTextureSlots) {
       EndDraw();
       Flush();
       InitDraw();
    }
 }
 
+/**
+ * @brief Registers a texture for use in current batch
+ * @param Texture Texture to add to the batch
+ * @note Skips duplicates to maintain texture uniqueness
+ */
 void Renderer::AddTexture(Texture &Texture) {
    for (int i = 0; i < GetInstance().Textures.size(); i++) {
       if (Texture.GetID() == GetInstance().Textures.at(i)->GetID()) {
@@ -89,6 +115,11 @@ void Renderer::AddTexture(Texture &Texture) {
    GetInstance().Textures.push_back(&Texture);
 }
 
+/**
+ * @brief Finds texture index in current batch
+ * @param Texture Texture to search for
+ * @return int Index of texture if found, -1 otherwise
+ */
 int Renderer::FindTextureIndex(Texture &Texture) {
    for (int i = 0; i < GetInstance().Textures.size(); i++) {
       if (Texture.GetID() == GetInstance().Textures.at(i)->GetID()) {
@@ -98,19 +129,28 @@ int Renderer::FindTextureIndex(Texture &Texture) {
    return -1;
 }
 
+/**
+ * @brief Sets screen clear color
+ * @param ScreenColor RGBA color in 0-255 range
+ * @note Automatically converts to 0-1 range for OpenGL
+ */
 void Renderer::ClearScreenColor(glm::vec4 ScreenColor) {
    glm::vec4 pcColor = (1.0f / 255.0f) * ScreenColor;
    glClearColor(pcColor.r, pcColor.g, pcColor.b, pcColor.a);
 }
 
+/**
+ * @brief Draws a colored circle
+ * @param Radius Circle radius in screen pixels
+ * @param Center Center position in screen coordinates
+ * @param Color RGBA color (0-255 range, auto-normalized)
+ * @todo Replace hardcoded 49 vertices with configurable resolution
+ */
 void Renderer::DrawCircle(float Radius, glm::vec2 Center, glm::vec4 Color) {
    const int VertexCount = 49;
-   
    CheckAndFlush(VertexCount);
-
    float Angle = 360.0f / (float)VertexCount;
 
-   // Center vertex
    Utils::Vertex CenterVertex;
    CenterVertex.Position.x = ScreenToNDC(Center.x, 0.0f).x;
    CenterVertex.Position.y = ScreenToNDC(0.0f, Center.y).y;
@@ -118,21 +158,13 @@ void Renderer::DrawCircle(float Radius, glm::vec2 Center, glm::vec4 Color) {
    CenterVertex.Color = Color;
    CenterVertex.TexCoords = {0.0f, 0.0f};
    CenterVertex.TextureIndex = -1.0f;
-
    GetInstance().VertexData.push_back(CenterVertex);
 
-   // Vertex calculation
    for (int i = 0; i < VertexCount; i++) {
       float CurrAngle = Angle * i;
       Utils::Vertex TempVert;
-      TempVert.Position.x =
-         ScreenToNDC((Radius * std::cos(glm::radians(CurrAngle))) + Center.x,
-                     0.0f)
-         .x;
-      TempVert.Position.y =
-         ScreenToNDC(0.0f,
-                     (Radius * std::sin(glm::radians(CurrAngle))) + Center.y)
-         .y;
+      TempVert.Position.x = ScreenToNDC((Radius * std::cos(glm::radians(CurrAngle))) + Center.x, 0.0f).x;
+      TempVert.Position.y = ScreenToNDC(0.0f, (Radius * std::sin(glm::radians(CurrAngle))) + Center.y).y;
       TempVert.Position.z = 0.0f;
       TempVert.Color = (1.0f / 255.0f) * Color;
       TempVert.TexCoords = {0.0f, 0.0f};
@@ -140,9 +172,7 @@ void Renderer::DrawCircle(float Radius, glm::vec2 Center, glm::vec4 Color) {
       GetInstance().VertexData.push_back(TempVert);
    }
 
-   // Index calculation
    GLuint StartingIndex = GetInstance().VertexData.size() - (GLuint)VertexCount;
-
    for (GLuint i = 0; i < VertexCount - 2; i++) {
       GetInstance().IndexData.push_back(StartingIndex);
       GetInstance().IndexData.push_back(StartingIndex + i + 1);
@@ -150,263 +180,183 @@ void Renderer::DrawCircle(float Radius, glm::vec2 Center, glm::vec4 Color) {
    }
 }
 
-void Renderer::DrawRect(glm::vec2 Dimensions, glm::vec2 Center,
-                        glm::vec4 Color) {
+/**
+ * @brief Draws a colored rectangle
+ * @param Dimensions Width/Height in screen pixels
+ * @param Center Center position in screen coordinates
+ * @param Color RGBA color (0-255 range, auto-normalized)
+ */
+void Renderer::DrawRect(glm::vec2 Dimensions, glm::vec2 Center, glm::vec4 Color) {
    const GLuint VertexCount = 4;
-
    CheckAndFlush(VertexCount);
 
-   Utils::Vertex v0;
-   glm::vec2 TransformedPos = ScreenToNDC(Center.x, Center.y);
-   v0.Position.x = TransformedPos.x;
-   v0.Position.y = TransformedPos.y;
-   v0.Position.z = 0.0f;
-   v0.Color = (1.0f / 255.f) * Color;
-   v0.TexCoords = {0.0f, 0.0f};
-   v0.TextureIndex = -1.0f;
+   Utils::Vertex vertices[4];
+   glm::vec2 positions[4] = {
+      {Center.x, Center.y},
+      {Center.x + Dimensions.x, Center.y},
+      {Center.x + Dimensions.x, Center.y + Dimensions.y},
+      {Center.x, Center.y + Dimensions.y}
+   };
 
-   Utils::Vertex v1;
-   TransformedPos = ScreenToNDC(Center.x + Dimensions.x, Center.y);
-   v1.Position.x = TransformedPos.x;
-   v1.Position.y = TransformedPos.y;
-   v1.Position.z = 0.0f;
-   v1.Color = (1.0f / 255.f) * Color;
-   v1.TexCoords = {0.0f, 0.0f};
-   v1.TextureIndex = -1.0f;
-
-   Utils::Vertex v2;
-   TransformedPos =
-      ScreenToNDC(Center.x + Dimensions.x, Center.y + Dimensions.y);
-   v2.Position.x = TransformedPos.x;
-   v2.Position.y = TransformedPos.y;
-   v2.Position.z = 0.0f;
-   v2.Color = (1.0f / 255.f) * Color;
-   v2.TexCoords = {0.0f, 0.0f};
-   v2.TextureIndex = -1.0f;
-
-   Utils::Vertex v3;
-   TransformedPos = ScreenToNDC(Center.x, Center.y + Dimensions.y);
-   v3.Position.x = TransformedPos.x;
-   v3.Position.y = TransformedPos.y;
-   v3.Position.z = 0.0f;
-   v3.Color = (1.0f / 255.f) * Color;
-   v3.TexCoords = {0.0f, 0.0f};
-   v3.TextureIndex = -1.0f;
-
-   GetInstance().VertexData.push_back(v0);
-   GetInstance().VertexData.push_back(v1);
-   GetInstance().VertexData.push_back(v2);
-   GetInstance().VertexData.push_back(v3);
+   for (int i = 0; i < 4; i++) {
+      glm::vec2 ndc = ScreenToNDC(positions[i].x, positions[i].y);
+      vertices[i].Position = {ndc.x, ndc.y, 0.0f};
+      vertices[i].Color = (1.0f / 255.f) * Color;
+      vertices[i].TexCoords = {0.0f, 0.0f};
+      vertices[i].TextureIndex = -1.0f;
+      GetInstance().VertexData.push_back(vertices[i]);
+   }
 
    GLuint StartingIndex = GetInstance().VertexData.size() - VertexCount;
-
-   GLuint TempIndexArray[] = {StartingIndex,     StartingIndex + 1,
-      StartingIndex + 2, StartingIndex,
-      StartingIndex + 3, StartingIndex + 2};
-
-   for (GLuint index : TempIndexArray) {
-      GetInstance().IndexData.push_back(index);
-   }
+   GLuint indices[] = {StartingIndex, StartingIndex+1, StartingIndex+2,
+                       StartingIndex, StartingIndex+3, StartingIndex+2};
+   for (GLuint index : indices) GetInstance().IndexData.push_back(index);
 }
 
-void Renderer::DrawTriangle(glm::vec2 V0, glm::vec2 V1, glm::vec2 V2,
-                            glm::vec4 Color) {
+/**
+ * @brief Draws a colored triangle
+ * @param V0 First vertex position in screen coordinates
+ * @param V1 Second vertex position in screen coordinates
+ * @param V2 Third vertex position in screen coordinates
+ * @param Color RGBA color (0-255 range, auto-normalized)
+ * @note Creates a solid-color triangle without texture
+ */
+void Renderer::DrawTriangle(glm::vec2 V0, glm::vec2 V1, glm::vec2 V2, glm::vec4 Color) {
    const GLuint VertexCount = 3;
-
    CheckAndFlush(VertexCount);
 
-   Utils::Vertex v0;
-   glm::vec2 TransformedPos = ScreenToNDC(V0.x, V0.y);
-   v0.Position.x = TransformedPos.x;
-   v0.Position.y = TransformedPos.y;
-   v0.Position.z = 0.0f;
-   v0.Color = (1.0f / 255.f) * Color;
-   v0.TexCoords = {0.0f, 0.0f};
-   v0.TextureIndex = -1.0f;
+   Utils::Vertex vertices[3];
+   glm::vec2 positions[3] = {V0, V1, V2};
 
-   Utils::Vertex v1;
-   TransformedPos = ScreenToNDC(V1.x, V1.y);
-   v1.Position.x = TransformedPos.x;
-   v1.Position.y = TransformedPos.y;
-   v1.Position.z = 0.0f;
-   v1.Color = (1.0f / 255.f) * Color;
-   v1.TexCoords = {0.0f, 0.0f};
-   v1.TextureIndex = -1.0f;
-
-   Utils::Vertex v2;
-   TransformedPos = ScreenToNDC(V2.x, V2.y);
-   v2.Position.x = TransformedPos.x;
-   v2.Position.y = TransformedPos.y;
-   v2.Position.z = 0.0f;
-   v2.Color = (1.0f / 255.f) * Color;
-   v2.TexCoords = {0.0f, 0.0f};
-   v2.TextureIndex = -1.0f;
-
-   GetInstance().VertexData.push_back(v0);
-   GetInstance().VertexData.push_back(v1);
-   GetInstance().VertexData.push_back(v2);
+   for (int i = 0; i < 3; i++) {
+      glm::vec2 ndc = ScreenToNDC(positions[i].x, positions[i].y);
+      vertices[i].Position = {ndc.x, ndc.y, 0.0f};
+      vertices[i].Color = (1.0f / 255.f) * Color;
+      vertices[i].TexCoords = {0.0f, 0.0f};
+      vertices[i].TextureIndex = -1.0f;
+      GetInstance().VertexData.push_back(vertices[i]);
+   }
 
    GLuint StartingIndex = GetInstance().VertexData.size() - VertexCount;
-
-   GLuint TempIndexArray[] = {StartingIndex, StartingIndex + 1,
-      StartingIndex + 2};
-
-   for (GLuint index : TempIndexArray) {
-      GetInstance().IndexData.push_back(index);
-   }
+   GLuint indices[] = {StartingIndex, StartingIndex+1, StartingIndex+2};
+   for (GLuint index : indices) GetInstance().IndexData.push_back(index);
 }
 
-void Renderer::DrawRectTexture(glm::vec2 Dimensions, glm::vec2 Center,
-                               glm::vec4 Tint, Texture &Tex) {
-
+/**
+ * @brief Draws a textured rectangle
+ * @param Dimensions Width/Height in screen pixels
+ * @param Center Center position in screen coordinates
+ * @param Tint Color multiplier (0-255 range, auto-normalized)
+ * @param Tex Texture to apply
+ * @note Texture coordinates are set to full UV range (0,0 to 1,1)
+ */
+void Renderer::DrawRectTexture(glm::vec2 Dimensions, glm::vec2 Center, glm::vec4 Tint, Texture &Tex) {
    const GLuint VertexCount = 4;
-
    CheckAndFlush(VertexCount);
    AddTexture(Tex);
    int Index = FindTextureIndex(Tex);
 
-   Utils::Vertex v0;
-   glm::vec2 TransformedPos = ScreenToNDC(Center.x, Center.y);
-   v0.Position.x = TransformedPos.x;
-   v0.Position.y = TransformedPos.y;
-   v0.Position.z = 0.0f;
-   v0.Color = (1.0f / 255.f) * Tint;
-   v0.TexCoords = {0.0f, 0.0f};
-   v0.TextureIndex = (float)Index;
+   Utils::Vertex vertices[4];
+   glm::vec2 positions[4] = {
+      {Center.x, Center.y},
+      {Center.x + Dimensions.x, Center.y},
+      {Center.x + Dimensions.x, Center.y + Dimensions.y},
+      {Center.x, Center.y + Dimensions.y}
+   };
 
-   Utils::Vertex v1;
-   TransformedPos = ScreenToNDC(Center.x + Dimensions.x, Center.y);
-   v1.Position.x = TransformedPos.x;
-   v1.Position.y = TransformedPos.y;
-   v1.Position.z = 0.0f;
-   v1.Color = (1.0f / 255.f) * Tint;
-   v1.TexCoords = {1.0f, 0.0f};
-   v1.TextureIndex = (float)Index;
+   glm::vec2 uvs[4] = {{0.0f, 0.0f}, {1.0f, 0.0f}, {1.0f, 1.0f}, {0.0f, 1.0f}};
 
-   Utils::Vertex v2;
-   TransformedPos =
-      ScreenToNDC(Center.x + Dimensions.x, Center.y + Dimensions.y);
-   v2.Position.x = TransformedPos.x;
-   v2.Position.y = TransformedPos.y;
-   v2.Position.z = 0.0f;
-   v2.Color = (1.0f / 255.f) * Tint;
-   v2.TexCoords = {1.0f, 1.0f};
-   v2.TextureIndex = (float)Index;
-
-   Utils::Vertex v3;
-   TransformedPos = ScreenToNDC(Center.x, Center.y + Dimensions.y);
-   v3.Position.x = TransformedPos.x;
-   v3.Position.y = TransformedPos.y;
-   v3.Position.z = 0.0f;
-   v3.Color = (1.0f / 255.f) * Tint;
-   v3.TexCoords = {0.0f, 1.0f};
-   v3.TextureIndex = (float)Index;
-
-   GetInstance().VertexData.push_back(v0);
-   GetInstance().VertexData.push_back(v1);
-   GetInstance().VertexData.push_back(v2);
-   GetInstance().VertexData.push_back(v3);
+   for (int i = 0; i < 4; i++) {
+      glm::vec2 ndc = ScreenToNDC(positions[i].x, positions[i].y);
+      vertices[i].Position = {ndc.x, ndc.y, 0.0f};
+      vertices[i].Color = (1.0f / 255.f) * Tint;
+      vertices[i].TexCoords = uvs[i];
+      vertices[i].TextureIndex = (float)Index;
+      GetInstance().VertexData.push_back(vertices[i]);
+   }
 
    GLuint StartingIndex = GetInstance().VertexData.size() - VertexCount;
-
-   GLuint TempIndexArray[] = {StartingIndex,     StartingIndex + 1,
-      StartingIndex + 2, StartingIndex,
-      StartingIndex + 3, StartingIndex + 2};
-
-   for (GLuint index : TempIndexArray) {
-      GetInstance().IndexData.push_back(index);
-   }
+   GLuint indices[] = {StartingIndex, StartingIndex+1, StartingIndex+2,
+                       StartingIndex, StartingIndex+3, StartingIndex+2};
+   for (GLuint index : indices) GetInstance().IndexData.push_back(index);
 }
 
+/**
+ * @brief Draws a textured triangle
+ * @param V0 First vertex position in screen coordinates
+ * @param V1 Second vertex position in screen coordinates
+ * @param V2 Third vertex position in screen coordinates
+ * @param Tint Color multiplier (0-255 range, auto-normalized)
+ * @param Tex Texture to apply
+ * @note Uses predefined UV coordinates (bottom-left, top-center, bottom-right)
+ */
 void Renderer::DrawTriangleTexture(glm::vec2 V0, glm::vec2 V1, glm::vec2 V2, glm::vec4 Tint, Texture &Tex) {
    const GLuint VertexCount = 3;
-
    CheckAndFlush(VertexCount);
    AddTexture(Tex);
    int Index = FindTextureIndex(Tex);
 
-   Utils::Vertex v0;
-   glm::vec2 TransformedPos = ScreenToNDC(V0.x, V0.y);
-   v0.Position.x = TransformedPos.x;
-   v0.Position.y = TransformedPos.y;
-   v0.Position.z = 0.0f;
-   v0.Color = (1.0f / 255.f) * Tint;
-   v0.TexCoords = {0.0f, 0.0f};
-   v0.TextureIndex = (float)Index;
+   Utils::Vertex vertices[3];
+   glm::vec2 positions[3] = {V0, V1, V2};
+   glm::vec2 uvs[3] = {{0.0f, 0.0f}, {0.5f, 1.0f}, {1.0f, 0.0f}};
 
-   Utils::Vertex v1;
-   TransformedPos = ScreenToNDC(V1.x, V1.y);
-   v1.Position.x = TransformedPos.x;
-   v1.Position.y = TransformedPos.y;
-   v1.Position.z = 0.0f;
-   v1.Color = (1.0f / 255.f) * Tint;
-   v1.TexCoords = {0.5f, 1.0f};
-   v1.TextureIndex = (float)Index;
-
-   Utils::Vertex v2;
-   TransformedPos = ScreenToNDC(V2.x, V2.y);
-   v2.Position.x = TransformedPos.x;
-   v2.Position.y = TransformedPos.y;
-   v2.Position.z = 0.0f;
-   v2.Color = (1.0f / 255.f) * Tint;
-   v2.TexCoords = {1.0f, 0.0f};
-   v2.TextureIndex = (float)Index;
-
-   GetInstance().VertexData.push_back(v0);
-   GetInstance().VertexData.push_back(v1);
-   GetInstance().VertexData.push_back(v2);
+   for (int i = 0; i < 3; i++) {
+      glm::vec2 ndc = ScreenToNDC(positions[i].x, positions[i].y);
+      vertices[i].Position = {ndc.x, ndc.y, 0.0f};
+      vertices[i].Color = (1.0f / 255.f) * Tint;
+      vertices[i].TexCoords = uvs[i];
+      vertices[i].TextureIndex = (float)Index;
+      GetInstance().VertexData.push_back(vertices[i]);
+   }
 
    GLuint StartingIndex = GetInstance().VertexData.size() - VertexCount;
-
-   GLuint TempIndexArray[] = {StartingIndex, StartingIndex + 1,
-      StartingIndex + 2};
-
-   for (GLuint index : TempIndexArray) {
-      GetInstance().IndexData.push_back(index);
-   }
+   GLuint indices[] = {StartingIndex, StartingIndex+1, StartingIndex+2};
+   for (GLuint index : indices) GetInstance().IndexData.push_back(index);
 }
 
+/**
+ * @brief Draws a textured circle
+ * @param Radius Circle radius in screen pixels
+ * @param Center Center position in screen coordinates
+ * @param Tint Color multiplier (0-255 range, auto-normalized)
+ * @param Tex Texture to apply
+ * @note Texture coordinates are radially mapped from center
+ * @todo Make vertex count configurable instead of hardcoded 49
+ */
 void Renderer::DrawCircleTexture(float Radius, glm::vec2 Center, glm::vec4 Tint, Texture &Tex) {
    const int VertexCount = 49;
-
    CheckAndFlush(VertexCount);
-
-   float Angle = 360.0f / (float)VertexCount;
    AddTexture(Tex);
    int Index = FindTextureIndex(Tex);
+   float Angle = 360.0f / (float)VertexCount;
 
    // Center vertex
    Utils::Vertex CenterVertex;
    CenterVertex.Position.x = ScreenToNDC(Center.x, 0.0f).x;
    CenterVertex.Position.y = ScreenToNDC(0.0f, Center.y).y;
    CenterVertex.Position.z = 0.0f;
-   CenterVertex.Color = Tint;
+   CenterVertex.Color = (1.0f / 255.0f) * Tint;
    CenterVertex.TexCoords = {0.5f, 0.5f};
    CenterVertex.TextureIndex = (float)Index;
-
    GetInstance().VertexData.push_back(CenterVertex);
 
-   // Vertex calculation
+   // Perimeter vertices
    for (int i = 0; i < VertexCount; i++) {
       float CurrAngle = Angle * i;
       Utils::Vertex TempVert;
-      TempVert.Position.x =
-         ScreenToNDC((Radius * std::cos(glm::radians(CurrAngle))) + Center.x,
-                     0.0f)
-         .x;
-      TempVert.Position.y =
-         ScreenToNDC(0.0f,
-                     (Radius * std::sin(glm::radians(CurrAngle))) + Center.y)
-         .y;
+      TempVert.Position.x = ScreenToNDC((Radius * std::cos(glm::radians(CurrAngle))) + Center.x, 0.0f).x;
+      TempVert.Position.y = ScreenToNDC(0.0f, (Radius * std::sin(glm::radians(CurrAngle))) + Center.y).y;
       TempVert.Position.z = 0.0f;
       TempVert.Color = (1.0f / 255.0f) * Tint;
-      TempVert.TexCoords = {0.5f * std::cos(glm::radians((CurrAngle))) + 0.5f, 0.5f *std::sin(glm::radians(CurrAngle)) + 0.5};
+      TempVert.TexCoords = {
+         0.5f * std::cos(glm::radians(CurrAngle)) + 0.5f,
+         0.5f * std::sin(glm::radians(CurrAngle)) + 0.5f
+      };
       TempVert.TextureIndex = (float)Index;
       GetInstance().VertexData.push_back(TempVert);
-   }  
+   }
 
    GLuint StartingIndex = GetInstance().VertexData.size() - (GLuint)VertexCount;
-
    for (GLuint i = 0; i < VertexCount - 2; i++) {
       GetInstance().IndexData.push_back(StartingIndex);
       GetInstance().IndexData.push_back(StartingIndex + i + 1);
@@ -414,34 +364,11 @@ void Renderer::DrawCircleTexture(float Radius, glm::vec2 Center, glm::vec4 Tint,
    }
 }
 
+/**
+ * @brief Finalizes batch data and uploads to GPU
+ * @note Debug vertex printing can be enabled via 'printVertex' flag
+ */
 void Renderer::EndDraw() {
-   static bool printVertex = false;
-
-   if (printVertex) {
-      for (Utils::Vertex vertex : GetInstance().VertexData) {
-         std::cout << "Vertex: ";
-         std::cout << vertex.Position.x << ", ";
-         std::cout << vertex.Position.y << ", ";
-         std::cout << vertex.Position.z << ", ";
-         std::cout << vertex.Color.r << ", ";
-         std::cout << vertex.Color.g << ", ";
-         std::cout << vertex.Color.b << ", ";
-         std::cout << vertex.Color.a << ", ";
-         std::cout << vertex.TexCoords.x << ", ";
-         std::cout << vertex.TexCoords.y << ", ";
-         std::cout << vertex.TextureIndex << std::endl;
-      }
-
-      int count = 0;
-      for (GLuint index : GetInstance().IndexData) {
-         if (count % 3 == 0)
-            std::cout << std::endl;
-         std::cout << index << ", ";
-         count++;
-      }
-      printVertex = !printVertex;
-   }
-
    glBindBuffer(GL_ARRAY_BUFFER, GetInstance().VBO);
    glBufferSubData(GL_ARRAY_BUFFER, 0,
                    sizeof(Utils::Vertex) * GetInstance().VertexData.size(),
@@ -459,6 +386,10 @@ void Renderer::EndDraw() {
 
 }
 
+/**
+ * @brief Submits current batch to GPU for rendering
+ * @details Binds textures, issues draw call, and updates statistics
+ */
 void Renderer::Flush() {
    for (uint32_t i = 0; i < GetInstance().Textures.size(); i++) {
       GetInstance().Textures.at(i)->Bind(i);
@@ -473,6 +404,9 @@ void Renderer::Flush() {
    }
 }
 
+/**
+ * @brief Destructor - cleans up OpenGL resources
+ */
 Renderer::~Renderer() {
    delete Shader;
    glDeleteVertexArrays(1, &VAO);

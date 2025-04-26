@@ -1,6 +1,7 @@
 #include "core/core.h"
 #include <engine/WindowHandler.h>
 #include <engine/InputHandler.h>
+
 #include <cstdlib>
 #include <iostream>
 
@@ -9,72 +10,129 @@
 #include "external/imgui_impl_opengl3.h"
 
 namespace Engine {
-static void FramebufferSizeCallback (GLFWwindow *Window, int Width, int Height) {
-   glViewport(0, 0, Width, Height);
+
+/**
+ * @brief GLFW callback function for handling window resizing.
+ * 
+ * @param window The GLFW window that was resized.
+ * @param width The new width of the window.
+ * @param height The new height of the window.
+ */
+static void FramebufferSizeCallback(GLFWwindow* window, int width, int height) {
+   // Update the viewport whenever the window is resized
+   glViewport(0, 0, width, height);
 }
 
+/**
+ * @brief Destructor for WindowHandler. Cleans up GLFW and ImGui resources.
+ */
 WindowHandler::~WindowHandler() {
-   glfwDestroyWindow(this->Window);
+   // Destroy the GLFW window and terminate GLFW
+   glfwDestroyWindow(Window);
    glfwTerminate();
+
+   // Clean up ImGui resources
    ImGui_ImplOpenGL3_Shutdown();
    ImGui_ImplGlfw_Shutdown();
    ImGui::DestroyContext();
 }
 
+/**
+ * @brief Initializes the window, OpenGL, and ImGui.
+ * 
+ * This function initializes GLFW, creates a window, initializes GLAD
+ * for OpenGL function loading, and sets up ImGui for rendering.
+ */
 void WindowHandler::Init() {
+   // Initialize GLFW
    if (!glfwInit()) {
       std::cerr << "Error: Failed to initialize GLFW!" << std::endl;
-      std::exit(1);
+      std::exit(EXIT_FAILURE);  ///< Exit if GLFW initialization fails
    }
 
-   glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
-   glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 1);
-   glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
-   glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
-   glfwWindowHint(GLFW_RESIZABLE, GLFW_FALSE);
-   /*glfwWindowHint(GLFW_REFRESH_RATE, 60);*/
-   glfwWindowHint(GLFW_POSITION_X, 0);
-   glfwWindowHint(GLFW_POSITION_Y, 0);
+   // GLFW configuration settings for OpenGL
+   glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);  ///< Use OpenGL 4.1
+   glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 1);  ///< Use OpenGL 4.1
+   glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);  ///< Use core profile
+   glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);  ///< Ensure forward compatibility
+   glfwWindowHint(GLFW_RESIZABLE, GLFW_FALSE);  ///< Disable resizing of window
+   glfwWindowHint(GLFW_POSITION_X, 0);  ///< Set window position
+   glfwWindowHint(GLFW_POSITION_Y, 0);  ///< Set window position
 
-// Setup Dear ImGui context
-   this->Window = glfwCreateWindow(this->Width, this->Height, this->Title, nullptr, nullptr);
+   glfwSwapInterval(0);  ///< Disable V-Sync
 
-   if (!this->Window) {
-      glfwTerminate();
+   // Create the GLFW window
+   Window = glfwCreateWindow(Width, Height, Title, nullptr, nullptr);
+   if (!Window) {
       std::cerr << "Error: Failed to create window!" << std::endl;
-      std::exit(1);
+      glfwTerminate();
+      std::exit(EXIT_FAILURE);  ///< Exit if window creation fails
    }
 
+   // Make OpenGL context current for this window
+   glfwMakeContextCurrent(Window);
 
-   InputHandler::Init(this->Window);
+   // Initialize input handling (keyboard, mouse, etc.)
+   InputHandler::Init(Window);
 
-   glfwSetFramebufferSizeCallback(this->Window, FramebufferSizeCallback);
+   // Set the framebuffer resize callback function
+   glfwSetFramebufferSizeCallback(Window, FramebufferSizeCallback);
 
-   glfwMakeContextCurrent(this->Window);
-
+   // Initialize GLAD to manage OpenGL function loading
    if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress)) {
-      std::cerr << "Error: failed to initialize glad!" << std::endl;
-      std::exit(1);
+      std::cerr << "Error: Failed to initialize GLAD!" << std::endl;
+      std::exit(EXIT_FAILURE);  ///< Exit if GLAD initialization fails
    }
 
-   glViewport(0, 0, this->Width, this->Height);
+   // Set the initial OpenGL viewport size
+   glViewport(0, 0, Width, Height);
 
+   // Initialize ImGui for GUI rendering
    IMGUI_CHECKVERSION();
    ImGui::CreateContext();
-   ImGuiIO& io = ImGui::GetIO();
-
    ImGui::StyleColorsDark();
-   ImGui_ImplGlfw_InitForOpenGL(Window, true);          
-   ImGui_ImplOpenGL3_Init();
 
+   ImGui_ImplGlfw_InitForOpenGL(Window, true);
+   ImGui_ImplOpenGL3_Init();
 }
 
-void WindowHandler::ClearColor() { glClear(GL_COLOR_BUFFER_BIT); }
+/**
+ * @brief Clears the window with a specified color.
+ * 
+ * This function clears the screen using the OpenGL color buffer.
+ */
+void WindowHandler::ClearColor() {
+   glClear(GL_COLOR_BUFFER_BIT);
+}
 
-void WindowHandler::PollEvents() { glfwPollEvents(); }
+/**
+ * @brief Polls for window events.
+ * 
+ * This function calls glfwPollEvents to handle input events, window events, etc.
+ */
+void WindowHandler::PollEvents() {
+   glfwPollEvents();
+}
 
-void WindowHandler::SwapBuffers() { glfwSwapBuffers(this->Window); }
+/**
+ * @brief Swaps the front and back buffers.
+ * 
+ * This function swaps the buffers, displaying the newly rendered content
+ * on the window.
+ */
+void WindowHandler::SwapBuffers() {
+   glfwSwapBuffers(Window);
+}
 
-bool WindowHandler::ShouldWindowClose() { return glfwWindowShouldClose(this->Window); }
+/**
+ * @brief Checks if the window should close.
+ * 
+ * @return true if the window should close, false otherwise.
+ */
+bool WindowHandler::ShouldWindowClose() {
+   return glfwWindowShouldClose(Window);
+}
 
-};
+} // namespace Engine
+
+
