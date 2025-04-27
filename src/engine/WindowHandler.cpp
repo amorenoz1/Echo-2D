@@ -3,11 +3,11 @@
 #include <engine/InputHandler.h>
 
 #include <cstdlib>
-#include <iostream>
 
 #include "external/imgui.h"
 #include "external/imgui_impl_glfw.h"
 #include "external/imgui_impl_opengl3.h"
+#include "external/easylogging++.h"
 
 namespace Engine {
 
@@ -35,6 +35,8 @@ WindowHandler::~WindowHandler() {
    ImGui_ImplOpenGL3_Shutdown();
    ImGui_ImplGlfw_Shutdown();
    ImGui::DestroyContext();
+
+   LOG(INFO) << "[WindowHandler] GLFW window destroyed and resources cleaned up.";
 }
 
 /**
@@ -46,7 +48,7 @@ WindowHandler::~WindowHandler() {
 void WindowHandler::Init() {
    // Initialize GLFW
    if (!glfwInit()) {
-      std::cerr << "Error: Failed to initialize GLFW!" << std::endl;
+      LOG(ERROR) << "[WindowHandler] Failed to initialize GLFW!";
       std::exit(EXIT_FAILURE);  ///< Exit if GLFW initialization fails
    }
 
@@ -64,10 +66,12 @@ void WindowHandler::Init() {
    // Create the GLFW window
    Window = glfwCreateWindow(Width, Height, Title, nullptr, nullptr);
    if (!Window) {
-      std::cerr << "Error: Failed to create window!" << std::endl;
+      LOG(ERROR) << "[WindowHandler] Failed to create window!";
       glfwTerminate();
       std::exit(EXIT_FAILURE);  ///< Exit if window creation fails
    }
+
+   LOG(INFO) << "[WindowHandler] Window created with dimensions: " << Width << "x" << Height;
 
    // Make OpenGL context current for this window
    glfwMakeContextCurrent(Window);
@@ -80,9 +84,11 @@ void WindowHandler::Init() {
 
    // Initialize GLAD to manage OpenGL function loading
    if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress)) {
-      std::cerr << "Error: Failed to initialize GLAD!" << std::endl;
+      LOG(ERROR) << "[WindowHandler] Failed to initialize GLAD!";
       std::exit(EXIT_FAILURE);  ///< Exit if GLAD initialization fails
    }
+
+   LOG(INFO) << "[WindowHandler] GLAD initialized successfully.";
 
    // Set the initial OpenGL viewport size
    glViewport(0, 0, Width, Height);
@@ -94,6 +100,8 @@ void WindowHandler::Init() {
 
    ImGui_ImplGlfw_InitForOpenGL(Window, true);
    ImGui_ImplOpenGL3_Init();
+
+   LOG(INFO) << "[WindowHandler] ImGui initialized successfully.";
 }
 
 /**
@@ -130,9 +138,9 @@ void WindowHandler::SwapBuffers() {
  * @return true if the window should close, false otherwise.
  */
 bool WindowHandler::ShouldWindowClose() {
-   return glfwWindowShouldClose(Window);
+   bool shouldClose = glfwWindowShouldClose(Window);
+   return shouldClose;
 }
 
 } // namespace Engine
-
 

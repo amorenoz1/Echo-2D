@@ -33,6 +33,7 @@ add_library(Echo2D SHARED
    src/external/imgui_impl_opengl3.cpp
    src/external/imgui_tables.cpp
    src/external/imgui_widgets.cpp
+   src/external/easylogging++.cpp
    src/utils/ShaderUtils.cpp
 )
 

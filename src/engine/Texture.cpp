@@ -1,7 +1,7 @@
 #include <core/core.h>
 #include "external/stb_image.h"
 #include <engine/Texture.h>
-#include <iostream>
+#include "external/easylogging++.h"
 
 namespace Engine {
 
@@ -16,51 +16,57 @@ namespace Engine {
  */
 Texture::Texture(const char* FilePath) {
    if (!FilePath) {
-      std::cout << "File path for texture is null." << std::endl;
+      LOG(ERROR) << "[Texture] File path for texture is null.";
+      return;
    }
 
    // Load the image with stb_image. Force 4 channels (RGBA).
    unsigned char* Pixels = stbi_load(FilePath, &Width, &Height, &Bits, 4);
 
    if (!Pixels) {
-      std::cout << "Could not load texture." << std::endl;
+      LOG(ERROR) << "[Texture] Could not load texture from file: " << FilePath;
+      return;
    }
 
-   std::cout << "[Texture] Calling glCreateTextures..." << std::endl;
+   LOG(INFO) << "[Texture] Loaded texture from " << FilePath << " with dimensions: "
+             << Width << "x" << Height << " and " << Bits << " bits per channel.";
 
    // Generate an OpenGL texture object
    glGenTextures(1, &ID);
-   std::cout << "[Texture] glCreateTextures returned ID: " << ID << std::endl;
+   LOG(INFO) << "[Texture] glCreateTextures returned ID: " << ID;
 
    // Bind the texture to the 2D texture target
    glBindTexture(GL_TEXTURE_2D, ID);
-   std::cout << "[Texture] Bound texture" << std::endl;
+   LOG(INFO) << "[Texture] Bound texture ID: " << ID << " to GL_TEXTURE_2D.";
 
    // Set texture filtering and wrapping parameters
    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
-   std::cout << "[Texture] Texture parameters set" << std::endl;
+   LOG(INFO) << "[Texture] Texture parameters (MIN_FILTER, MAG_FILTER, WRAP_S, WRAP_T) set to GL_NEAREST and GL_CLAMP_TO_EDGE.";
 
    // Upload the image data to the GPU
    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA8, Width, Height, 0, GL_RGBA, GL_UNSIGNED_BYTE, Pixels);
-   std::cout << "[Texture] Texture image uploaded" << std::endl;
+   LOG(INFO) << "[Texture] Texture image uploaded to GPU with dimensions: "
+             << Width << "x" << Height;
 
    // Generate mipmaps for the texture
    glGenerateMipmap(GL_TEXTURE_2D);
-   std::cout << "[Texture] Mipmaps generated" << std::endl;
+   LOG(INFO) << "[Texture] Mipmaps generated.";
 
    // Free the image data after it's been uploaded to the GPU
    stbi_image_free(Pixels);
+   LOG(INFO) << "[Texture] Image data freed from memory after upload.";
 }
 
 /**
  * @brief Destructor to delete the texture from GPU memory.
  */
 Texture::~Texture() {
-   std::cout << "[Texture] Deleting texture: " << ID << std::endl;
+   LOG(INFO) << "[Texture] Deleting texture ID: " << ID;
    glDeleteTextures(1, &ID);
+   LOG(INFO) << "[Texture] Texture ID: " << ID << " deleted from GPU memory.";
 }
 
 /**
@@ -75,6 +81,8 @@ void Texture::Bind(GLuint slot) const {
    if (glIsTexture(ID)) {
       glActiveTexture(GL_TEXTURE0 + slot);
       glBindTexture(GL_TEXTURE_2D, ID);
+   } else {
+      LOG(WARNING) << "[Texture] Texture ID: " << ID << " is not a valid OpenGL texture.";
    }
 }
 
@@ -89,6 +97,8 @@ void Texture::Unbind(GLuint slot) const {
    if (glIsTexture(ID)) {
       glActiveTexture(GL_TEXTURE0 + slot);
       glBindTexture(GL_TEXTURE_2D, 0);
+   } else {
+      LOG(WARNING) << "[Texture] Texture ID: " << ID << " is not a valid OpenGL texture.";
    }
 }
 
@@ -98,7 +108,7 @@ void Texture::Unbind(GLuint slot) const {
  * @return The OpenGL texture ID.
  */
 GLuint Texture::GetID() const { 
-    return ID; 
+   return ID; 
 }
 
 /**
@@ -107,7 +117,8 @@ GLuint Texture::GetID() const {
  * @return The texture height.
  */
 int Texture::GetHeight() const { 
-    return Height; 
+   LOG(TRACE) << "[Texture] GetHeight called, returning height: " << Height;
+   return Height; 
 }
 
 /**
@@ -116,7 +127,8 @@ int Texture::GetHeight() const {
  * @return The texture width.
  */
 int Texture::GetWidth() const { 
-    return Width; 
+   LOG(TRACE) << "[Texture] GetWidth called, returning width: " << Width;
+   return Width; 
 }
 
 } // namespace Engine

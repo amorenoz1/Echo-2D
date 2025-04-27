@@ -1,0 +1,511 @@
+2025-04-26 22:08:20,950 INFO [default] [WindowHandler] Window created with dimensions: 800x600
+2025-04-26 22:08:20,951 INFO [default] [InputHandler] Initialized input callbacks for GLFW window.
+2025-04-26 22:08:20,955 INFO [default] [WindowHandler] GLAD initialized successfully.
+2025-04-26 22:08:20,958 INFO [default] [WindowHandler] ImGui initialized successfully.
+2025-04-26 22:08:20,958 INFO [default] [Application] Created with dimensions (800x600) and title: HelloThere
+2025-04-26 22:08:20,958 INFO [default] [Texture] Loaded texture from assets/dvd.png with dimensions: 225x121 and 3 bits per channel.
+2025-04-26 22:08:20,958 INFO [default] [Texture] glCreateTextures returned ID: 1
+2025-04-26 22:08:20,959 INFO [default] [Texture] Bound texture ID: 1 to GL_TEXTURE_2D.
+2025-04-26 22:08:20,959 INFO [default] [Texture] Texture parameters (MIN_FILTER, MAG_FILTER, WRAP_S, WRAP_T) set to GL_NEAREST and GL_CLAMP_TO_EDGE.
+2025-04-26 22:08:20,959 INFO [default] [Texture] Texture image uploaded to GPU with dimensions: 225x121
+2025-04-26 22:08:20,959 INFO [default] [Texture] Mipmaps generated.
+2025-04-26 22:08:20,959 INFO [default] [Texture] Image data freed from memory after upload.
+2025-04-26 22:08:20,959 INFO [default] [Texture] Loaded texture from assets/sprite_292.png with dimensions: 16x16 and 4 bits per channel.
+2025-04-26 22:08:20,959 INFO [default] [Texture] glCreateTextures returned ID: 2
+2025-04-26 22:08:20,959 INFO [default] [Texture] Bound texture ID: 2 to GL_TEXTURE_2D.
+2025-04-26 22:08:20,959 INFO [default] [Texture] Texture parameters (MIN_FILTER, MAG_FILTER, WRAP_S, WRAP_T) set to GL_NEAREST and GL_CLAMP_TO_EDGE.
+2025-04-26 22:08:20,959 INFO [default] [Texture] Texture image uploaded to GPU with dimensions: 16x16
+2025-04-26 22:08:20,959 INFO [default] [Texture] Mipmaps generated.
+2025-04-26 22:08:20,959 INFO [default] [Texture] Image data freed from memory after upload.
+2025-04-26 22:08:20,959 INFO [default] [Texture] Loaded texture from assets/sprite_293.png with dimensions: 16x16 and 4 bits per channel.
+2025-04-26 22:08:20,959 INFO [default] [Texture] glCreateTextures returned ID: 3
+2025-04-26 22:08:20,960 INFO [default] [Texture] Bound texture ID: 3 to GL_TEXTURE_2D.
+2025-04-26 22:08:20,960 INFO [default] [Texture] Texture parameters (MIN_FILTER, MAG_FILTER, WRAP_S, WRAP_T) set to GL_NEAREST and GL_CLAMP_TO_EDGE.
+2025-04-26 22:08:20,960 INFO [default] [Texture] Texture image uploaded to GPU with dimensions: 16x16
+2025-04-26 22:08:20,960 INFO [default] [Texture] Mipmaps generated.
+2025-04-26 22:08:20,960 INFO [default] [Texture] Image data freed from memory after upload.
+2025-04-26 22:08:20,960 INFO [default] [Texture] Loaded texture from assets/sprite_294.png with dimensions: 16x16 and 4 bits per channel.
+2025-04-26 22:08:20,960 INFO [default] [Texture] glCreateTextures returned ID: 4
+2025-04-26 22:08:20,960 INFO [default] [Texture] Bound texture ID: 4 to GL_TEXTURE_2D.
+2025-04-26 22:08:20,960 INFO [default] [Texture] Texture parameters (MIN_FILTER, MAG_FILTER, WRAP_S, WRAP_T) set to GL_NEAREST and GL_CLAMP_TO_EDGE.
+2025-04-26 22:08:20,960 INFO [default] [Texture] Texture image uploaded to GPU with dimensions: 16x16
+2025-04-26 22:08:20,960 INFO [default] [Texture] Mipmaps generated.
+2025-04-26 22:08:20,960 INFO [default] [Texture] Image data freed from memory after upload.
+2025-04-26 22:08:20,960 INFO [default] [Texture] Loaded texture from assets/sprite_295.png with dimensions: 16x16 and 4 bits per channel.
+2025-04-26 22:08:20,960 INFO [default] [Texture] glCreateTextures returned ID: 5
+2025-04-26 22:08:20,960 INFO [default] [Texture] Bound texture ID: 5 to GL_TEXTURE_2D.
+2025-04-26 22:08:20,960 INFO [default] [Texture] Texture parameters (MIN_FILTER, MAG_FILTER, WRAP_S, WRAP_T) set to GL_NEAREST and GL_CLAMP_TO_EDGE.
+2025-04-26 22:08:20,960 INFO [default] [Texture] Texture image uploaded to GPU with dimensions: 16x16
+2025-04-26 22:08:20,960 INFO [default] [Texture] Mipmaps generated.
+2025-04-26 22:08:20,960 INFO [default] [Texture] Image data freed from memory after upload.
+2025-04-26 22:08:20,960 INFO [default] [Texture] Loaded texture from assets/sprite_296.png with dimensions: 16x16 and 4 bits per channel.
+2025-04-26 22:08:20,960 INFO [default] [Texture] glCreateTextures returned ID: 6
+2025-04-26 22:08:20,960 INFO [default] [Texture] Bound texture ID: 6 to GL_TEXTURE_2D.
+2025-04-26 22:08:20,960 INFO [default] [Texture] Texture parameters (MIN_FILTER, MAG_FILTER, WRAP_S, WRAP_T) set to GL_NEAREST and GL_CLAMP_TO_EDGE.
+2025-04-26 22:08:20,961 INFO [default] [Texture] Texture image uploaded to GPU with dimensions: 16x16
+2025-04-26 22:08:20,961 INFO [default] [Texture] Mipmaps generated.
+2025-04-26 22:08:20,961 INFO [default] [Texture] Image data freed from memory after upload.
+2025-04-26 22:08:20,961 INFO [default] [Texture] Loaded texture from assets/sprite_297.png with dimensions: 16x16 and 4 bits per channel.
+2025-04-26 22:08:20,961 INFO [default] [Texture] glCreateTextures returned ID: 7
+2025-04-26 22:08:20,961 INFO [default] [Texture] Bound texture ID: 7 to GL_TEXTURE_2D.
+2025-04-26 22:08:20,961 INFO [default] [Texture] Texture parameters (MIN_FILTER, MAG_FILTER, WRAP_S, WRAP_T) set to GL_NEAREST and GL_CLAMP_TO_EDGE.
+2025-04-26 22:08:20,961 INFO [default] [Texture] Texture image uploaded to GPU with dimensions: 16x16
+2025-04-26 22:08:20,961 INFO [default] [Texture] Mipmaps generated.
+2025-04-26 22:08:20,961 INFO [default] [Texture] Image data freed from memory after upload.
+2025-04-26 22:08:20,961 INFO [default] [Texture] Loaded texture from assets/sprite_298.png with dimensions: 16x16 and 4 bits per channel.
+2025-04-26 22:08:20,961 INFO [default] [Texture] glCreateTextures returned ID: 8
+2025-04-26 22:08:20,961 INFO [default] [Texture] Bound texture ID: 8 to GL_TEXTURE_2D.
+2025-04-26 22:08:20,961 INFO [default] [Texture] Texture parameters (MIN_FILTER, MAG_FILTER, WRAP_S, WRAP_T) set to GL_NEAREST and GL_CLAMP_TO_EDGE.
+2025-04-26 22:08:20,961 INFO [default] [Texture] Texture image uploaded to GPU with dimensions: 16x16
+2025-04-26 22:08:20,961 INFO [default] [Texture] Mipmaps generated.
+2025-04-26 22:08:20,961 INFO [default] [Texture] Image data freed from memory after upload.
+2025-04-26 22:08:20,961 INFO [default] [Texture] Loaded texture from assets/sprite_299.png with dimensions: 16x16 and 4 bits per channel.
+2025-04-26 22:08:20,961 INFO [default] [Texture] glCreateTextures returned ID: 9
+2025-04-26 22:08:20,961 INFO [default] [Texture] Bound texture ID: 9 to GL_TEXTURE_2D.
+2025-04-26 22:08:20,961 INFO [default] [Texture] Texture parameters (MIN_FILTER, MAG_FILTER, WRAP_S, WRAP_T) set to GL_NEAREST and GL_CLAMP_TO_EDGE.
+2025-04-26 22:08:20,962 INFO [default] [Texture] Texture image uploaded to GPU with dimensions: 16x16
+2025-04-26 22:08:20,962 INFO [default] [Texture] Mipmaps generated.
+2025-04-26 22:08:20,962 INFO [default] [Texture] Image data freed from memory after upload.
+2025-04-26 22:08:20,962 INFO [default] [Texture] Loaded texture from assets/sprite_300.png with dimensions: 16x16 and 4 bits per channel.
+2025-04-26 22:08:20,962 INFO [default] [Texture] glCreateTextures returned ID: 10
+2025-04-26 22:08:20,962 INFO [default] [Texture] Bound texture ID: 10 to GL_TEXTURE_2D.
+2025-04-26 22:08:20,962 INFO [default] [Texture] Texture parameters (MIN_FILTER, MAG_FILTER, WRAP_S, WRAP_T) set to GL_NEAREST and GL_CLAMP_TO_EDGE.
+2025-04-26 22:08:20,962 INFO [default] [Texture] Texture image uploaded to GPU with dimensions: 16x16
+2025-04-26 22:08:20,962 INFO [default] [Texture] Mipmaps generated.
+2025-04-26 22:08:20,962 INFO [default] [Texture] Image data freed from memory after upload.
+2025-04-26 22:08:20,962 INFO [default] [Texture] Loaded texture from assets/sprite_301.png with dimensions: 16x16 and 4 bits per channel.
+2025-04-26 22:08:20,962 INFO [default] [Texture] glCreateTextures returned ID: 11
+2025-04-26 22:08:20,962 INFO [default] [Texture] Bound texture ID: 11 to GL_TEXTURE_2D.
+2025-04-26 22:08:20,962 INFO [default] [Texture] Texture parameters (MIN_FILTER, MAG_FILTER, WRAP_S, WRAP_T) set to GL_NEAREST and GL_CLAMP_TO_EDGE.
+2025-04-26 22:08:20,962 INFO [default] [Texture] Texture image uploaded to GPU with dimensions: 16x16
+2025-04-26 22:08:20,962 INFO [default] [Texture] Mipmaps generated.
+2025-04-26 22:08:20,962 INFO [default] [Texture] Image data freed from memory after upload.
+2025-04-26 22:08:20,962 INFO [default] [Texture] Loaded texture from assets/sprite_302.png with dimensions: 16x16 and 4 bits per channel.
+2025-04-26 22:08:20,962 INFO [default] [Texture] glCreateTextures returned ID: 12
+2025-04-26 22:08:20,962 INFO [default] [Texture] Bound texture ID: 12 to GL_TEXTURE_2D.
+2025-04-26 22:08:20,962 INFO [default] [Texture] Texture parameters (MIN_FILTER, MAG_FILTER, WRAP_S, WRAP_T) set to GL_NEAREST and GL_CLAMP_TO_EDGE.
+2025-04-26 22:08:20,963 INFO [default] [Texture] Texture image uploaded to GPU with dimensions: 16x16
+2025-04-26 22:08:20,963 INFO [default] [Texture] Mipmaps generated.
+2025-04-26 22:08:20,963 INFO [default] [Texture] Image data freed from memory after upload.
+2025-04-26 22:08:20,963 INFO [default] [Texture] Loaded texture from assets/sprite_303.png with dimensions: 16x16 and 4 bits per channel.
+2025-04-26 22:08:20,963 INFO [default] [Texture] glCreateTextures returned ID: 13
+2025-04-26 22:08:20,963 INFO [default] [Texture] Bound texture ID: 13 to GL_TEXTURE_2D.
+2025-04-26 22:08:20,963 INFO [default] [Texture] Texture parameters (MIN_FILTER, MAG_FILTER, WRAP_S, WRAP_T) set to GL_NEAREST and GL_CLAMP_TO_EDGE.
+2025-04-26 22:08:20,963 INFO [default] [Texture] Texture image uploaded to GPU with dimensions: 16x16
+2025-04-26 22:08:20,963 INFO [default] [Texture] Mipmaps generated.
+2025-04-26 22:08:20,963 INFO [default] [Texture] Image data freed from memory after upload.
+2025-04-26 22:08:20,963 INFO [default] [Texture] Loaded texture from assets/sprite_304.png with dimensions: 16x16 and 4 bits per channel.
+2025-04-26 22:08:20,963 INFO [default] [Texture] glCreateTextures returned ID: 14
+2025-04-26 22:08:20,963 INFO [default] [Texture] Bound texture ID: 14 to GL_TEXTURE_2D.
+2025-04-26 22:08:20,963 INFO [default] [Texture] Texture parameters (MIN_FILTER, MAG_FILTER, WRAP_S, WRAP_T) set to GL_NEAREST and GL_CLAMP_TO_EDGE.
+2025-04-26 22:08:20,963 INFO [default] [Texture] Texture image uploaded to GPU with dimensions: 16x16
+2025-04-26 22:08:20,963 INFO [default] [Texture] Mipmaps generated.
+2025-04-26 22:08:20,963 INFO [default] [Texture] Image data freed from memory after upload.
+2025-04-26 22:08:20,963 INFO [default] [Texture] Loaded texture from assets/sprite_305.png with dimensions: 16x16 and 4 bits per channel.
+2025-04-26 22:08:20,963 INFO [default] [Texture] glCreateTextures returned ID: 15
+2025-04-26 22:08:20,963 INFO [default] [Texture] Bound texture ID: 15 to GL_TEXTURE_2D.
+2025-04-26 22:08:20,963 INFO [default] [Texture] Texture parameters (MIN_FILTER, MAG_FILTER, WRAP_S, WRAP_T) set to GL_NEAREST and GL_CLAMP_TO_EDGE.
+2025-04-26 22:08:20,963 INFO [default] [Texture] Texture image uploaded to GPU with dimensions: 16x16
+2025-04-26 22:08:20,964 INFO [default] [Texture] Mipmaps generated.
+2025-04-26 22:08:20,964 INFO [default] [Texture] Image data freed from memory after upload.
+2025-04-26 22:08:20,964 INFO [default] [Texture] Loaded texture from assets/sprite_306.png with dimensions: 16x16 and 4 bits per channel.
+2025-04-26 22:08:20,964 INFO [default] [Texture] glCreateTextures returned ID: 16
+2025-04-26 22:08:20,964 INFO [default] [Texture] Bound texture ID: 16 to GL_TEXTURE_2D.
+2025-04-26 22:08:20,964 INFO [default] [Texture] Texture parameters (MIN_FILTER, MAG_FILTER, WRAP_S, WRAP_T) set to GL_NEAREST and GL_CLAMP_TO_EDGE.
+2025-04-26 22:08:20,964 INFO [default] [Texture] Texture image uploaded to GPU with dimensions: 16x16
+2025-04-26 22:08:20,964 INFO [default] [Texture] Mipmaps generated.
+2025-04-26 22:08:20,964 INFO [default] [Texture] Image data freed from memory after upload.
+2025-04-26 22:08:20,964 INFO [default] [Texture] Loaded texture from assets/sprite_307.png with dimensions: 16x16 and 4 bits per channel.
+2025-04-26 22:08:20,964 INFO [default] [Texture] glCreateTextures returned ID: 17
+2025-04-26 22:08:20,964 INFO [default] [Texture] Bound texture ID: 17 to GL_TEXTURE_2D.
+2025-04-26 22:08:20,964 INFO [default] [Texture] Texture parameters (MIN_FILTER, MAG_FILTER, WRAP_S, WRAP_T) set to GL_NEAREST and GL_CLAMP_TO_EDGE.
+2025-04-26 22:08:20,964 INFO [default] [Texture] Texture image uploaded to GPU with dimensions: 16x16
+2025-04-26 22:08:20,964 INFO [default] [Texture] Mipmaps generated.
+2025-04-26 22:08:20,964 INFO [default] [Texture] Image data freed from memory after upload.
+2025-04-26 22:08:20,964 INFO [default] [Application] FPS set to 500
+2025-04-26 22:08:21,857 INFO [default] [MouseListener] Mouse moved to (1112.83, 232.973)
+2025-04-26 22:08:21,871 INFO [default] [MouseListener] Mouse moved to (1077.58, 214.912)
+2025-04-26 22:08:21,890 INFO [default] [MouseListener] Mouse moved to (1043.48, 199.95)
+2025-04-26 22:08:21,891 INFO [default] [MouseListener] Mouse moved to (1028.49, 193.639)
+2025-04-26 22:08:21,907 INFO [default] [MouseListener] Mouse moved to (1014.8, 187.552)
+2025-04-26 22:08:21,908 INFO [default] [MouseListener] Mouse moved to (988.41, 176.388)
+2025-04-26 22:08:21,923 INFO [default] [MouseListener] Mouse moved to (967.67, 168.272)
+2025-04-26 22:08:21,923 INFO [default] [MouseListener] Mouse moved to (959.969, 165.903)
+2025-04-26 22:08:21,938 INFO [default] [MouseListener] Mouse moved to (944.979, 160.38)
+2025-04-26 22:08:21,939 INFO [default] [MouseListener] Mouse moved to (933.001, 156.857)
+2025-04-26 22:08:21,956 INFO [default] [MouseListener] Mouse moved to (917.543, 153.247)
+2025-04-26 22:08:21,971 INFO [default] [MouseListener] Mouse moved to (910.076, 152.341)
+2025-04-26 22:08:21,988 INFO [default] [MouseListener] Mouse moved to (903.481, 152.341)
+2025-04-26 22:08:22,006 INFO [default] [MouseListener] Mouse moved to (899.253, 152.341)
+2025-04-26 22:08:22,023 INFO [default] [MouseListener] Mouse moved to (895.025, 152.341)
+2025-04-26 22:08:22,488 INFO [default] [MouseListener] Mouse moved to (882.944, 148.864)
+2025-04-26 22:08:22,507 INFO [default] [MouseListener] Mouse moved to (839.198, 132.178)
+2025-04-26 22:08:22,507 INFO [default] [MouseListener] Mouse moved to (807.296, 118.976)
+2025-04-26 22:08:22,524 INFO [default] [MouseListener] Mouse moved to (759.746, 98.2194)
+2025-04-26 22:08:22,538 INFO [default] [MouseListener] Mouse moved to (731.577, 84.6564)
+2025-04-26 22:08:22,541 INFO [default] [MouseListener] Mouse moved to (707.537, 73.1172)
+2025-04-26 22:08:22,554 INFO [default] [MouseListener] Mouse moved to (681.49, 59.8115)
+2025-04-26 22:08:22,571 INFO [default] [MouseListener] Mouse moved to (660.296, 47.8057)
+2025-04-26 22:08:22,588 INFO [default] [MouseListener] Mouse moved to (652.389, 42.8921)
+2025-04-26 22:08:22,605 INFO [default] [MouseListener] Mouse moved to (646.56, 38.9012)
+2025-04-26 22:08:22,621 INFO [default] [MouseListener] Mouse moved to (644.142, 37.2221)
+2025-04-26 22:08:22,638 INFO [default] [MouseListener] Mouse moved to (642.943, 36.3368)
+2025-04-26 22:08:22,655 INFO [default] [MouseListener] Mouse moved to (641.661, 35.0546)
+2025-04-26 22:08:22,671 INFO [default] [MouseListener] Mouse moved to (638.875, 33.32)
+2025-04-26 22:08:22,688 INFO [default] [MouseListener] Mouse moved to (634.341, 29.6079)
+2025-04-26 22:08:22,705 INFO [default] [MouseListener] Mouse moved to (628.623, 25.2203)
+2025-04-26 22:08:22,707 INFO [default] [MouseListener] Mouse moved to (625.907, 22.5041)
+2025-04-26 22:08:22,721 INFO [default] [MouseListener] Mouse moved to (622.543, 19.6206)
+2025-04-26 22:08:22,724 INFO [default] [MouseListener] Mouse moved to (619.827, 16.9044)
+2025-04-26 22:08:22,739 INFO [default] [MouseListener] Mouse moved to (617.278, 14.7803)
+2025-04-26 22:08:22,741 INFO [default] [MouseListener] Mouse moved to (616.177, 13.3124)
+2025-04-26 22:08:22,755 INFO [default] [MouseListener] Mouse moved to (614.053, 11.1883)
+2025-04-26 22:08:22,755 INFO [default] [MouseListener] Mouse moved to (611.928, 9.06418)
+2025-04-26 22:08:22,771 INFO [default] [MouseListener] Mouse moved to (609.344, 6.48006)
+2025-04-26 22:08:22,788 INFO [default] [MouseListener] Mouse moved to (608.146, 4.96764)
+2025-04-26 22:08:22,805 INFO [default] [MouseListener] Mouse moved to (607.887, 4.45143)
+2025-04-26 22:08:22,821 INFO [default] [MouseListener] Mouse moved to (607.629, 3.93523)
+2025-04-26 22:08:22,871 INFO [default] [MouseListener] Mouse moved to (607.629, 3.69908)
+2025-04-26 22:08:22,888 INFO [default] [MouseListener] Mouse moved to (607.629, 3.45413)
+2025-04-26 22:08:22,905 INFO [default] [MouseListener] Mouse moved to (607.629, 2.95129)
+2025-04-26 22:08:22,921 INFO [default] [MouseListener] Mouse moved to (607.887, 2.43509)
+2025-04-26 22:08:22,924 INFO [default] [MouseListener] Mouse moved to (608.146, 2.17699)
+2025-04-26 22:08:22,938 INFO [default] [MouseListener] Mouse moved to (608.146, 1.91888)
+2025-04-26 22:08:22,940 INFO [default] [MouseListener] Mouse moved to (608.431, 1.34721)
+2025-04-26 22:08:22,955 INFO [default] [MouseListener] Mouse moved to (608.975, 0.517441)
+2025-04-26 22:08:22,971 INFO [default] [MouseListener] Mouse moved to (609.261, -0.6259)
+2025-04-26 22:08:22,988 INFO [default] [MouseListener] Mouse moved to (609.888, -2.5074)
+2025-04-26 22:08:23,004 INFO [default] [MouseListener] Mouse moved to (611.365, -6.19899)
+2025-04-26 22:08:23,021 INFO [default] [MouseListener] Mouse moved to (612.842, -9.94633)
+2025-04-26 22:08:23,039 INFO [default] [MouseListener] Mouse moved to (614.374, -14.174)
+2025-04-26 22:08:23,054 INFO [default] [MouseListener] Mouse moved to (616.247, -17.9214)
+2025-04-26 22:08:23,071 INFO [default] [MouseListener] Mouse moved to (617.216, -20.2276)
+2025-04-26 22:08:23,088 INFO [default] [MouseListener] Mouse moved to (617.788, -21.4264)
+2025-04-26 22:08:23,105 INFO [default] [MouseListener] Mouse moved to (618.304, -21.9426)
+2025-04-26 22:08:23,122 INFO [default] [MouseListener] Mouse moved to (618.549, -21.9426)
+2025-04-26 22:08:23,809 INFO [default] [MouseListener] Mouse moved to (608.976, -21.1519)
+2025-04-26 22:08:24,005 INFO [default] [MouseListener] Mouse moved to (608.976, -20.9205)
+2025-04-26 22:08:24,021 INFO [default] [MouseListener] Mouse moved to (610.669, -7.37482)
+2025-04-26 22:08:24,024 INFO [default] [MouseListener] Mouse moved to (613.771, 1.31073)
+2025-04-26 22:08:24,038 INFO [default] [MouseListener] Mouse moved to (618.167, 13.766)
+2025-04-26 22:08:24,040 INFO [default] [MouseListener] Mouse moved to (621.83, 26.9539)
+2025-04-26 22:08:24,055 INFO [default] [MouseListener] Mouse moved to (627.692, 39.4091)
+2025-04-26 22:08:24,057 INFO [default] [MouseListener] Mouse moved to (633.017, 53.1032)
+2025-04-26 22:08:24,071 INFO [default] [MouseListener] Mouse moved to (643.87, 77.7687)
+2025-04-26 22:08:24,071 INFO [default] [MouseListener] Mouse moved to (654.723, 102.434)
+2025-04-26 22:08:24,088 INFO [default] [MouseListener] Mouse moved to (668.955, 135.098)
+2025-04-26 22:08:24,105 INFO [default] [MouseListener] Mouse moved to (674.847, 154.776)
+2025-04-26 22:08:24,121 INFO [default] [MouseListener] Mouse moved to (676.792, 164.503)
+2025-04-26 22:08:44,137 INFO [default] [MouseListener] Mouse moved to (956.526, 625.062)
+2025-04-26 22:08:44,154 INFO [default] [MouseListener] Mouse moved to (956.526, 626.575)
+2025-04-26 22:08:44,171 INFO [default] [MouseListener] Mouse moved to (956.213, 628.087)
+2025-04-26 22:08:44,187 INFO [default] [MouseListener] Mouse moved to (955.927, 630.504)
+2025-04-26 22:08:44,204 INFO [default] [MouseListener] Mouse moved to (954.792, 634.732)
+2025-04-26 22:08:44,221 INFO [default] [MouseListener] Mouse moved to (951.901, 639.663)
+2025-04-26 22:08:44,237 INFO [default] [MouseListener] Mouse moved to (943.853, 647.543)
+2025-04-26 22:08:44,254 INFO [default] [MouseListener] Mouse moved to (928.739, 657.471)
+2025-04-26 22:08:44,257 INFO [default] [MouseListener] Mouse moved to (911.833, 665.924)
+2025-04-26 22:08:44,270 INFO [default] [MouseListener] Mouse moved to (894.081, 671.841)
+2025-04-26 22:08:44,272 INFO [default] [MouseListener] Mouse moved to (871.761, 679.281)
+2025-04-26 22:08:44,287 INFO [default] [MouseListener] Mouse moved to (846.845, 685.031)
+2025-04-26 22:08:44,290 INFO [default] [MouseListener] Mouse moved to (816.589, 692.334)
+2025-04-26 22:08:44,304 INFO [default] [MouseListener] Mouse moved to (786.333, 698.594)
+2025-04-26 22:08:44,306 INFO [default] [MouseListener] Mouse moved to (756.077, 703.81)
+2025-04-26 22:08:44,321 INFO [default] [MouseListener] Mouse moved to (713.844, 711.14)
+2025-04-26 22:08:44,337 INFO [default] [MouseListener] Mouse moved to (668.951, 716.636)
+2025-04-26 22:08:44,354 INFO [default] [MouseListener] Mouse moved to (636.013, 719.848)
+2025-04-26 22:08:44,371 INFO [default] [MouseListener] Mouse moved to (607.598, 720.412)
+2025-04-26 22:08:44,387 INFO [default] [MouseListener] Mouse moved to (585.951, 720.412)
+2025-04-26 22:08:44,404 INFO [default] [MouseListener] Mouse moved to (570.042, 719.395)
+2025-04-26 22:08:44,420 INFO [default] [MouseListener] Mouse moved to (544.537, 712.208)
+2025-04-26 22:08:44,438 INFO [default] [MouseListener] Mouse moved to (532.146, 706.564)
+2025-04-26 22:08:44,454 INFO [default] [MouseListener] Mouse moved to (517.929, 699.455)
+2025-04-26 22:08:44,457 INFO [default] [MouseListener] Mouse moved to (512.285, 695.504)
+2025-04-26 22:08:44,471 INFO [default] [MouseListener] Mouse moved to (506.921, 692.286)
+2025-04-26 22:08:44,473 INFO [default] [MouseListener] Mouse moved to (502.344, 689.234)
+2025-04-26 22:08:44,487 INFO [default] [MouseListener] Mouse moved to (498.5, 686.832)
+2025-04-26 22:08:44,489 INFO [default] [MouseListener] Mouse moved to (493.923, 683.781)
+2025-04-26 22:08:44,504 INFO [default] [MouseListener] Mouse moved to (490.078, 681.378)
+2025-04-26 22:08:44,506 INFO [default] [MouseListener] Mouse moved to (486.714, 678.494)
+2025-04-26 22:08:44,521 INFO [default] [MouseListener] Mouse moved to (479.505, 673.208)
+2025-04-26 22:08:44,537 INFO [default] [MouseListener] Mouse moved to (473.426, 667.608)
+2025-04-26 22:08:44,554 INFO [default] [MouseListener] Mouse moved to (467.178, 660.88)
+2025-04-26 22:08:44,571 INFO [default] [MouseListener] Mouse moved to (461.076, 652.236)
+2025-04-26 22:08:44,587 INFO [default] [MouseListener] Mouse moved to (455.482, 643.083)
+2025-04-26 22:08:44,604 INFO [default] [MouseListener] Mouse moved to (447.981, 626.303)
+2025-04-26 22:08:44,621 INFO [default] [MouseListener] Mouse moved to (443.555, 607.891)
+2025-04-26 22:08:44,639 INFO [default] [MouseListener] Mouse moved to (439.919, 581.459)
+2025-04-26 22:08:44,654 INFO [default] [MouseListener] Mouse moved to (439.159, 549.845)
+2025-04-26 22:08:44,671 INFO [default] [MouseListener] Mouse moved to (439.159, 512.595)
+2025-04-26 22:08:44,673 INFO [default] [MouseListener] Mouse moved to (439.159, 493.998)
+2025-04-26 22:08:44,687 INFO [default] [MouseListener] Mouse moved to (441.61, 476.839)
+2025-04-26 22:08:44,689 INFO [default] [MouseListener] Mouse moved to (444.991, 458.243)
+2025-04-26 22:08:44,705 INFO [default] [MouseListener] Mouse moved to (452.294, 427.987)
+2025-04-26 22:08:44,707 INFO [default] [MouseListener] Mouse moved to (455.491, 418.396)
+2025-04-26 22:08:44,721 INFO [default] [MouseListener] Mouse moved to (473.508, 364.653)
+2025-04-26 22:08:44,737 INFO [default] [MouseListener] Mouse moved to (492.419, 319.333)
+2025-04-26 22:08:44,754 INFO [default] [MouseListener] Mouse moved to (515.787, 272.655)
+2025-04-26 22:08:44,771 INFO [default] [MouseListener] Mouse moved to (540.703, 228.573)
+2025-04-26 22:08:44,788 INFO [default] [MouseListener] Mouse moved to (560.741, 200.502)
+2025-04-26 22:08:44,804 INFO [default] [MouseListener] Mouse moved to (576.81, 180.207)
+2025-04-26 22:08:44,821 INFO [default] [MouseListener] Mouse moved to (593.719, 162.508)
+2025-04-26 22:08:44,837 INFO [default] [MouseListener] Mouse moved to (601.096, 156.629)
+2025-04-26 22:08:44,854 INFO [default] [MouseListener] Mouse moved to (611.881, 151.265)
+2025-04-26 22:08:44,871 INFO [default] [MouseListener] Mouse moved to (622.276, 151.265)
+2025-04-26 22:08:44,873 INFO [default] [MouseListener] Mouse moved to (627.361, 151.265)
+2025-04-26 22:08:44,888 INFO [default] [MouseListener] Mouse moved to (633.262, 152.337)
+2025-04-26 22:08:44,890 INFO [default] [MouseListener] Mouse moved to (636.883, 154.148)
+2025-04-26 22:08:44,904 INFO [default] [MouseListener] Mouse moved to (647.452, 159.785)
+2025-04-26 22:08:44,907 INFO [default] [MouseListener] Mouse moved to (650.816, 163.149)
+2025-04-26 22:08:44,921 INFO [default] [MouseListener] Mouse moved to (659.282, 174.437)
+2025-04-26 22:08:44,937 INFO [default] [MouseListener] Mouse moved to (664.697, 190.372)
+2025-04-26 22:08:44,954 INFO [default] [MouseListener] Mouse moved to (662.246, 217.257)
+2025-04-26 22:08:44,971 INFO [default] [MouseListener] Mouse moved to (626.915, 272.001)
+2025-04-26 22:08:44,987 INFO [default] [MouseListener] Mouse moved to (579.504, 338.355)
+2025-04-26 22:08:45,004 INFO [default] [MouseListener] Mouse moved to (517.08, 422.029)
+2025-04-26 22:08:45,021 INFO [default] [MouseListener] Mouse moved to (478.76, 475.9)
+2025-04-26 22:08:45,037 INFO [default] [MouseListener] Mouse moved to (446.404, 516.971)
+2025-04-26 22:08:45,054 INFO [default] [MouseListener] Mouse moved to (426.113, 542.898)
+2025-04-26 22:08:45,071 INFO [default] [MouseListener] Mouse moved to (408.896, 564.681)
+2025-04-26 22:08:45,087 INFO [default] [MouseListener] Mouse moved to (401.44, 573.153)
+2025-04-26 22:08:45,089 INFO [default] [MouseListener] Mouse moved to (398.389, 577.73)
+2025-04-26 22:08:45,104 INFO [default] [MouseListener] Mouse moved to (395.673, 580.446)
+2025-04-26 22:08:45,106 INFO [default] [MouseListener] Mouse moved to (393.549, 582.57)
+2025-04-26 22:08:45,121 INFO [default] [MouseListener] Mouse moved to (392.921, 583.511)
+2025-04-26 22:08:45,123 INFO [default] [MouseListener] Mouse moved to (391.897, 584.535)
+2025-04-26 22:08:45,137 INFO [default] [MouseListener] Mouse moved to (391.381, 585.051)
+2025-04-26 22:08:45,171 INFO [default] [MouseListener] Mouse moved to (397.522, 582.905)
+2025-04-26 22:08:45,187 INFO [default] [MouseListener] Mouse moved to (426.546, 572.761)
+2025-04-26 22:08:45,204 INFO [default] [MouseListener] Mouse moved to (480.728, 555.949)
+2025-04-26 22:08:45,221 INFO [default] [MouseListener] Mouse moved to (546.982, 540.746)
+2025-04-26 22:08:45,237 INFO [default] [MouseListener] Mouse moved to (588.076, 532.544)
+2025-04-26 22:08:45,254 INFO [default] [MouseListener] Mouse moved to (633.082, 523.385)
+2025-04-26 22:08:45,271 INFO [default] [MouseListener] Mouse moved to (664.697, 514.735)
+2025-04-26 22:08:45,273 INFO [default] [MouseListener] Mouse moved to (677.152, 510.339)
+2025-04-26 22:08:45,287 INFO [default] [MouseListener] Mouse moved to (682.516, 507.657)
+2025-04-26 22:08:45,289 INFO [default] [MouseListener] Mouse moved to (693.085, 502.02)
+2025-04-26 22:08:45,304 INFO [default] [MouseListener] Mouse moved to (701.15, 497.678)
+2025-04-26 22:08:45,307 INFO [default] [MouseListener] Mouse moved to (708.594, 492.714)
+2025-04-26 22:08:45,321 INFO [default] [MouseListener] Mouse moved to (713.422, 488.959)
+2025-04-26 22:08:45,323 INFO [default] [MouseListener] Mouse moved to (715.547, 486.835)
+2025-04-26 22:08:45,337 INFO [default] [MouseListener] Mouse moved to (723.393, 477.178)
+2025-04-26 22:08:45,354 INFO [default] [MouseListener] Mouse moved to (725.002, 465.377)
+2025-04-26 22:08:45,371 INFO [default] [MouseListener] Mouse moved to (723.705, 452.029)
+2025-04-26 22:08:45,387 INFO [default] [MouseListener] Mouse moved to (717.491, 443.216)
+2025-04-26 22:08:45,404 INFO [default] [MouseListener] Mouse moved to (707.332, 433.057)
+2025-04-26 22:08:45,421 INFO [default] [MouseListener] Mouse moved to (689.767, 422.345)
+2025-04-26 22:08:45,437 INFO [default] [MouseListener] Mouse moved to (673.38, 419.327)
+2025-04-26 22:08:45,454 INFO [default] [MouseListener] Mouse moved to (653.927, 419.327)
+2025-04-26 22:08:45,471 INFO [default] [MouseListener] Mouse moved to (634.73, 427.332)
+2025-04-26 22:08:45,473 INFO [default] [MouseListener] Mouse moved to (626.301, 433.168)
+2025-04-26 22:08:45,487 INFO [default] [MouseListener] Mouse moved to (617.846, 442.327)
+2025-04-26 22:08:45,489 INFO [default] [MouseListener] Mouse moved to (612.01, 450.757)
+2025-04-26 22:08:45,504 INFO [default] [MouseListener] Mouse moved to (606.374, 461.325)
+2025-04-26 22:08:45,507 INFO [default] [MouseListener] Mouse moved to (602.146, 472.598)
+2025-04-26 22:08:45,521 INFO [default] [MouseListener] Mouse moved to (600.033, 484.576)
+2025-04-26 22:08:45,523 INFO [default] [MouseListener] Mouse moved to (598.567, 497.764)
+2025-04-26 22:08:45,537 INFO [default] [MouseListener] Mouse moved to (598.567, 524.139)
+2025-04-26 22:08:45,554 INFO [default] [MouseListener] Mouse moved to (617.336, 564.158)
+2025-04-26 22:08:45,571 INFO [default] [MouseListener] Mouse moved to (636.274, 587.662)
+2025-04-26 22:08:45,587 INFO [default] [MouseListener] Mouse moved to (661.154, 610.992)
+2025-04-26 22:08:45,604 INFO [default] [MouseListener] Mouse moved to (685.735, 625.764)
+2025-04-26 22:08:45,621 INFO [default] [MouseListener] Mouse moved to (707.831, 631.344)
+2025-04-26 22:08:45,637 INFO [default] [MouseListener] Mouse moved to (729.479, 631.344)
+2025-04-26 22:08:45,654 INFO [default] [MouseListener] Mouse moved to (755.15, 624.609)
+2025-04-26 22:08:45,671 INFO [default] [MouseListener] Mouse moved to (784.341, 610.409)
+2025-04-26 22:08:45,689 INFO [default] [MouseListener] Mouse moved to (829.675, 581.906)
+2025-04-26 22:08:45,689 INFO [default] [MouseListener] Mouse moved to (838.105, 576.07)
+2025-04-26 22:08:45,706 INFO [default] [MouseListener] Mouse moved to (854.701, 563.841)
+2025-04-26 22:08:45,706 INFO [default] [MouseListener] Mouse moved to (869.917, 552.007)
+2025-04-26 22:08:45,721 INFO [default] [MouseListener] Mouse moved to (885.64, 538.904)
+2025-04-26 22:08:45,722 INFO [default] [MouseListener] Mouse moved to (898.714, 526.647)
+2025-04-26 22:08:45,739 INFO [default] [MouseListener] Mouse moved to (910.97, 513.574)
+2025-04-26 22:08:45,740 INFO [default] [MouseListener] Mouse moved to (922.742, 499.279)
+2025-04-26 22:08:45,754 INFO [default] [MouseListener] Mouse moved to (939.901, 469.047)
+2025-04-26 22:08:45,771 INFO [default] [MouseListener] Mouse moved to (957.972, 421.625)
+2025-04-26 22:08:45,787 INFO [default] [MouseListener] Mouse moved to (965.13, 378.284)
+2025-04-26 22:08:45,806 INFO [default] [MouseListener] Mouse moved to (967.046, 324.949)
+2025-04-26 22:08:45,821 INFO [default] [MouseListener] Mouse moved to (966.003, 266.275)
+2025-04-26 22:08:45,839 INFO [default] [MouseListener] Mouse moved to (953.483, 205.763)
+2025-04-26 22:08:45,854 INFO [default] [MouseListener] Mouse moved to (940.514, 161.496)
+2025-04-26 22:08:45,870 INFO [default] [MouseListener] Mouse moved to (915.482, 93.6004)
+2025-04-26 22:08:45,890 INFO [default] [MouseListener] Mouse moved to (891.525, 48.5599)
+2025-04-26 22:08:45,890 INFO [default] [MouseListener] Mouse moved to (884.76, 39.7657)
+2025-04-26 22:08:45,906 INFO [default] [MouseListener] Mouse moved to (871.657, 24.0424)
+2025-04-26 22:08:45,907 INFO [default] [MouseListener] Mouse moved to (858.583, 12.6029)
+2025-04-26 22:08:45,921 INFO [default] [MouseListener] Mouse moved to (845.961, 3.13574)
+2025-04-26 22:08:45,923 INFO [default] [MouseListener] Mouse moved to (833.505, -2.72554)
+2025-04-26 22:08:45,937 INFO [default] [MouseListener] Mouse moved to (818.919, -7.43683)
+2025-04-26 22:08:45,955 INFO [default] [MouseListener] Mouse moved to (803.14, -10.5926)
+2025-04-26 22:08:46,171 INFO [default] [MouseListener] Mouse moved to (803.14, -10.824)
+2025-04-26 22:08:46,189 INFO [default] [MouseListener] Mouse moved to (802.743, -15.0517)
+2025-04-26 22:08:46,190 INFO [default] [MouseListener] Mouse moved to (800.933, -18.2206)
+2025-04-26 22:08:46,207 INFO [default] [MouseListener] Mouse moved to (794.718, -27.0335)
+2025-04-26 22:08:46,222 INFO [default] [MouseListener] Mouse moved to (788.514, -33.8578)
+2025-04-26 22:08:46,223 INFO [default] [MouseListener] Mouse moved to (780.396, -41.2991)
+2025-04-26 22:08:46,237 INFO [default] [MouseListener] Mouse moved to (770.139, -50.091)
+2025-04-26 22:08:46,239 INFO [default] [MouseListener] Mouse moved to (757.967, -58.4597)
+2025-04-26 22:08:46,254 INFO [default] [MouseListener] Mouse moved to (732.1, -73.6754)
+2025-04-26 22:08:46,271 INFO [default] [MouseListener] Mouse moved to (707.19, -85.3979)
+2025-04-26 22:08:46,287 INFO [default] [MouseListener] Mouse moved to (681.04, -95.8521)
+2025-04-26 22:08:46,304 INFO [default] [MouseListener] Mouse moved to (657.312, -105.208)
+2025-04-26 22:08:46,320 INFO [default] [MouseListener] Mouse moved to (634.033, -112.986)
+2025-04-26 22:08:46,337 INFO [default] [MouseListener] Mouse moved to (611.936, -120.596)
+2025-04-26 22:08:46,354 INFO [default] [MouseListener] Mouse moved to (591.073, -126.347)
+2025-04-26 22:08:46,371 INFO [default] [MouseListener] Mouse moved to (577.302, -129.225)
+2025-04-26 22:08:46,388 INFO [default] [MouseListener] Mouse moved to (566.627, -131.427)
+2025-04-26 22:08:46,390 INFO [default] [MouseListener] Mouse moved to (562.302, -132)
+2025-04-26 22:08:46,404 INFO [default] [MouseListener] Mouse moved to (558.68, -132)
+2025-04-26 22:08:46,406 INFO [default] [MouseListener] Mouse moved to (555.707, -132)
+2025-04-26 22:08:46,421 INFO [default] [MouseListener] Mouse moved to (554.341, -132)
+2025-04-26 22:08:46,424 INFO [default] [MouseListener] Mouse moved to (552.98, -132)
+2025-04-26 22:08:46,438 INFO [default] [MouseListener] Mouse moved to (552.408, -132)
+2025-04-26 22:08:46,439 INFO [default] [MouseListener] Mouse moved to (552.15, -132)
+2025-04-26 22:08:46,454 INFO [default] [MouseListener] Mouse moved to (551.892, -132)
+2025-04-26 22:08:46,721 INFO [default] [MouseListener] Mouse moved to (551.892, -130.586)
+2025-04-26 22:08:46,738 INFO [default] [MouseListener] Mouse moved to (551.467, -125.23)
+2025-04-26 22:08:46,754 INFO [default] [MouseListener] Mouse moved to (548.751, -117.987)
+2025-04-26 22:08:46,770 INFO [default] [MouseListener] Mouse moved to (543.526, -108.046)
+2025-04-26 22:08:46,787 INFO [default] [MouseListener] Mouse moved to (531.969, -88.879)
+2025-04-26 22:08:46,807 INFO [default] [MouseListener] Mouse moved to (505.533, -47.3075)
+2025-04-26 22:08:46,807 INFO [default] [MouseListener] Mouse moved to (490.77, -24.6716)
+2025-04-26 22:08:46,821 INFO [default] [MouseListener] Mouse moved to (475.546, -0.31279)
+2025-04-26 22:08:46,823 INFO [default] [MouseListener] Mouse moved to (459.471, 28.6228)
+2025-04-26 22:08:46,837 INFO [default] [MouseListener] Mouse moved to (441.869, 58.3253)
+2025-04-26 22:08:46,839 INFO [default] [MouseListener] Mouse moved to (425.368, 89.1279)
+2025-04-26 22:08:46,854 INFO [default] [MouseListener] Mouse moved to (392.214, 156.564)
+2025-04-26 22:08:46,871 INFO [default] [MouseListener] Mouse moved to (366.152, 218.474)
+2025-04-26 22:08:46,887 INFO [default] [MouseListener] Mouse moved to (351.89, 256.581)
+2025-04-26 22:08:46,904 INFO [default] [MouseListener] Mouse moved to (341.293, 286.007)
+2025-04-26 22:08:46,921 INFO [default] [MouseListener] Mouse moved to (334.526, 304.027)
+2025-04-26 22:08:46,937 INFO [default] [MouseListener] Mouse moved to (329.39, 317.797)
+2025-04-26 22:08:46,954 INFO [default] [MouseListener] Mouse moved to (327.238, 323.801)
+2025-04-26 22:08:46,970 INFO [default] [MouseListener] Mouse moved to (325.844, 325.849)
+2025-04-26 22:08:46,988 INFO [default] [MouseListener] Mouse moved to (325.3, 326.679)
+2025-04-26 22:08:47,021 INFO [default] [MouseListener] Mouse button 0 pressed.
+2025-04-26 22:08:47,021 INFO [default] [MouseListener] Mouse moved to (325.172, 326.679)
+2025-04-26 22:08:47,021 INFO [default] [MouseListener] Mouse is being dragged.
+2025-04-26 22:08:47,138 INFO [default] [MouseListener] Mouse button 0 released.
+2025-04-26 22:08:47,138 INFO [default] [MouseListener] Mouse moved to (324.672, 326.679)
+2025-04-26 22:08:47,354 INFO [default] [MouseListener] Mouse moved to (320.588, 326.679)
+2025-04-26 22:08:47,371 INFO [default] [MouseListener] Mouse moved to (311.937, 324.757)
+2025-04-26 22:08:47,387 INFO [default] [MouseListener] Mouse moved to (300.951, 322.13)
+2025-04-26 22:08:47,404 INFO [default] [MouseListener] Mouse moved to (280.99, 316.774)
+2025-04-26 22:08:47,421 INFO [default] [MouseListener] Mouse moved to (245.994, 305.925)
+2025-04-26 22:08:47,423 INFO [default] [MouseListener] Mouse moved to (223.674, 298.485)
+2025-04-26 22:08:47,437 INFO [default] [MouseListener] Mouse moved to (202.933, 291.271)
+2025-04-26 22:08:47,439 INFO [default] [MouseListener] Mouse moved to (178.976, 282.647)
+2025-04-26 22:08:47,454 INFO [default] [MouseListener] Mouse moved to (155.976, 273.063)
+2025-04-26 22:08:47,456 INFO [default] [MouseListener] Mouse moved to (134.586, 262.833)
+2025-04-26 22:08:47,471 INFO [default] [MouseListener] Mouse moved to (125.508, 258.294)
+2025-04-26 22:08:47,471 INFO [default] [MouseListener] Mouse moved to (107.241, 248.726)
+2025-04-26 22:08:47,487 INFO [default] [MouseListener] Mouse moved to (89.8747, 236.884)
+2025-04-26 22:08:47,504 INFO [default] [MouseListener] Mouse moved to (77.2947, 227.122)
+2025-04-26 22:08:47,521 INFO [default] [MouseListener] Mouse moved to (68.147, 219.048)
+2025-04-26 22:08:47,537 INFO [default] [MouseListener] Mouse moved to (64.9154, 215.022)
+2025-04-26 22:08:47,554 INFO [default] [MouseListener] Mouse moved to (63.5221, 212.974)
+2025-04-26 22:08:47,571 INFO [default] [MouseListener] Mouse moved to (63.5221, 212.402)
+2025-04-26 22:08:47,588 INFO [default] [MouseListener] Mouse button 0 pressed.
+2025-04-26 22:08:47,588 INFO [default] [MouseListener] Mouse moved to (63.5221, 212.274)
+2025-04-26 22:08:47,588 INFO [default] [MouseListener] Mouse is being dragged.
+2025-04-26 22:08:47,687 INFO [default] [MouseListener] Mouse button 0 released.
+2025-04-26 22:08:47,688 INFO [default] [MouseListener] Mouse moved to (63.5221, 211.774)
+2025-04-26 22:08:47,823 INFO [default] [MouseListener] Mouse moved to (63.5221, 211.543)
+2025-04-26 22:08:47,838 INFO [default] [MouseListener] Mouse moved to (63.5221, 209.161)
+2025-04-26 22:08:47,840 INFO [default] [MouseListener] Mouse moved to (63.5221, 205.539)
+2025-04-26 22:08:47,854 INFO [default] [MouseListener] Mouse moved to (63.5221, 201.214)
+2025-04-26 22:08:47,856 INFO [default] [MouseListener] Mouse moved to (63.5221, 196.889)
+2025-04-26 22:08:47,871 INFO [default] [MouseListener] Mouse moved to (63.5221, 191.804)
+2025-04-26 22:08:47,873 INFO [default] [MouseListener] Mouse moved to (63.5221, 185.903)
+2025-04-26 22:08:47,888 INFO [default] [MouseListener] Mouse moved to (63.5221, 161.891)
+2025-04-26 22:08:47,904 INFO [default] [MouseListener] Mouse moved to (63.5221, 136.726)
+2025-04-26 22:08:47,920 INFO [default] [MouseListener] Mouse moved to (61.0963, 120.001)
+2025-04-26 22:08:47,937 INFO [default] [MouseListener] Mouse moved to (58.6707, 103.615)
+2025-04-26 22:08:47,954 INFO [default] [MouseListener] Mouse moved to (57.2289, 95.5559)
+2025-04-26 22:08:47,971 INFO [default] [MouseListener] Mouse moved to (55.9823, 89.5525)
+2025-04-26 22:08:47,987 INFO [default] [MouseListener] Mouse moved to (55.2718, 86.3412)
+2025-04-26 22:08:48,004 INFO [default] [MouseListener] Mouse moved to (54.9859, 85.1979)
+2025-04-26 22:08:48,021 INFO [default] [MouseListener] Mouse moved to (54.9859, 84.6817)
+2025-04-26 22:08:48,024 INFO [default] [MouseListener] Mouse moved to (54.7278, 84.4236)
+2025-04-26 22:08:48,038 INFO [default] [MouseListener] Mouse moved to (54.7278, 84.1655)
+2025-04-26 22:08:48,040 INFO [default] [MouseListener] Mouse moved to (54.7278, 83.9074)
+2025-04-26 22:08:48,054 INFO [default] [MouseListener] Mouse moved to (54.4697, 83.6493)
+2025-04-26 22:08:48,057 INFO [default] [MouseListener] Mouse moved to (54.4697, 83.3912)
+2025-04-26 22:08:48,071 INFO [default] [MouseListener] Mouse moved to (54.2116, 83.3912)
+2025-04-26 22:08:48,104 INFO [default] [MouseListener] Mouse button 0 pressed.
+2025-04-26 22:08:48,104 INFO [default] [MouseListener] Mouse moved to (54.2116, 83.2635)
+2025-04-26 22:08:48,104 INFO [default] [MouseListener] Mouse is being dragged.
+2025-04-26 22:08:48,187 INFO [default] [MouseListener] Mouse button 0 released.
+2025-04-26 22:08:48,188 INFO [default] [MouseListener] Mouse moved to (54.2116, 82.7635)
+2025-04-26 22:08:48,354 INFO [default] [MouseListener] Mouse moved to (54.2116, 80.6865)
+2025-04-26 22:08:48,371 INFO [default] [MouseListener] Mouse moved to (54.2116, 75.9227)
+2025-04-26 22:08:48,387 INFO [default] [MouseListener] Mouse moved to (54.2116, 69.9751)
+2025-04-26 22:08:48,404 INFO [default] [MouseListener] Mouse moved to (52.7978, 62.0283)
+2025-04-26 22:08:48,421 INFO [default] [MouseListener] Mouse moved to (48.2863, 43.2779)
+2025-04-26 22:08:48,438 INFO [default] [MouseListener] Mouse moved to (44.3632, 31.2516)
+2025-04-26 22:08:48,440 INFO [default] [MouseListener] Mouse moved to (41.4013, 23.5505)
+2025-04-26 22:08:48,454 INFO [default] [MouseListener] Mouse moved to (38.4394, 16.4419)
+2025-04-26 22:08:48,456 INFO [default] [MouseListener] Mouse moved to (35.4774, 9.33321)
+2025-04-26 22:08:48,471 INFO [default] [MouseListener] Mouse moved to (32.7952, 3.9688)
+2025-04-26 22:08:48,473 INFO [default] [MouseListener] Mouse moved to (30.2527, -0.607727)
+2025-04-26 22:08:48,487 INFO [default] [MouseListener] Mouse moved to (29.1453, -2.45352)
+2025-04-26 22:08:48,488 INFO [default] [MouseListener] Mouse moved to (27.3345, -6.07509)
+2025-04-26 22:08:48,504 INFO [default] [MouseListener] Mouse moved to (24.9525, -10.8947)
+2025-04-26 22:08:48,521 INFO [default] [MouseListener] Mouse moved to (23.1623, -14.1059)
+2025-04-26 22:08:48,537 INFO [default] [MouseListener] Mouse moved to (21.9079, -16.043)
+2025-04-26 22:08:48,554 INFO [default] [MouseListener] Mouse moved to (21.3362, -17.2419)
+2025-04-26 22:08:48,571 INFO [default] [MouseListener] Mouse moved to (20.7923, -18.0717)
+2025-04-26 22:08:48,587 INFO [default] [MouseListener] Mouse moved to (20.7923, -18.3165)
+2025-04-26 22:08:48,604 INFO [default] [MouseListener] Mouse moved to (20.5342, -18.5746)
+2025-04-26 22:08:48,621 INFO [default] [MouseListener] Mouse moved to (20.5342, -18.8147)
+2025-04-26 22:08:48,673 INFO [default] [MouseListener] Mouse moved to (20.2997, -18.8147)
+2025-04-26 22:08:48,704 INFO [default] [MouseListener] Mouse moved to (20.0596, -18.8147)
+2025-04-26 22:08:48,721 INFO [default] [MouseListener] Mouse moved to (19.8148, -18.8147)
+2025-04-26 22:08:48,737 INFO [default] [MouseListener] Mouse moved to (19.3118, -18.3116)
+2025-04-26 22:08:48,754 INFO [default] [MouseListener] Mouse moved to (19.0536, -17.7954)
+2025-04-26 22:08:48,771 INFO [default] [MouseListener] Mouse moved to (18.482, -16.6521)
+2025-04-26 22:08:48,788 INFO [default] [MouseListener] Mouse moved to (18.1962, -15.5087)
+2025-04-26 22:08:48,804 INFO [default] [MouseListener] Mouse moved to (17.6523, -14.6789)
+2025-04-26 22:08:48,820 INFO [default] [MouseListener] Mouse moved to (17.136, -14.1627)
+2025-04-26 22:08:48,837 INFO [default] [MouseListener] Mouse moved to (16.8779, -13.6465)
+2025-04-26 22:08:48,854 INFO [default] [MouseListener] Mouse moved to (16.6198, -13.1303)
+2025-04-26 22:08:48,870 INFO [default] [MouseListener] Mouse moved to (16.3752, -12.8857)
+2025-04-26 22:08:48,873 INFO [default] [MouseListener] Mouse moved to (16.3752, -12.6276)
+2025-04-26 22:08:48,887 INFO [default] [MouseListener] Mouse moved to (16.1171, -12.6276)
+2025-04-26 22:08:48,904 INFO [default] [MouseListener] Mouse moved to (15.8725, -12.6276)
+2025-04-26 22:08:49,010 INFO [default] [Texture] Deleting texture ID: 1
+2025-04-26 22:08:49,010 INFO [default] [Texture] Texture ID: 1 deleted from GPU memory.
+2025-04-26 22:08:49,010 INFO [default] [Texture] Deleting texture ID: 2
+2025-04-26 22:08:49,010 INFO [default] [Texture] Texture ID: 2 deleted from GPU memory.
+2025-04-26 22:08:49,010 INFO [default] [Texture] Deleting texture ID: 3
+2025-04-26 22:08:49,010 INFO [default] [Texture] Texture ID: 3 deleted from GPU memory.
+2025-04-26 22:08:49,010 INFO [default] [Texture] Deleting texture ID: 4
+2025-04-26 22:08:49,010 INFO [default] [Texture] Texture ID: 4 deleted from GPU memory.
+2025-04-26 22:08:49,010 INFO [default] [Texture] Deleting texture ID: 5
+2025-04-26 22:08:49,010 INFO [default] [Texture] Texture ID: 5 deleted from GPU memory.
+2025-04-26 22:08:49,010 INFO [default] [Texture] Deleting texture ID: 6
+2025-04-26 22:08:49,011 INFO [default] [Texture] Texture ID: 6 deleted from GPU memory.
+2025-04-26 22:08:49,011 INFO [default] [Texture] Deleting texture ID: 7
+2025-04-26 22:08:49,011 INFO [default] [Texture] Texture ID: 7 deleted from GPU memory.
+2025-04-26 22:08:49,011 INFO [default] [Texture] Deleting texture ID: 8
+2025-04-26 22:08:49,011 INFO [default] [Texture] Texture ID: 8 deleted from GPU memory.
+2025-04-26 22:08:49,011 INFO [default] [Texture] Deleting texture ID: 9
+2025-04-26 22:08:49,011 INFO [default] [Texture] Texture ID: 9 deleted from GPU memory.
+2025-04-26 22:08:49,011 INFO [default] [Texture] Deleting texture ID: 10
+2025-04-26 22:08:49,011 INFO [default] [Texture] Texture ID: 10 deleted from GPU memory.
+2025-04-26 22:08:49,011 INFO [default] [Texture] Deleting texture ID: 11
+2025-04-26 22:08:49,011 INFO [default] [Texture] Texture ID: 11 deleted from GPU memory.
+2025-04-26 22:08:49,011 INFO [default] [Texture] Deleting texture ID: 12
+2025-04-26 22:08:49,011 INFO [default] [Texture] Texture ID: 12 deleted from GPU memory.
+2025-04-26 22:08:49,011 INFO [default] [Texture] Deleting texture ID: 13
+2025-04-26 22:08:49,011 INFO [default] [Texture] Texture ID: 13 deleted from GPU memory.
+2025-04-26 22:08:49,011 INFO [default] [Texture] Deleting texture ID: 14
+2025-04-26 22:08:49,011 INFO [default] [Texture] Texture ID: 14 deleted from GPU memory.
+2025-04-26 22:08:49,011 INFO [default] [Texture] Deleting texture ID: 15
+2025-04-26 22:08:49,011 INFO [default] [Texture] Texture ID: 15 deleted from GPU memory.
+2025-04-26 22:08:49,011 INFO [default] [Texture] Deleting texture ID: 16
+2025-04-26 22:08:49,011 INFO [default] [Texture] Texture ID: 16 deleted from GPU memory.
+2025-04-26 22:08:49,011 INFO [default] [Texture] Deleting texture ID: 17
+2025-04-26 22:08:49,011 INFO [default] [Texture] Texture ID: 17 deleted from GPU memory.
+2025-04-26 22:08:49,011 INFO [default] [Application] Destroying application and window.
+2025-04-26 22:08:49,018 INFO [default] [WindowHandler] GLFW window destroyed and resources cleaned up.

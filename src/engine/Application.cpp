@@ -7,9 +7,11 @@
 #include "external/imgui.h"
 #include "external/imgui_impl_glfw.h"
 #include "external/imgui_impl_opengl3.h"
+#include "external/easylogging++.h"
+INITIALIZE_EASYLOGGINGPP
 
+#include <iostream>
 #include <numeric>
-#include <semaphore>
 #include <thread>
 
 namespace Engine {
@@ -41,25 +43,36 @@ Application::Application(const int Width, const int Height, const char *Title) {
    AppInfo.ScreenWidth = Width;
    AppInfo.ScreenHeight = Height;
    AppInfo.Title = Title;
+   
+   LOG(INFO) << "[Application] Created with dimensions (" << Width << "x" << Height << ") and title: " << Title;
 }
 
 Application::~Application() {
+   LOG(INFO) << "[Application] Destroying application and window.";
    delete Window;
 }
 
 void Application::SetFPS(int FPS) {
    if (FPS < 0 ) return;
    TargetFrameTime = 1.0 / FPS;
+   LOG(INFO) << "[Application] FPS set to " << FPS;
 }
 
 void Application::Debug() {
    ShowFPS = !ShowFPS;
 }
 
-void Application::Init() {}
-void Application::Update(float dt) {}
-void Application::Render() const {}
-void Application::RenderImGui() {}
+void Application::Init() {
+}
+
+void Application::Update(float dt) {
+}
+
+void Application::Render() const {
+}
+
+void Application::RenderImGui() {
+}
 
 // ─────────────────────────────────────────────────────────────
 // FPS Counter
@@ -82,6 +95,7 @@ void Application::UpdateFpsCounter() {
 
       FrameCount = 0;
       FpsTimer = 0;
+      
    }
 }
 
@@ -105,6 +119,7 @@ void Application::Run() {
       CapFrameRate(FrameStartTime);
    }
 }
+
 
 // ─────────────────────────────────────────────────────────────
 // Frame Loop Helpers
@@ -138,6 +153,7 @@ void Application::EndFrame() {
    double FrameEndTime = glfwGetTime();
    DeltaTime = FrameEndTime - LastFrameTime;
    LastFrameTime = FrameEndTime;
+
 }
 
 void Application::CapFrameRate(double FrameStartTime) {
