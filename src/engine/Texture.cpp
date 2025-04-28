@@ -59,6 +59,35 @@ Texture::Texture(const char* FilePath) {
    stbi_image_free(Pixels);
    LOG(INFO) << "[Texture] Image data freed from memory after upload.";
 }
+/**
+ * @brief Texture constructor for glyphs
+ */
+Texture::Texture(int width, int height, unsigned char* data) 
+    : Width(width), Height(height) {
+    
+   glGenTextures(1, &ID);
+   glBindTexture(GL_TEXTURE_2D, ID);
+   glTexImage2D(
+      GL_TEXTURE_2D,
+      0,
+      GL_RGBA,
+      width,
+      height,
+      0,
+      GL_RED,
+      GL_UNSIGNED_BYTE,
+      data
+   );
+   // set texture options
+   glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_SWIZZLE_R, GL_RED);
+   glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_SWIZZLE_G, GL_RED);
+   glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_SWIZZLE_B, GL_RED);
+   glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_SWIZZLE_A, GL_RED);
+   glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+   glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+   glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+   glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+}
 
 /**
  * @brief Destructor to delete the texture from GPU memory.

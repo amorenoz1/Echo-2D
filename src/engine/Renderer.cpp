@@ -18,17 +18,6 @@ namespace Engine {
 
 BatchRendererData BatchData = {0}; ///< Global batch rendering statistics tracker
 
-/**
- * @brief Converts screen coordinates to Normalized Device Coordinates (NDC)
- * @param ScreenX X coordinate in screen space
- * @param ScreenY Y coordinate in screen space
- * @return glm::vec2 Coordinates in OpenGL's NDC space (-1 to 1)
- */
-glm::vec2 ScreenToNDC(float ScreenX, float ScreenY) {
-   float ndcX = (2.0f * ScreenX) / AppInfo.ScreenWidth - 1.0f;
-   float ndcY = 1.0f - (2.0f * ScreenY) / AppInfo.ScreenHeight;
-   return glm::vec2(ndcX, ndcY);
-}
 
 /**
  * @brief Constructs a Renderer and initializes OpenGL resources
@@ -38,6 +27,7 @@ Renderer::Renderer() {
    Shader = new Utils::Shader();
    VBOMaxSize = sizeof(Utils::Vertex) * 1024;
    EBOMaxSize = sizeof(GLuint) * 1024;
+   Projection = glm::ortho(0.0f, (float)AppInfo.ScreenWidth, (float)AppInfo.ScreenHeight, 0.0f);
 
    glGenVertexArrays(1, &VAO);
    glGenBuffers(1, &VBO);
@@ -65,6 +55,9 @@ Renderer::Renderer() {
                          (void *)offsetof(Utils::Vertex, TextureIndex));
    glEnableVertexAttribArray(3);
 
+   glEnable(GL_BLEND);
+   glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);  
+
    Shader->Use();
    int MaxSamplers;
    glGetIntegerv(GL_MAX_TEXTURE_IMAGE_UNITS, &MaxSamplers);
@@ -74,6 +67,7 @@ Renderer::Renderer() {
    Shader->SetIntV("Textures", MaxSamplers, Samplers);
 
    MaxTextureSlots = (GLuint)MaxSamplers;
+
 }
 
 /**
@@ -152,8 +146,8 @@ void Renderer::DrawCircle(float Radius, glm::vec2 Center, glm::vec4 Color) {
    float Angle = 360.0f / (float)VertexCount;
 
    Utils::Vertex CenterVertex;
-   CenterVertex.Position.x = ScreenToNDC(Center.x, 0.0f).x;
-   CenterVertex.Position.y = ScreenToNDC(0.0f, Center.y).y;
+   CenterVertex.Position.x = Center.x;
+   CenterVertex.Position.y = Center.y;
    CenterVertex.Position.z = 0.0f;
    CenterVertex.Color = Color;
    CenterVertex.TexCoords = {0.0f, 0.0f};
@@ -163,8 +157,8 @@ void Renderer::DrawCircle(float Radius, glm::vec2 Center, glm::vec4 Color) {
    for (int i = 0; i < VertexCount; i++) {
       float CurrAngle = Angle * i;
       Utils::Vertex TempVert;
-      TempVert.Position.x = ScreenToNDC((Radius * std::cos(glm::radians(CurrAngle))) + Center.x, 0.0f).x;
-      TempVert.Position.y = ScreenToNDC(0.0f, (Radius * std::sin(glm::radians(CurrAngle))) + Center.y).y;
+      TempVert.Position.x = Radius * std::cos(glm::radians(CurrAngle)) + Center.x;
+      TempVert.Position.y = Radius * std::sin(glm::radians(CurrAngle)) + Center.y;
       TempVert.Position.z = 0.0f;
       TempVert.Color = (1.0f / 255.0f) * Color;
       TempVert.TexCoords = {0.0f, 0.0f};
@@ -199,8 +193,7 @@ void Renderer::DrawRect(glm::vec2 Dimensions, glm::vec2 Center, glm::vec4 Color)
    };
 
    for (int i = 0; i < 4; i++) {
-      glm::vec2 ndc = ScreenToNDC(positions[i].x, positions[i].y);
-      vertices[i].Position = {ndc.x, ndc.y, 0.0f};
+      vertices[i].Position = {Center.x, Center.y, 0.0f};
       vertices[i].Color = (1.0f / 255.f) * Color;
       vertices[i].TexCoords = {0.0f, 0.0f};
       vertices[i].TextureIndex = -1.0f;
@@ -229,8 +222,7 @@ void Renderer::DrawTriangle(glm::vec2 V0, glm::vec2 V1, glm::vec2 V2, glm::vec4 
    glm::vec2 positions[3] = {V0, V1, V2};
 
    for (int i = 0; i < 3; i++) {
-      glm::vec2 ndc = ScreenToNDC(positions[i].x, positions[i].y);
-      vertices[i].Position = {ndc.x, ndc.y, 0.0f};
+      vertices[i].Position = {positions[i].x, positions[i].y, 0.0f};
       vertices[i].Color = (1.0f / 255.f) * Color;
       vertices[i].TexCoords = {0.0f, 0.0f};
       vertices[i].TextureIndex = -1.0f;
@@ -267,8 +259,7 @@ void Renderer::DrawRectTexture(glm::vec2 Dimensions, glm::vec2 Center, glm::vec4
    glm::vec2 uvs[4] = {{0.0f, 0.0f}, {1.0f, 0.0f}, {1.0f, 1.0f}, {0.0f, 1.0f}};
 
    for (int i = 0; i < 4; i++) {
-      glm::vec2 ndc = ScreenToNDC(positions[i].x, positions[i].y);
-      vertices[i].Position = {ndc.x, ndc.y, 0.0f};
+      vertices[i].Position = {positions[i].x, positions[i].y, 0.0f};
       vertices[i].Color = (1.0f / 255.f) * Tint;
       vertices[i].TexCoords = uvs[i];
       vertices[i].TextureIndex = (float)Index;
@@ -301,8 +292,7 @@ void Renderer::DrawTriangleTexture(glm::vec2 V0, glm::vec2 V1, glm::vec2 V2, glm
    glm::vec2 uvs[3] = {{0.0f, 0.0f}, {0.5f, 1.0f}, {1.0f, 0.0f}};
 
    for (int i = 0; i < 3; i++) {
-      glm::vec2 ndc = ScreenToNDC(positions[i].x, positions[i].y);
-      vertices[i].Position = {ndc.x, ndc.y, 0.0f};
+      vertices[i].Position = {positions[i].x, positions[i].y, 0.0f};
       vertices[i].Color = (1.0f / 255.f) * Tint;
       vertices[i].TexCoords = uvs[i];
       vertices[i].TextureIndex = (float)Index;
@@ -332,8 +322,8 @@ void Renderer::DrawCircleTexture(float Radius, glm::vec2 Center, glm::vec4 Tint,
 
    // Center vertex
    Utils::Vertex CenterVertex;
-   CenterVertex.Position.x = ScreenToNDC(Center.x, 0.0f).x;
-   CenterVertex.Position.y = ScreenToNDC(0.0f, Center.y).y;
+   CenterVertex.Position.x = Center.x;
+   CenterVertex.Position.y = Center.y;
    CenterVertex.Position.z = 0.0f;
    CenterVertex.Color = (1.0f / 255.0f) * Tint;
    CenterVertex.TexCoords = {0.5f, 0.5f};
@@ -344,8 +334,8 @@ void Renderer::DrawCircleTexture(float Radius, glm::vec2 Center, glm::vec4 Tint,
    for (int i = 0; i < VertexCount; i++) {
       float CurrAngle = Angle * i;
       Utils::Vertex TempVert;
-      TempVert.Position.x = ScreenToNDC((Radius * std::cos(glm::radians(CurrAngle))) + Center.x, 0.0f).x;
-      TempVert.Position.y = ScreenToNDC(0.0f, (Radius * std::sin(glm::radians(CurrAngle))) + Center.y).y;
+      TempVert.Position.x = Radius * std::cos(glm::radians(CurrAngle)) + Center.x;
+      TempVert.Position.y = Radius * std::sin(glm::radians(CurrAngle)) + Center.y;
       TempVert.Position.z = 0.0f;
       TempVert.Color = (1.0f / 255.0f) * Tint;
       TempVert.TexCoords = {
@@ -364,6 +354,27 @@ void Renderer::DrawCircleTexture(float Radius, glm::vec2 Center, glm::vec4 Tint,
    }
 }
 
+void Renderer::DrawText(const std::string& text, glm::vec2 position, 
+                        Font& font, glm::vec4 color, float scale) {
+   // Starting X position (we'll advance this per character)
+   float x = position.x;
+   float y = position.y;
+
+   for (char c : text) {
+      Character& ch = font.GetCharacter(c);
+
+      float xpos = x + ch.Bearing.x * scale;
+      float ypos = y - ch.Size.y * scale;
+
+      float w = ch.Size.x * scale;
+      float h = ch.Size.y * scale;
+
+      DrawRectTexture({w, h}, {xpos, ypos}, color, *ch.Texture);
+
+      x += (ch.Advance >> 6) * scale;
+   }
+}
+
 /**
  * @brief Finalizes batch data and uploads to GPU
  * @note Debug vertex printing can be enabled via 'printVertex' flag
@@ -379,7 +390,7 @@ void Renderer::EndDraw() {
                    GetInstance().IndexData.data());
 
    GetInstance().Shader->Use();
-   GetInstance().Shader->SetMat4("projection", glm::mat4(1.0f));
+   GetInstance().Shader->SetMat4("projection", GetInstance().Projection);
    GetInstance().Shader->SetMat4("model", glm::mat4(1.0f));
    GetInstance().Shader->SetMat4("view", glm::mat4(1.0f));
    GetInstance().Shader->SetVec4("Tint", glm::vec4(1.0f));

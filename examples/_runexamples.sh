@@ -11,7 +11,7 @@ cd ./$2
 ls
 
 if [ "$1" == "compile" ]; then
-   cc="clang++ $2.cpp -std=c++11 -Wall -Wextra -L$path_to_lib -lEcho2D -I$path_to_include -o $2"
+   cc="clang++ $2.cpp -I/usr/local/opt/freetype2/include/freetype2 -std=c++11 -Wall -Wextra -L$path_to_lib -lEcho2D -I$path_to_include -o $2"
    eval "$cc"
 
 elif [ "$1" == "run" ]; then

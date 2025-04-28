@@ -16,6 +16,7 @@ set(INCLUDE_DIR "${TARGET_DIR}/include")
 find_package(OpenGL REQUIRED)
 find_package(glfw3 REQUIRED)
 find_package(GLM REQUIRED)
+find_package(Freetype REQUIRED)
 
 # Collect all source files
 add_library(Echo2D SHARED 
@@ -24,6 +25,7 @@ add_library(Echo2D SHARED
    src/engine/Application.cpp
    src/engine/Texture.cpp
    src/engine/Renderer.cpp
+   src/engine/Font.cpp
    src/external/stb.cpp
    src/external/glad.c
    src/external/imgui.cpp
@@ -38,6 +40,7 @@ add_library(Echo2D SHARED
 )
 
 # Include directories
+target_include_directories(Echo2D PUBLIC ${FREETYPE_INCLUDE_DIRS})
 target_include_directories(Echo2D PUBLIC include ${GLM_INCLUDE_DIRS})
 
 # Platform-specific linking
@@ -48,6 +51,8 @@ elseif (APPLE)
 elseif (UNIX)
     target_link_libraries(Echo2D PRIVATE glfw GL)
 endif()
+
+target_link_libraries(Echo2D PRIVATE ${FREETYPE_LIBRARIES})
 
 # Set output directories to rootdir/target
 set_target_properties(Echo2D PROPERTIES

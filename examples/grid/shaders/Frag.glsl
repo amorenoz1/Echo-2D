@@ -17,7 +17,8 @@ void main() {
       TexColor = vec4(1.0);
    } else {
       TexColor = texture(Textures[index], TexCoord);
-   }
+   } 
 
    FragColor = VertexColor * TexColor * Tint;
 }
+

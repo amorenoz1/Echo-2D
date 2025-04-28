@@ -1,3 +1,4 @@
+#include "engine/Font.h"
 #include <Echo2D.h>
 #include <vector>
 
@@ -8,15 +9,20 @@ public:
       for (Engine::Texture* tex : Textures) {
          delete tex;
       }
+      delete font;
    }
 
 
    glm::vec2 position = {0.0f, 0.0f};
+   glm::vec2 position1 = {100.0f, 100.0f};
    glm::vec2 dimensions = {30.0f, 30.0f};
    glm::vec4 color1 = {255.0f, 255.0f, 255.0f, 255.0f};
+   glm::vec4 color2 = {0.0f, 255.0f, 0.0f, 255.0f};
    glm::vec4 background = {144.0f, 233.0f, 200.0f, 255.0f};
 
    std::vector<Engine::Texture*> Textures;
+
+   Engine::Font *font = nullptr;
 
    void Init() override {
       Textures.push_back(new Engine::Texture("assets/dvd.png"));
@@ -36,6 +42,7 @@ public:
       Textures.push_back(new Engine::Texture("assets/sprite_305.png"));
       Textures.push_back(new Engine::Texture("assets/sprite_306.png"));
       Textures.push_back(new Engine::Texture("assets/sprite_307.png"));
+      font = new Engine::Font("assets/myFont.ttf", 30);
 
       Debug();
       SetFPS(500);
@@ -54,6 +61,7 @@ public:
             Engine::Renderer::DrawRectTexture(dimensions, (glm::vec2){x, y}, color1, *Textures.at(j));
          }
       }
+      Engine::Renderer::DrawText("Hello Text. gREAT!", position1, *font, color2);
    }
 
 };
