@@ -354,6 +354,14 @@ void Renderer::DrawCircleTexture(float Radius, glm::vec2 Center, glm::vec4 Tint,
    }
 }
 
+/**
+ * @brief Draws a textured triangle
+ * @param text
+ * @param positio in screen coordinates
+ * @param font 
+ * @param color multiplier (0-255 range, auto-normalized)
+ * @param scale
+ */
 void Renderer::DrawText(const std::string& text, glm::vec2 position, 
                         Font& font, glm::vec4 color, float scale) {
    // Starting X position (we'll advance this per character)
@@ -364,7 +372,7 @@ void Renderer::DrawText(const std::string& text, glm::vec2 position,
       Character& ch = font.GetCharacter(c);
 
       float xpos = x + ch.Bearing.x * scale;
-      float ypos = y - ch.Size.y * scale;
+      float ypos = y - ch.Bearing.y * scale;
 
       float w = ch.Size.x * scale;
       float h = ch.Size.y * scale;
