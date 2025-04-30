@@ -10,8 +10,6 @@
 #include <engine/ApplicationInfo.h>
 #include <engine/Renderer.h>
 #include <glm/gtc/matrix_transform.hpp>
-#include <iostream>
-#include <ostream>
 #include <utils/ShaderUtils.h>
 
 namespace Engine {
