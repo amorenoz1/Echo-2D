@@ -1,4 +1,7 @@
+#include "engine/Camera.h"
 #include "engine/Font.h"
+#include "engine/InputHandler.h"
+#include "engine/Renderer.h"
 #include <Echo2D.h>
 #include <vector>
 
@@ -21,8 +24,11 @@ public:
    glm::vec4 background = {144.0f, 233.0f, 200.0f, 255.0f};
 
    std::vector<Engine::Texture*> Textures;
-
+   Engine::Camera2D *my_camera = nullptr;
    Engine::Font *font = nullptr;
+   float camera_speed = 20.0f;
+
+
 
    void Init() override {
       Textures.push_back(new Engine::Texture("assets/dvd.png"));
@@ -43,12 +49,41 @@ public:
       Textures.push_back(new Engine::Texture("assets/sprite_306.png"));
       Textures.push_back(new Engine::Texture("assets/sprite_307.png"));
       font = new Engine::Font("assets/myFont.ttf", 48);
+      my_camera = new Engine::Camera2D(800, 600);
+      
+      Engine::Renderer::AddCamera2D(*my_camera);
 
       Debug();
       SetFPS(500);
    }
 
    void Update(float dt) override {
+      const float move_amount = camera_speed * dt;
+
+      if (Engine::KeyListener::isKeyPressed(GLFW_KEY_W)) {
+         my_camera->Move({0.0f, -move_amount}); // Down
+      }
+      if (Engine::KeyListener::isKeyPressed(GLFW_KEY_S)) {
+         my_camera->Move({0.0f, +move_amount}); // Up
+      }
+      if (Engine::KeyListener::isKeyPressed(GLFW_KEY_A)) {
+         my_camera->Move({-move_amount, 0.0f}); // Left
+      }
+      if (Engine::KeyListener::isKeyPressed(GLFW_KEY_D)) {
+         my_camera->Move({+move_amount, 0.0f}); // Right
+      }
+      if (Engine::KeyListener::isKeyPressed(GLFW_KEY_O)) {
+         my_camera->Zoom(1.025f); // Zoom in
+      }
+      if (Engine::KeyListener::isKeyPressed(GLFW_KEY_P)) {
+         my_camera->Zoom(0.975f); // Zoom out
+      }
+      if (Engine::KeyListener::isKeyPressed(GLFW_KEY_Q)) {
+         my_camera->Rotate(+1.0f); // Rotate CCW
+      }
+      if (Engine::KeyListener::isKeyPressed(GLFW_KEY_E)) {
+         my_camera->Rotate(-1.0f); // Rotate CW
+      }
    }
 
    void Render() const override {

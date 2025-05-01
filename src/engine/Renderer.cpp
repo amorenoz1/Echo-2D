@@ -10,6 +10,7 @@
 #include <engine/ApplicationInfo.h>
 #include <engine/Renderer.h>
 #include <glm/gtc/matrix_transform.hpp>
+#include <iostream>
 #include <utils/ShaderUtils.h>
 
 namespace Engine {
@@ -25,7 +26,7 @@ Renderer::Renderer() {
    Shader = new Utils::Shader();
    VBOMaxSize = sizeof(Utils::Vertex) * 1024;
    EBOMaxSize = sizeof(GLuint) * 1024;
-   Projection = glm::ortho(0.0f, (float)AppInfo.ScreenWidth, (float)AppInfo.ScreenHeight, 0.0f);
+   Projection = glm::ortho(20.0f, (float)AppInfo.ScreenWidth, (float)AppInfo.ScreenHeight, 0.0f);
 
    glGenVertexArrays(1, &VAO);
    glGenBuffers(1, &VBO);
@@ -66,6 +67,13 @@ Renderer::Renderer() {
 
    MaxTextureSlots = (GLuint)MaxSamplers;
 
+}
+
+/**
+ * @brief Adds a 2D camera to the renderer
+ */ 
+void Renderer::AddCamera2D(Camera2D &Camera) {
+   GetInstance().Camera = &Camera;
 }
 
 /**
@@ -395,10 +403,15 @@ void Renderer::EndDraw() {
                    sizeof(GLuint) * GetInstance().IndexData.size(),
                    GetInstance().IndexData.data());
 
+   if (GetInstance().Camera != nullptr) {
+      GetInstance().View = GetInstance().Camera->GetViewMatrix();
+      GetInstance().Projection = GetInstance().Camera->GetProjectionMatrix();
+   }
+
    GetInstance().Shader->Use();
    GetInstance().Shader->SetMat4("projection", GetInstance().Projection);
-   GetInstance().Shader->SetMat4("model", glm::mat4(1.0f));
-   GetInstance().Shader->SetMat4("view", glm::mat4(1.0f));
+   GetInstance().Shader->SetMat4("model", GetInstance().Model);
+   GetInstance().Shader->SetMat4("view", GetInstance().View);
    GetInstance().Shader->SetVec4("Tint", glm::vec4(1.0f));
 
 }

@@ -25,6 +25,7 @@ add_library(Echo2D SHARED
    src/engine/Application.cpp
    src/engine/Texture.cpp
    src/engine/Renderer.cpp
+   src/engine/Camera.cpp
    src/engine/Font.cpp
    src/external/stb.cpp
    src/external/glad.c

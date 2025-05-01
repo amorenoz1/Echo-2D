@@ -14,7 +14,7 @@ namespace Engine {
  */
 bool KeyListener::isKeyPressed(int Key) {
    bool isPressed = GetInstance().Keys[Key];
-   LOG(TRACE) << "[KeyListener] Checking if key " << Key << " is pressed: " << isPressed;
+   // LOG(TRACE) << "[KeyListener] Checking if key " << Key << " is pressed: " << isPressed;
    return isPressed;
 }
 
@@ -29,10 +29,10 @@ bool KeyListener::isKeyPressed(int Key) {
 void KeyListener::KeyCallback(GLFWwindow* Window, int Key, int Scancode, int Action, int Mods) {
    if (Action == GLFW_PRESS) {
       GetInstance().Keys[Key] = true;
-      LOG(INFO) << "[KeyListener] Key pressed: " << Key;
+      // LOG(INFO) << "[KeyListener] Key pressed: " << Key;
    } else if (Action == GLFW_RELEASE) {
       GetInstance().Keys[Key] = false;
-      LOG(INFO) << "[KeyListener] Key released: " << Key;
+      // LOG(INFO) << "[KeyListener] Key released: " << Key;
    }
 }
 
@@ -46,7 +46,7 @@ void KeyListener::KeyCallback(GLFWwindow* Window, int Key, int Scancode, int Act
  */
 bool MouseListener::IsMouseButtonDown(int MouseButton) {
    bool isPressed = (MouseButton < 3) ? GetInstance().MouseButtons[MouseButton] : false;
-   LOG(TRACE) << "[MouseListener] Checking if mouse button " << MouseButton << " is down: " << isPressed;
+   // LOG(TRACE) << "[MouseListener] Checking if mouse button " << MouseButton << " is down: " << isPressed;
    return isPressed;
 }
 
@@ -55,7 +55,7 @@ bool MouseListener::IsMouseButtonDown(int MouseButton) {
  */
 bool MouseListener::GetIsDragging() {
    bool isDragging = GetInstance().IsDragging;
-   LOG(TRACE) << "[MouseListener] Checking if dragging: " << isDragging;
+   // LOG(TRACE) << "[MouseListener] Checking if dragging: " << isDragging;
    return isDragging;
 }
 
@@ -74,9 +74,9 @@ void MouseListener::MousePosCallback(GLFWwindow* Window, double PosX, double Pos
 
    instance.IsDragging = instance.MouseButtons[0] || instance.MouseButtons[1] || instance.MouseButtons[2];
    
-   LOG(INFO) << "[MouseListener] Mouse moved to (" << PosX << ", " << PosY << ")";
+   // LOG(INFO) << "[MouseListener] Mouse moved to (" << PosX << ", " << PosY << ")";
    if (instance.IsDragging) {
-      LOG(INFO) << "[MouseListener] Mouse is being dragged.";
+     // LOG(INFO) << "[MouseListener] Mouse is being dragged.";
    }
 }
 
@@ -93,11 +93,11 @@ void MouseListener::MouseButtonCallback(GLFWwindow* Window, int Button, int Acti
    if (Button < 3) {
       if (Action == GLFW_PRESS) {
          instance.MouseButtons[Button] = true;
-         LOG(INFO) << "[MouseListener] Mouse button " << Button << " pressed.";
+        // LOG(INFO) << "[MouseListener] Mouse button " << Button << " pressed.";
       } else if (Action == GLFW_RELEASE) {
          instance.MouseButtons[Button] = false;
          instance.IsDragging = false;
-         LOG(INFO) << "[MouseListener] Mouse button " << Button << " released.";
+         // LOG(INFO) << "[MouseListener] Mouse button " << Button << " released.";
       }
    }
 }
@@ -113,20 +113,20 @@ void MouseListener::ScrollCallback(GLFWwindow* Window, double ScrollX, double Sc
    instance.ScrollX = ScrollX;
    instance.ScrollY = ScrollY;
 
-   LOG(INFO) << "[MouseListener] Mouse scroll event: (" << ScrollX << ", " << ScrollY << ")";
+  // LOG(INFO) << "[MouseListener] Mouse scroll event: (" << ScrollX << ", " << ScrollY << ")";
 }
 
 // Position Getters
 
 float MouseListener::GetX() {
    float posX = static_cast<float>(GetInstance().PosX);
-   LOG(TRACE) << "[MouseListener] GetX: " << posX;
+   // LOG(TRACE) << "[MouseListener] GetX: " << posX;
    return posX;
 }
 
 float MouseListener::GetY() {
    float posY = static_cast<float>(GetInstance().PosY);
-   LOG(TRACE) << "[MouseListener] GetY: " << posY;
+   // LOG(TRACE) << "[MouseListener] GetY: " << posY;
    return posY;
 }
 
@@ -134,13 +134,13 @@ float MouseListener::GetY() {
 
 float MouseListener::GetScrollX() {
    float scrollX = static_cast<float>(GetInstance().ScrollX);
-   LOG(TRACE) << "[MouseListener] GetScrollX: " << scrollX;
+   // LOG(TRACE) << "[MouseListener] GetScrollX: " << scrollX;
    return scrollX;
 }
 
 float MouseListener::GetScrollY() {
    float scrollY = static_cast<float>(GetInstance().ScrollY);
-   LOG(TRACE) << "[MouseListener] GetScrollY: " << scrollY;
+   // LOG(TRACE) << "[MouseListener] GetScrollY: " << scrollY;
    return scrollY;
 }
 
@@ -148,13 +148,13 @@ float MouseListener::GetScrollY() {
 
 float MouseListener::GetDx() {
    float dx = static_cast<float>(GetInstance().LastPosX - GetInstance().PosX);
-   LOG(TRACE) << "[MouseListener] GetDx: " << dx;
+   // LOG(TRACE) << "[MouseListener] GetDx: " << dx;
    return dx;
 }
 
 float MouseListener::GetDy() {
    float dy = static_cast<float>(GetInstance().LastPosY - GetInstance().PosY);
-   LOG(TRACE) << "[MouseListener] GetDy: " << dy;
+   // LOG(TRACE) << "[MouseListener] GetDy: " << dy;
    return dy;
 }
 

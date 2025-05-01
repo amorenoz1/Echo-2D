@@ -2,6 +2,7 @@
 #define RENDERER_H
 
 #include "core/core.h"
+#include "engine/Camera.h"
 #include "utils/ShaderUtils.h"
 #include "engine/Font.h"
 #include "utils/Utils.h"
@@ -32,6 +33,9 @@ class Renderer : public Utils::Singleton<Renderer> {
 
 public:
    // === Initialization & Finalization ===
+
+   /// Initializes a 2D camera
+   static void AddCamera2D(Camera2D& Camera);
 
    /// Initializes buffers and rendering state.
    static void InitDraw();
@@ -91,7 +95,12 @@ private:
 
 
    // === Matrices ===
-   glm::mat4 Projection; 
+   glm::mat4 Projection = glm::mat4(1.0f); 
+   glm::mat4 View = glm::mat4(1.0f);
+   glm::mat4 Model = glm::mat4(1.0f);
+
+   // === Camera ===
+   Camera2D *Camera = nullptr;
 
    // === Internal Helpers ===
 
