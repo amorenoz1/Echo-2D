@@ -2,7 +2,7 @@
 #include <glm/gtc/matrix_transform.hpp>
 #include <external/easylogging++.h>
 
-namespace Engine {
+namespace Echo2D {
 
 Camera2D::Camera2D(float ViewportWidth, float ViewportHeight) {
    m_ViewportSize = {ViewportWidth, ViewportHeight};
@@ -93,5 +93,5 @@ void Camera2D::UpdateCameraState() {
    LOG(DEBUG) << "Camera2D view matrix updated.";
 }
 
-} // namespace Engine
+} // namespace Echo2D
 

@@ -5,7 +5,7 @@
 #include <glm/glm.hpp>
 #include <engine/Texture.h>
 
-namespace Engine {
+namespace Echo2D {
 
 /**
  * @brief Holds all state information relevant to a single glyph character.
@@ -48,5 +48,5 @@ private:
     std::map<char, Character> Characters; /**< Map from character codes to their glyph information. */
 };
 
-} // namespace Engine
+} // namespace Echo2D
 

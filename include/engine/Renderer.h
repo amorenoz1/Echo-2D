@@ -9,7 +9,7 @@
 #include "engine/Texture.h"
 #include <vector>
 
-namespace Engine {
+namespace Echo2D {
 
 /**
  * @struct BatchRendererData
@@ -124,7 +124,7 @@ private:
    ~Renderer();
 };
 
-} // namespace Engine
+} // namespace Echo2D
 
 #endif // RENDERER_H
 

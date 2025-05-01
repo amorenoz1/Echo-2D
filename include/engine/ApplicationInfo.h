@@ -1,7 +1,7 @@
 #ifndef APPLICATIONINFO_H
 #define APPLICATIONINFO_H
 
-namespace Engine {
+namespace Echo2D{
 
 struct ApplicationInfo {
    int ScreenHeight = {0};

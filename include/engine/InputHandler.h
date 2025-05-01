@@ -4,7 +4,7 @@
 #include "core/core.h"
 #include <utils/Utils.h>
 
-namespace Engine {
+namespace Echo2D {
 
 /**
  * @class KeyListener
@@ -117,7 +117,7 @@ public:
     static void Init(GLFWwindow* Window);
 };
 
-} // namespace Engine
+} // namespace Echo2D
 
 #endif // INPUTHANDLER_H
 

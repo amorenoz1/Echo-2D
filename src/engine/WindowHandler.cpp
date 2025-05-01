@@ -9,7 +9,7 @@
 #include "external/imgui_impl_opengl3.h"
 #include "external/easylogging++.h"
 
-namespace Engine {
+namespace Echo2D {
 
 /**
  * @brief GLFW callback function for handling window resizing.
@@ -142,5 +142,5 @@ bool WindowHandler::ShouldWindowClose() {
    return shouldClose;
 }
 
-} // namespace Engine
+} // namespace Echo2D
 

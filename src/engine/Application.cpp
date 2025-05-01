@@ -14,7 +14,7 @@ INITIALIZE_EASYLOGGINGPP
 #include <numeric>
 #include <thread>
 
-namespace Engine {
+namespace Echo2D {
 
 // ─────────────────────────────────────────────────────────────
 // Globals
@@ -165,5 +165,5 @@ void Application::CapFrameRate(double FrameStartTime) {
    }
 }
 
-} // namespace Engine
+} // namespace Echo2D
 

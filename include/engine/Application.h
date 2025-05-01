@@ -3,7 +3,7 @@
 #include "engine/WindowHandler.h"
 #include <vector>
 
-namespace Engine {
+namespace Echo2D{
 
 /**
  * @class Application

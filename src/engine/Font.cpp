@@ -2,7 +2,7 @@
 #include <engine/Texture.h>
 #include "external/easylogging++.h"
 
-namespace Engine {
+namespace Echo2D {
 
 /**
  * @brief Constructs a Font object by loading glyphs from a font file.
@@ -77,5 +77,5 @@ Character& Font::GetCharacter(char c) {
     return Characters.at(c);
 }
 
-} // namespace Engine
+} // namespace Echo2D
 

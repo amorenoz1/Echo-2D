@@ -4,7 +4,7 @@
 #include <core/core.h>
 #include <external/stb_image.h>
 
-namespace Engine {
+namespace Echo2D {
 
 /**
  * @class Texture
@@ -52,7 +52,7 @@ private:
    int Bits = 0;       ///< Number of channels (RGB = 3, RGBA = 4).
 };
 
-} // namespace Engine
+} // namespace Echo2D
 
 #endif // TEXTURE_H
 

@@ -3,7 +3,7 @@
 
 #include <glm/glm.hpp>
 
-namespace Engine {
+namespace Echo2D {
 
 class Camera2D {
 public:

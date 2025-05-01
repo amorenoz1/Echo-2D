@@ -2,7 +2,7 @@
 #include <engine/InputHandler.h>
 #include "external/easylogging++.h"
 
-namespace Engine {
+namespace Echo2D {
 
 // =========================
 // KeyListener Implementation
@@ -175,5 +175,5 @@ void InputHandler::Init(GLFWwindow* Window) {
    LOG(INFO) << "[InputHandler] Initialized input callbacks for GLFW window.";
 }
 
-} // namespace Engine
+} // namespace Echo2D
 

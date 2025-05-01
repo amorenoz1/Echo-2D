@@ -13,7 +13,7 @@
 #include <iostream>
 #include <utils/ShaderUtils.h>
 
-namespace Engine {
+namespace Echo2D {
 
 BatchRendererData BatchData = {0}; ///< Global batch rendering statistics tracker
 
@@ -444,4 +444,4 @@ Renderer::~Renderer() {
    glDeleteBuffers(1, &EBO);
 }
 
-} // namespace Engine
+} // namespace Echo2D

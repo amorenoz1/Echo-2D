@@ -3,7 +3,7 @@
 #include <engine/Texture.h>
 #include "external/easylogging++.h"
 
-namespace Engine {
+namespace Echo2D {
 
 /**
  * @brief Constructs a texture object from a file.
@@ -160,5 +160,5 @@ int Texture::GetWidth() const {
    return Width; 
 }
 
-} // namespace Engine
+} // namespace Echo2D
 

@@ -3,7 +3,7 @@
 
 #include "core/core.h"
 
-namespace Engine {
+namespace Echo2D {
 
 /**
  * @class WindowHandler
@@ -65,7 +65,7 @@ private:
     void Init();
 };
 
-} // namespace Engine
+} // namespace Echo2D
 
 #endif // WINDOW_H
 
