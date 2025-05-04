@@ -16,11 +16,12 @@ namespace Echo2D {
  * @param filepath Path to the spritesheet image file.
  * @param spriteWidth Width of a single sprite in pixels.
  * @param spriteHeight Height of a single sprite in pixels.
+ * @param FrameInterval Amount of time per frame of sprite animation
  */
-Spritesheet::Spritesheet(const std::string filepath, int spriteWidth, int spriteHeight)
+Spritesheet::Spritesheet(const std::string filepath, int spriteWidth, int spriteHeight, float FrameInterval, int SpriteAmount)
    : TextureMap(new Texture(filepath.c_str())),
    SpriteWidthRatio(static_cast<float>(spriteWidth) / TextureMap->GetWidth()),
-   SpriteHeightRatio(static_cast<float>(spriteHeight) / TextureMap->GetHeight()) {}
+   SpriteHeightRatio(static_cast<float>(spriteHeight) / TextureMap->GetHeight()), FrameInterval(FrameInterval), SpriteAmount(SpriteAmount) {}
 
 /**
  * @brief Destructor. Cleans up allocated texture.
@@ -49,6 +50,21 @@ glm::vec4 Spritesheet::GetTexCoords(int i, int j) {
  */
 Texture& Spritesheet::GetTex() {
    return *TextureMap;
+}
+
+/**
+ * @brief Using dt argument makes timer an accumulator. 
+ */
+void Spritesheet::SpriteUpdate(float dt) {
+   Timer += dt;
+   if (Timer >= FrameInterval) {
+      Count = (Count + 1) % SpriteAmount;
+      Timer = 0.0f;
+   }
+}
+
+int Spritesheet::GetCount() {
+   return Count;
 }
 
 }; // namespace Echo2D

@@ -22,7 +22,7 @@ public:
      * @param SpriteWidth Width of a single sprite in pixels.
      * @param SpriteHeight Height of a single sprite in pixels.
      */
-   Spritesheet(std::string Filepath, int SpriteWidth, int SpriteHeight);
+   Spritesheet(std::string Filepath, int SpriteWidth, int SpriteHeight, float FrameInterval, int SpriteAmount);
 
    /**
      * @brief Destructor that releases texture resources.
@@ -43,6 +43,9 @@ public:
      */
    Texture& GetTex();
 
+   void SpriteUpdate(float dt);
+
+   int GetCount();
 private:
    Texture *TextureMap;        /**< Pointer to the texture representing the full spritesheet. */
    float SpriteWidthRatio;     /**< Width of a single sprite in normalized texture coordinates. */
@@ -51,6 +54,13 @@ private:
    float TexCoordsOriginY;     /**< Y origin of the current sprite in normalized coordinates (unused in final version). */
    float TexCoordsWidth;       /**< Width in normalized coordinates (unused in final version). */
    float TexCoordsHeight;      /**< Height in normalized coordinates (unused in final version). */
+   float FrameInterval = 0.1f;
+
+   float Timer = 0.0f;
+
+   int Count = 0;
+   
+   int SpriteAmount = 0;
 };
 
 } // namespace Echo2D
