@@ -5,5 +5,8 @@
 #include "engine/InputHandler.h"
 #include "engine/Renderer.h"
 #include "engine/Texture.h"
+#include "engine/Camera.h"
+#include "engine/Spritesheet.h"
+#include "engine/Font.h"
 
 #endif

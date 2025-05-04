@@ -27,6 +27,7 @@ add_library(Echo2D SHARED
    src/engine/Renderer.cpp
    src/engine/Camera.cpp
    src/engine/Font.cpp
+   src/engine/Spritesheet.cpp
    src/external/stb.cpp
    src/external/glad.c
    src/external/imgui.cpp

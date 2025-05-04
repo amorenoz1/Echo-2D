@@ -3,6 +3,7 @@
 
 #include "core/core.h"
 #include "engine/Camera.h"
+#include "engine/Spritesheet.h"
 #include "utils/ShaderUtils.h"
 #include "engine/Font.h"
 #include "utils/Utils.h"
@@ -70,6 +71,11 @@ public:
 
    /// Draws a textured circle.
    static void DrawCircleTexture(float Radius, glm::vec2 Center, glm::vec4 Tint, Texture& Tex);
+
+   // === Textured Advanced ===
+
+   /// Draw a rect from a spritesheet
+   static void DrawRectSprite(glm::vec2 Dimensions, glm::vec2 Center, glm::vec4 Tint, Spritesheet &Sprites, int i, int j);
 
    // === Text Rendering ===
 
