@@ -4,10 +4,11 @@
 #include "core/core.h"
 #include "engine/Camera.h"
 #include "engine/Spritesheet.h"
-#include "utils/ShaderUtils.h"
-#include "engine/Font.h"
-#include "utils/Utils.h"
 #include "engine/Texture.h"
+#include "engine/Colors.h"
+#include "engine/Font.h"
+#include "utils/ShaderUtils.h"
+#include "utils/Utils.h"
 #include <vector>
 
 namespace Echo2D {
@@ -20,7 +21,7 @@ struct BatchRendererData {
    uint32_t DrawCalls = 0; ///< Number of draw calls issued this frame.
 };
 
-extern BatchRendererData BatchData;
+extern BatchRendererData g_BatchData;
 
 /**
  * @class Renderer
@@ -64,18 +65,18 @@ public:
    // === Textured Primitives ===
 
    /// Draws a textured rectangle.
-   static void DrawRectTexture(glm::vec2 Dimensions, glm::vec2 Center, glm::vec4 Tint, Texture& Tex);
+   static void DrawRectTexture(glm::vec2 Dimensions, glm::vec2 Center, Texture& Tex, glm::vec4 Tint = WHITE);
 
    /// Draws a textured triangle.
-   static void DrawTriangleTexture(glm::vec2 V0, glm::vec2 V1, glm::vec2 V2, glm::vec4 Tint, Texture& Tex);
+   static void DrawTriangleTexture(glm::vec2 V0, glm::vec2 V1, glm::vec2 V2, Texture& Tex, glm::vec4 Tint = WHITE);
 
    /// Draws a textured circle.
-   static void DrawCircleTexture(float Radius, glm::vec2 Center, glm::vec4 Tint, Texture& Tex);
+   static void DrawCircleTexture(float Radius, glm::vec2 Center, Texture& Tex, glm::vec4 Tint = WHITE);
 
    // === Textured Advanced ===
 
    /// Draw a rect from a spritesheet
-   static void DrawRectSprite(glm::vec2 Dimensions, glm::vec2 Center, glm::vec4 Tint, Spritesheet &Sprites, int i, int j);
+   static void DrawRectSprite(glm::vec2 Dimensions, glm::vec2 Center, Spritesheet &Sprites, int i, int j, glm::vec4 Tint = WHITE);
 
    // === Text Rendering ===
 
@@ -84,29 +85,29 @@ public:
 
 private:
    // === OpenGL Buffer Objects ===
-   GLuint VAO = 0;
-   GLuint VBO = 0;
-   GLuint EBO = 0;
+   GLuint m_VAO = 0;
+   GLuint m_VBO = 0;
+   GLuint m_EBO = 0;
 
-   GLuint VBOMaxSize = 0;         ///< Max size in bytes for vertex buffer.
-   GLuint EBOMaxSize = 0;         ///< Max size in bytes for index buffer.
-   GLuint MaxTextureSlots = 0;    ///< Max number of simultaneously bound textures.
+   GLuint m_VBOMaxSize = 0;         ///< Max size in bytes for vertex buffer.
+   GLuint m_EBOMaxSize = 0;         ///< Max size in bytes for index buffer.
+   GLuint m_MaxTextureSlots = 0;    ///< Max number of simultaneously bound textures.
 
    // === Internal Draw Buffers ===
-   std::vector<Utils::Vertex> VertexData; ///< Accumulated vertex data.
-   std::vector<GLuint> IndexData;         ///< Accumulated index data.
-   std::vector<Texture*> Textures;        ///< Currently bound textures.
+   std::vector<Utils::Vertex> m_VertexData; ///< Accumulated vertex data.
+   std::vector<GLuint> m_IndexData;         ///< Accumulated index data.
+   std::vector<Texture*> m_Textures;        ///< Currently bound textures.
 
-   Utils::Shader* Shader = nullptr;       ///< Active rendering shader.
+   Utils::Shader* m_Shader = nullptr;       ///< Active rendering shader.
 
 
    // === Matrices ===
-   glm::mat4 Projection = glm::mat4(1.0f); 
-   glm::mat4 View = glm::mat4(1.0f);
-   glm::mat4 Model = glm::mat4(1.0f);
+   glm::mat4 m_Projection = glm::mat4(1.0f); 
+   glm::mat4 m_View = glm::mat4(1.0f);
+   glm::mat4 m_Model = glm::mat4(1.0f);
 
    // === Camera ===
-   Camera2D *Camera = nullptr;
+   Camera2D *m_Camera = nullptr;
 
    // === Internal Helpers ===
 

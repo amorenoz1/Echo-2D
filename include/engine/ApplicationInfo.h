@@ -9,7 +9,7 @@ struct ApplicationInfo {
    const char* Title = {0};
 };
 
-extern ApplicationInfo AppInfo;
+extern ApplicationInfo g_AppInfo;
 
 }
 

@@ -47,20 +47,17 @@ public:
 
    int GetCount();
 private:
-   Texture *TextureMap;        /**< Pointer to the texture representing the full spritesheet. */
-   float SpriteWidthRatio;     /**< Width of a single sprite in normalized texture coordinates. */
-   float SpriteHeightRatio;    /**< Height of a single sprite in normalized texture coordinates. */
-   float TexCoordsOriginX;     /**< X origin of the current sprite in normalized coordinates (unused in final version). */
-   float TexCoordsOriginY;     /**< Y origin of the current sprite in normalized coordinates (unused in final version). */
-   float TexCoordsWidth;       /**< Width in normalized coordinates (unused in final version). */
-   float TexCoordsHeight;      /**< Height in normalized coordinates (unused in final version). */
-   float FrameInterval = 0.1f;
-
-   float Timer = 0.0f;
-
-   int Count = 0;
-   
-   int SpriteAmount = 0;
+   Texture *m_TextureMap;        /**< Pointer to the texture representing the full spritesheet. */
+   float m_SpriteWidthRatio;     /**< Width of a single sprite in normalized texture coordinates. */
+   float m_SpriteHeightRatio;    /**< Height of a single sprite in normalized texture coordinates. */
+   float m_TexCoordsOriginX;     /**< X origin of the current sprite in normalized coordinates (unused in final version). */
+   float m_TexCoordsOriginY;     /**< Y origin of the current sprite in normalized coordinates (unused in final version). */
+   float m_TexCoordsWidth;       /**< Width in normalized coordinates (unused in final version). */
+   float m_TexCoordsHeight;      /**< Height in normalized coordinates (unused in final version). */
+   float m_FrameInterval = 0.1f;
+   float m_Timer = 0.0f;
+   int m_Count = 0;
+   int m_SpriteAmount = 0;
 };
 
 } // namespace Echo2D

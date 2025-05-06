@@ -4,169 +4,93 @@
 
 namespace Echo2D {
 
-// =========================
-// KeyListener Implementation
-// =========================
-
-/**
- * @brief Returns true if the specified key is currently pressed.
- * @param Key The GLFW key code.
- */
-bool KeyListener::isKeyPressed(int Key) {
-   bool isPressed = GetInstance().Keys[Key];
-   // LOG(TRACE) << "[KeyListener] Checking if key " << Key << " is pressed: " << isPressed;
-   return isPressed;
+bool KeyListener::IsKeyPressed(int Key) {
+   // Return current key state from the singleton instance
+   return GetInstance().m_Keys[Key];
 }
 
-/**
- * @brief Callback for keyboard input events.
- * @param Window Pointer to the GLFW window.
- * @param Key Key code.
- * @param Scancode Hardware scan code.
- * @param Action Press/release action.
- * @param Mods Modifier keys (e.g., Shift).
- */
 void KeyListener::KeyCallback(GLFWwindow* Window, int Key, int Scancode, int Action, int Mods) {
    if (Action == GLFW_PRESS) {
-      GetInstance().Keys[Key] = true;
-      // LOG(INFO) << "[KeyListener] Key pressed: " << Key;
+      GetInstance().m_Keys[Key] = true;
    } else if (Action == GLFW_RELEASE) {
-      GetInstance().Keys[Key] = false;
-      // LOG(INFO) << "[KeyListener] Key released: " << Key;
+      GetInstance().m_Keys[Key] = false;
    }
 }
 
-// ==========================
-// MouseListener Implementation
-// ==========================
-
-/**
- * @brief Returns true if the specified mouse button is currently held down.
- * @param MouseButton GLFW_MOUSE_BUTTON_X (0 = left, 1 = right, 2 = middle).
- */
 bool MouseListener::IsMouseButtonDown(int MouseButton) {
-   bool isPressed = (MouseButton < 3) ? GetInstance().MouseButtons[MouseButton] : false;
-   // LOG(TRACE) << "[MouseListener] Checking if mouse button " << MouseButton << " is down: " << isPressed;
-   return isPressed;
+   // Only check for valid mouse buttons (0–2)
+   return (MouseButton < 3) ? GetInstance().m_MouseButtons[MouseButton] : false;
 }
 
-/**
- * @brief Returns true if any mouse button is being held down (used for drag detection).
- */
 bool MouseListener::GetIsDragging() {
-   bool isDragging = GetInstance().IsDragging;
-   // LOG(TRACE) << "[MouseListener] Checking if dragging: " << isDragging;
-   return isDragging;
+   return GetInstance().m_IsDragging;
 }
 
-/**
- * @brief Callback for mouse movement.
- * @param Window Pointer to the GLFW window.
- * @param PosX Current X position of the cursor.
- * @param PosY Current Y position of the cursor.
- */
 void MouseListener::MousePosCallback(GLFWwindow* Window, double PosX, double PosY) {
    auto& instance = GetInstance();
-   instance.LastPosX = instance.PosX;
-   instance.LastPosY = instance.PosY;
-   instance.PosX = PosX;
-   instance.PosY = PosY;
 
-   instance.IsDragging = instance.MouseButtons[0] || instance.MouseButtons[1] || instance.MouseButtons[2];
-   
-   // LOG(INFO) << "[MouseListener] Mouse moved to (" << PosX << ", " << PosY << ")";
-   if (instance.IsDragging) {
-     // LOG(INFO) << "[MouseListener] Mouse is being dragged.";
-   }
+   // Save previous position for delta calculation
+   instance.m_LastPosX = instance.m_PosX;
+   instance.m_LastPosY = instance.m_PosY;
+
+   // Update to new position
+   instance.m_PosX = PosX;
+   instance.m_PosY = PosY;
+
+   // Determine if dragging (any button held)
+   instance.m_IsDragging =
+      instance.m_MouseButtons[0] ||
+      instance.m_MouseButtons[1] ||
+      instance.m_MouseButtons[2];
 }
 
-/**
- * @brief Callback for mouse button press/release events.
- * @param Window Pointer to the GLFW window.
- * @param Button The mouse button index.
- * @param Action GLFW_PRESS or GLFW_RELEASE.
- * @param Mods Modifier keys (e.g., Shift).
- */
 void MouseListener::MouseButtonCallback(GLFWwindow* Window, int Button, int Action, int Mods) {
    auto& instance = GetInstance();
 
    if (Button < 3) {
       if (Action == GLFW_PRESS) {
-         instance.MouseButtons[Button] = true;
-        // LOG(INFO) << "[MouseListener] Mouse button " << Button << " pressed.";
+         instance.m_MouseButtons[Button] = true;
       } else if (Action == GLFW_RELEASE) {
-         instance.MouseButtons[Button] = false;
-         instance.IsDragging = false;
-         // LOG(INFO) << "[MouseListener] Mouse button " << Button << " released.";
+         instance.m_MouseButtons[Button] = false;
+         instance.m_IsDragging = false;
       }
    }
 }
 
-/**
- * @brief Callback for mouse scroll events.
- * @param Window Pointer to the GLFW window.
- * @param ScrollX Scroll delta on the X axis.
- * @param ScrollY Scroll delta on the Y axis.
- */
 void MouseListener::ScrollCallback(GLFWwindow* Window, double ScrollX, double ScrollY) {
    auto& instance = GetInstance();
-   instance.ScrollX = ScrollX;
-   instance.ScrollY = ScrollY;
-
-  // LOG(INFO) << "[MouseListener] Mouse scroll event: (" << ScrollX << ", " << ScrollY << ")";
+   instance.m_ScrollX = ScrollX;
+   instance.m_ScrollY = ScrollY;
 }
 
-// Position Getters
-
 float MouseListener::GetX() {
-   float posX = static_cast<float>(GetInstance().PosX);
-   // LOG(TRACE) << "[MouseListener] GetX: " << posX;
-   return posX;
+   return static_cast<float>(GetInstance().m_PosX);
 }
 
 float MouseListener::GetY() {
-   float posY = static_cast<float>(GetInstance().PosY);
-   // LOG(TRACE) << "[MouseListener] GetY: " << posY;
-   return posY;
+   return static_cast<float>(GetInstance().m_PosY);
 }
 
-// Scroll Getters
-
 float MouseListener::GetScrollX() {
-   float scrollX = static_cast<float>(GetInstance().ScrollX);
-   // LOG(TRACE) << "[MouseListener] GetScrollX: " << scrollX;
-   return scrollX;
+   return static_cast<float>(GetInstance().m_ScrollX);
 }
 
 float MouseListener::GetScrollY() {
-   float scrollY = static_cast<float>(GetInstance().ScrollY);
-   // LOG(TRACE) << "[MouseListener] GetScrollY: " << scrollY;
-   return scrollY;
+   return static_cast<float>(GetInstance().m_ScrollY);
 }
 
-// Delta Movement Getters
-
 float MouseListener::GetDx() {
-   float dx = static_cast<float>(GetInstance().LastPosX - GetInstance().PosX);
-   // LOG(TRACE) << "[MouseListener] GetDx: " << dx;
-   return dx;
+   // Delta X = last frame X - current X
+   return static_cast<float>(GetInstance().m_LastPosX - GetInstance().m_PosX);
 }
 
 float MouseListener::GetDy() {
-   float dy = static_cast<float>(GetInstance().LastPosY - GetInstance().PosY);
-   // LOG(TRACE) << "[MouseListener] GetDy: " << dy;
-   return dy;
+   // Delta Y = last frame Y - current Y
+   return static_cast<float>(GetInstance().m_LastPosY - GetInstance().m_PosY);
 }
 
-// ===========================
-// InputHandler Initialization
-// ===========================
-
-/**
- * @brief Sets up all input callbacks for the given GLFW window.
- * @param Window The GLFW window to attach input callbacks to.
- */
 void InputHandler::Init(GLFWwindow* Window) {
+   // Hook up all input-related callbacks
    glfwSetKeyCallback(Window, KeyListener::KeyCallback);
    glfwSetMouseButtonCallback(Window, MouseListener::MouseButtonCallback);
    glfwSetScrollCallback(Window, MouseListener::ScrollCallback);

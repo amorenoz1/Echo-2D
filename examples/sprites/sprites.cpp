@@ -16,7 +16,7 @@ public:
       IdleSheet = new Echo2D::Spritesheet("assets/Sprites/IDLE.png", 96, 96, 0.05f, 10);
       HurtSheet = new Echo2D::Spritesheet("assets/Sprites/HURT.png", 96, 96, 0.1f, 4);
       AttackSheet = new Echo2D::Spritesheet("assets/Sprites/ATTACK.png", 96, 96, 0.05f, 7);
-
+      Debug();
    }
 
    void Update(float dt) override {
@@ -28,10 +28,10 @@ public:
 
    void Render() const override {
       Echo2D::Renderer::ClearScreenColor(Gray);
-      Echo2D::Renderer::DrawRectSprite(Dimensions, Pos1, White, *RunSheet, RunSheet->GetCount(), 0);
-      Echo2D::Renderer::DrawRectSprite(Dimensions, Pos2, White, *IdleSheet, IdleSheet->GetCount(), 0);
-      Echo2D::Renderer::DrawRectSprite(Dimensions, Pos3, White, *HurtSheet, HurtSheet->GetCount(), 0);
-      Echo2D::Renderer::DrawRectSprite(Dimensions, Pos4, White, *AttackSheet, AttackSheet->GetCount(), 0);
+      Echo2D::Renderer::DrawRectSprite(Dimensions, Pos1, *RunSheet, RunSheet->GetCount(), 0);
+      Echo2D::Renderer::DrawRectSprite(Dimensions, Pos2, *IdleSheet, IdleSheet->GetCount(), 0);
+      Echo2D::Renderer::DrawRectSprite(Dimensions, Pos3, *HurtSheet, HurtSheet->GetCount(), 0);
+      Echo2D::Renderer::DrawRectSprite(Dimensions, Pos4, *AttackSheet, AttackSheet->GetCount(), 0);
 
    };
 

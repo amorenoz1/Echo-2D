@@ -11,24 +11,14 @@
 
 namespace Echo2D {
 
-/**
- * @brief GLFW callback function for handling window resizing.
- * 
- * @param window The GLFW window that was resized.
- * @param width The new width of the window.
- * @param height The new height of the window.
- */
 static void FramebufferSizeCallback(GLFWwindow* window, int width, int height) {
    // Update the viewport whenever the window is resized
    glViewport(0, 0, width, height);
 }
 
-/**
- * @brief Destructor for WindowHandler. Cleans up GLFW and ImGui resources.
- */
 WindowHandler::~WindowHandler() {
    // Destroy the GLFW window and terminate GLFW
-   glfwDestroyWindow(Window);
+   glfwDestroyWindow(m_Window);
    glfwTerminate();
 
    // Clean up ImGui resources
@@ -39,12 +29,6 @@ WindowHandler::~WindowHandler() {
    LOG(INFO) << "[WindowHandler] GLFW window destroyed and resources cleaned up.";
 }
 
-/**
- * @brief Initializes the window, OpenGL, and ImGui.
- * 
- * This function initializes GLFW, creates a window, initializes GLAD
- * for OpenGL function loading, and sets up ImGui for rendering.
- */
 void WindowHandler::Init() {
    // Initialize GLFW
    if (!glfwInit()) {
@@ -64,23 +48,23 @@ void WindowHandler::Init() {
    glfwSwapInterval(0);  ///< Disable V-Sync
 
    // Create the GLFW window
-   Window = glfwCreateWindow(Width, Height, Title, nullptr, nullptr);
-   if (!Window) {
+   m_Window = glfwCreateWindow(m_Width, m_Height, m_Title, nullptr, nullptr);
+   if (!m_Window) {
       LOG(ERROR) << "[WindowHandler] Failed to create window!";
       glfwTerminate();
       std::exit(EXIT_FAILURE);  ///< Exit if window creation fails
    }
 
-   LOG(INFO) << "[WindowHandler] Window created with dimensions: " << Width << "x" << Height;
+   LOG(INFO) << "[WindowHandler] Window created with dimensions: " << m_Width << "x" << m_Height;
 
    // Make OpenGL context current for this window
-   glfwMakeContextCurrent(Window);
+   glfwMakeContextCurrent(m_Window);
 
    // Initialize input handling (keyboard, mouse, etc.)
-   InputHandler::Init(Window);
+   InputHandler::Init(m_Window);
 
    // Set the framebuffer resize callback function
-   glfwSetFramebufferSizeCallback(Window, FramebufferSizeCallback);
+   glfwSetFramebufferSizeCallback(m_Window, FramebufferSizeCallback);
 
    // Initialize GLAD to manage OpenGL function loading
    if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress)) {
@@ -91,54 +75,33 @@ void WindowHandler::Init() {
    LOG(INFO) << "[WindowHandler] GLAD initialized successfully.";
 
    // Set the initial OpenGL viewport size
-   glViewport(0, 0, Width, Height);
+   glViewport(0, 0, m_Width, m_Height);
 
    // Initialize ImGui for GUI rendering
    IMGUI_CHECKVERSION();
    ImGui::CreateContext();
    ImGui::StyleColorsDark();
 
-   ImGui_ImplGlfw_InitForOpenGL(Window, true);
+   ImGui_ImplGlfw_InitForOpenGL(m_Window, true);
    ImGui_ImplOpenGL3_Init();
 
    LOG(INFO) << "[WindowHandler] ImGui initialized successfully.";
 }
 
-/**
- * @brief Clears the window with a specified color.
- * 
- * This function clears the screen using the OpenGL color buffer.
- */
 void WindowHandler::ClearColor() {
    glClear(GL_COLOR_BUFFER_BIT);
 }
 
-/**
- * @brief Polls for window events.
- * 
- * This function calls glfwPollEvents to handle input events, window events, etc.
- */
 void WindowHandler::PollEvents() {
    glfwPollEvents();
 }
 
-/**
- * @brief Swaps the front and back buffers.
- * 
- * This function swaps the buffers, displaying the newly rendered content
- * on the window.
- */
 void WindowHandler::SwapBuffers() {
-   glfwSwapBuffers(Window);
+   glfwSwapBuffers(m_Window);
 }
 
-/**
- * @brief Checks if the window should close.
- * 
- * @return true if the window should close, false otherwise.
- */
 bool WindowHandler::ShouldWindowClose() {
-   bool shouldClose = glfwWindowShouldClose(Window);
+   bool shouldClose = glfwWindowShouldClose(m_Window);
    return shouldClose;
 }
 

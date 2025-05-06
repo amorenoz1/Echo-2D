@@ -46,10 +46,10 @@ public:
    int GetHeight() const;
 
 private:
-   GLuint ID = 0;      ///< OpenGL texture object ID.
-   int Width = 0;      ///< Texture width.
-   int Height = 0;     ///< Texture height.
-   int Bits = 0;       ///< Number of channels (RGB = 3, RGBA = 4).
+   GLuint m_ID = 0;      ///< OpenGL texture object ID.
+   int m_Width = 0;      ///< Texture width.
+   int m_Height = 0;     ///< Texture height.
+   int m_Bits = 0;       ///< Number of channels (RGB = 3, RGBA = 4).
 };
 
 } // namespace Echo2D

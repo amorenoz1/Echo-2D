@@ -8,5 +8,6 @@
 #include "engine/Camera.h"
 #include "engine/Spritesheet.h"
 #include "engine/Font.h"
+#include "engine/Colors.h"
 
 #endif

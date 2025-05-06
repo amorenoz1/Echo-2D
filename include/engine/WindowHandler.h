@@ -21,7 +21,7 @@ public:
      * @param T Title of the window.
      */
     WindowHandler(const int H, const int W, const char* T) 
-        : Height(H), Width(W), Title(T) { Init(); }
+        : m_Height(H), m_Width(W), m_Title(T) { Init(); }
 
     /// Cleans up and destroys the GLFW window.
     ~WindowHandler();
@@ -54,10 +54,10 @@ public:
     int GetWidth();
 
 private:
-    GLFWwindow* Window = nullptr; ///< GLFW window handle.
-    int Height;                   ///< Window height in pixels.
-    int Width;                    ///< Window width in pixels.
-    const char* Title;            ///< Window title.
+    GLFWwindow* m_Window = nullptr; ///< GLFW window handle.
+    int m_Height;                   ///< Window height in pixels.
+    int m_Width;                    ///< Window width in pixels.
+    const char* m_Title;            ///< Window title.
 
     /**
      * @brief Internal window creation and GLFW initialization.

@@ -1,96 +1,105 @@
-#pragma once
+#ifndef APPLICATION_H
+#define APPLICATION_H
 
 #include "engine/WindowHandler.h"
 #include <vector>
 
-namespace Echo2D{
+namespace Echo2D {
 
 /**
  * @class Application
  * @brief Base class for a game or rendering application using the engine.
  *
- * This class handles the main loop, timing, window management,
- * and optional debug overlay (FPS counter). To use, subclass it and override
- * Init, Update, Render, and optionally RenderImGui.
+ * This class is responsible for managing the main loop, timing, window
+ * handling, and an optional debug overlay (FPS counter). To use, subclass this
+ * class and override the Init, Update, Render, and optionally RenderImGui
+ * methods.
  */
 class Application {
 public:
-    /**
-     * @brief Construct a new Application object.
-     * @param Width Window width in pixels.
-     * @param Height Window height in pixels.
-     * @param Title Window title.
-     */
-    Application(int Width, int Height, const char* Title);
+   /**
+   * @brief Constructs an Application object.
+   * @param Width The width of the window in pixels.
+   * @param Height The height of the window in pixels.
+   * @param Title The title of the window.
+   */
+   Application(int Width, int Height, const char *Title);
 
-    /// Destructor. Handles cleanup.
-    virtual ~Application();
+   /**
+   * @brief Destructor for cleanup.
+   */
+   virtual ~Application();
 
-    /// Starts the main loop.
-    void Run();
+   /**
+   * @brief Starts the main application loop.
+   */
+   void Run();
 
-    /// Toggles the debug overlay (FPS display).
-    void Debug();
+   /**
+   * @brief Toggles the FPS debug overlay on or off.
+   */
+   void Debug();
 
-    /**
-     * @brief Sets a target framerate (in FPS).
-     * @param FPS Frames per second to cap the game at.
-     */
-    void SetFPS(int FPS);
+   /**
+   * @brief Sets the target framerate (FPS) for the application.
+   * @param FPS The target FPS to cap the game at.
+   */
+   void SetFPS(int FPS);
 
 protected:
-    /// Called once before the main loop. Use for initialization.
-    virtual void Init();
+   /**
+   * @brief Initialization hook that runs once before the main loop.
+   */
+   virtual void Init();
 
-    /**
-     * @brief Called every frame to update game logic.
-     * @param dt Time delta (in seconds) since last frame.
-     */
-    virtual void Update(float dt);
+   /**
+   * @brief Updates game logic every frame.
+   * @param dt Time delta (in seconds) since the last frame.
+   */
+   virtual void Update(float dt);
 
-    /// Called every frame to render your scene.
-    virtual void Render() const;
+   /**
+   * @brief Renders the scene every frame.
+   */
+   virtual void Render() const;
 
-    /// Optional: ImGui rendering hook.
-    virtual void RenderImGui();
+   /**
+   * @brief Optional hook for ImGui rendering (for debugging, etc.).
+   */
+   virtual void RenderImGui();
 
 private:
-    // ===== Core Systems =====
-    WindowHandler* Window = nullptr;  ///< Manages the window and input.
+   // Core Systems
+   WindowHandler *m_Window = nullptr; ///< Manages window and input handling.
 
-    // ===== Timing =====
-    double LastFrameTime = 0.0;       ///< Time of the previous frame.
-    double DeltaTime = 0.0;           ///< Time between current and previous frame.
-    double FpsTimer = 0.0;            ///< Accumulates time for FPS measurement.
-    double TargetFrameTime = 1.0 / 60.0; ///< Time per frame for target FPS.
-    double CurrentFPS = 0.0;          ///< Calculated FPS this second.
+   // Timing and FPS Management
+   double m_LastFrameTime = 0.0; ///< Timestamp of the last frame.
+   double m_DeltaTime = 0.0;     ///< Time elapsed between frames.
+   double m_FpsTimer = 0.0;      ///< Accumulates time for FPS measurement.
+   double m_TargetFrameTime = 1.0 / 60.0;      ///< Target time per frame (based on 60 FPS).
+   double m_CurrentFPS = 0.0; ///< Calculated FPS for the current second.
 
-    // ===== FPS Counter =====
-    int FrameCount = 0;               ///< Frames counted in the current second.
-    int RollingFPS = 0;               ///< Smoothed FPS value.
-    const int MAX_SAMPLES = 30;       ///< Used to average FPS over N samples.
-    std::vector<double> FrameTimeHistory; ///< History of frame times.
+   // FPS Counter
+   int m_FrameCount = 0;       ///< Frames counted in the current second.
+   int m_RollingFPS = 0;       ///< Smoothed FPS value over a period of time.
+   const int MAX_SAMPLES = 30; ///< Number of samples for FPS rolling average.
+   std::vector<double> m_FrameTimeHistory; ///< History of frame times.
 
-    // ===== State =====
-    bool ShowFPS = false;             ///< Whether to display FPS overlay.
+   // Debugging State
+   bool m_ShowFPS = false; ///< Whether to display FPS overlay.
 
-    // ===== Internal Loop Helpers =====
-    /// Calculates FPS using a rolling average.
-    void UpdateFpsCounter();
+   // Internal Loop Helpers
+   void UpdateFpsCounter();
+   void BeginFrame();
+   void EndFrame();
 
-    /// Called at the start of each frame.
-    void BeginFrame();
-
-    /// Called at the end of each frame.
-    void EndFrame();
-
-    /**
-     * @brief Caps the framerate by sleeping if frame finished early.
-     * @param FrameStartTime Time when frame started.
-     */
-    void CapFrameRate(double FrameStartTime);
+   /**
+   * @brief Caps the framerate by sleeping if the frame completes early.
+   * @param FrameStartTime The time when the current frame started.
+   */
+   void CapFrameRate(double FrameStartTime);
 };
 
-} // namespace Engine
+} // namespace Echo2D
 
-
+#endif

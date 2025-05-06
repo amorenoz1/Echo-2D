@@ -557,3 +557,175 @@
 2025-05-03 22:44:48,646 TRACE [default] [int Echo2D::Texture::GetHeight() const] [/Users/mrphoonmoji/Projects/gitrepos/Echo-2D/src/engine/Texture.cpp:149] [Texture] GetHeight called, returning height: 96
 2025-05-03 22:45:34,780 INFO [default] [Application] Destroying application and window.
 2025-05-03 22:45:34,788 INFO [default] [WindowHandler] GLFW window destroyed and resources cleaned up.
+2025-05-04 14:54:14,381 INFO [default] [WindowHandler] Window created with dimensions: 800x600
+2025-05-04 14:54:14,381 INFO [default] [InputHandler] Initialized input callbacks for GLFW window.
+2025-05-04 14:54:14,384 INFO [default] [WindowHandler] GLAD initialized successfully.
+2025-05-04 14:54:14,388 INFO [default] [WindowHandler] ImGui initialized successfully.
+2025-05-04 14:54:14,388 INFO [default] [Application] Created with dimensions (800x600) and title: Spritesheet Test
+2025-05-04 14:54:14,390 INFO [default] [Texture] Loaded texture from assets/Sprites/RUN.png with dimensions: 1536x96 and 4 bits per channel.
+2025-05-04 14:54:14,390 INFO [default] [Texture] glCreateTextures returned ID: 1
+2025-05-04 14:54:14,391 INFO [default] [Texture] Bound texture ID: 1 to GL_TEXTURE_2D.
+2025-05-04 14:54:14,391 INFO [default] [Texture] Texture parameters (MIN_FILTER, MAG_FILTER, WRAP_S, WRAP_T) set to GL_NEAREST and GL_CLAMP_TO_EDGE.
+2025-05-04 14:54:14,392 INFO [default] [Texture] Texture image uploaded to GPU with dimensions: 1536x96
+2025-05-04 14:54:14,392 INFO [default] [Texture] Mipmaps generated.
+2025-05-04 14:54:14,392 INFO [default] [Texture] Image data freed from memory after upload.
+2025-05-04 14:54:14,392 TRACE [default] [int Echo2D::Texture::GetWidth() const] [/Users/mrphoonmoji/Projects/gitrepos/Echo-2D/src/engine/Texture.cpp:159] [Texture] GetWidth called, returning width: 1536
+2025-05-04 14:54:14,393 TRACE [default] [int Echo2D::Texture::GetHeight() const] [/Users/mrphoonmoji/Projects/gitrepos/Echo-2D/src/engine/Texture.cpp:149] [Texture] GetHeight called, returning height: 96
+2025-05-04 14:54:14,393 INFO [default] [Texture] Loaded texture from assets/Sprites/IDLE.png with dimensions: 960x96 and 4 bits per channel.
+2025-05-04 14:54:14,393 INFO [default] [Texture] glCreateTextures returned ID: 2
+2025-05-04 14:54:14,393 INFO [default] [Texture] Bound texture ID: 2 to GL_TEXTURE_2D.
+2025-05-04 14:54:14,393 INFO [default] [Texture] Texture parameters (MIN_FILTER, MAG_FILTER, WRAP_S, WRAP_T) set to GL_NEAREST and GL_CLAMP_TO_EDGE.
+2025-05-04 14:54:14,394 INFO [default] [Texture] Texture image uploaded to GPU with dimensions: 960x96
+2025-05-04 14:54:14,394 INFO [default] [Texture] Mipmaps generated.
+2025-05-04 14:54:14,394 INFO [default] [Texture] Image data freed from memory after upload.
+2025-05-04 14:54:14,394 TRACE [default] [int Echo2D::Texture::GetWidth() const] [/Users/mrphoonmoji/Projects/gitrepos/Echo-2D/src/engine/Texture.cpp:159] [Texture] GetWidth called, returning width: 960
+2025-05-04 14:54:14,394 TRACE [default] [int Echo2D::Texture::GetHeight() const] [/Users/mrphoonmoji/Projects/gitrepos/Echo-2D/src/engine/Texture.cpp:149] [Texture] GetHeight called, returning height: 96
+2025-05-04 14:54:14,395 INFO [default] [Texture] Loaded texture from assets/Sprites/HURT.png with dimensions: 384x96 and 4 bits per channel.
+2025-05-04 14:54:14,395 INFO [default] [Texture] glCreateTextures returned ID: 3
+2025-05-04 14:54:14,395 INFO [default] [Texture] Bound texture ID: 3 to GL_TEXTURE_2D.
+2025-05-04 14:54:14,395 INFO [default] [Texture] Texture parameters (MIN_FILTER, MAG_FILTER, WRAP_S, WRAP_T) set to GL_NEAREST and GL_CLAMP_TO_EDGE.
+2025-05-04 14:54:14,395 INFO [default] [Texture] Texture image uploaded to GPU with dimensions: 384x96
+2025-05-04 14:54:14,396 INFO [default] [Texture] Mipmaps generated.
+2025-05-04 14:54:14,396 INFO [default] [Texture] Image data freed from memory after upload.
+2025-05-04 14:54:14,396 TRACE [default] [int Echo2D::Texture::GetWidth() const] [/Users/mrphoonmoji/Projects/gitrepos/Echo-2D/src/engine/Texture.cpp:159] [Texture] GetWidth called, returning width: 384
+2025-05-04 14:54:14,396 TRACE [default] [int Echo2D::Texture::GetHeight() const] [/Users/mrphoonmoji/Projects/gitrepos/Echo-2D/src/engine/Texture.cpp:149] [Texture] GetHeight called, returning height: 96
+2025-05-04 14:54:14,396 INFO [default] [Texture] Loaded texture from assets/Sprites/ATTACK.png with dimensions: 672x96 and 4 bits per channel.
+2025-05-04 14:54:14,396 INFO [default] [Texture] glCreateTextures returned ID: 4
+2025-05-04 14:54:14,396 INFO [default] [Texture] Bound texture ID: 4 to GL_TEXTURE_2D.
+2025-05-04 14:54:14,396 INFO [default] [Texture] Texture parameters (MIN_FILTER, MAG_FILTER, WRAP_S, WRAP_T) set to GL_NEAREST and GL_CLAMP_TO_EDGE.
+2025-05-04 14:54:14,396 INFO [default] [Texture] Texture image uploaded to GPU with dimensions: 672x96
+2025-05-04 14:54:14,397 INFO [default] [Texture] Mipmaps generated.
+2025-05-04 14:54:14,397 INFO [default] [Texture] Image data freed from memory after upload.
+2025-05-04 14:54:14,397 TRACE [default] [int Echo2D::Texture::GetWidth() const] [/Users/mrphoonmoji/Projects/gitrepos/Echo-2D/src/engine/Texture.cpp:159] [Texture] GetWidth called, returning width: 672
+2025-05-04 14:54:14,397 TRACE [default] [int Echo2D::Texture::GetHeight() const] [/Users/mrphoonmoji/Projects/gitrepos/Echo-2D/src/engine/Texture.cpp:149] [Texture] GetHeight called, returning height: 96
+2025-05-04 14:55:40,630 INFO [default] [Application] Destroying application and window.
+2025-05-04 14:55:40,646 INFO [default] [WindowHandler] GLFW window destroyed and resources cleaned up.
+2025-05-04 15:44:19,727 INFO [default] [WindowHandler] Window created with dimensions: 800x600
+2025-05-04 15:44:19,729 INFO [default] [InputHandler] Initialized input callbacks for GLFW window.
+2025-05-04 15:44:19,736 INFO [default] [WindowHandler] GLAD initialized successfully.
+2025-05-04 15:44:19,740 INFO [default] [WindowHandler] ImGui initialized successfully.
+2025-05-04 15:44:19,741 INFO [default] [Application] Created with dimensions (800x600) and title: Spritesheet Test
+2025-05-04 15:44:19,743 INFO [default] [Texture] Loaded texture from assets/Sprites/RUN.png with dimensions: 1536x96 and 4 bits per channel.
+2025-05-04 15:44:19,743 INFO [default] [Texture] glCreateTextures returned ID: 1
+2025-05-04 15:44:19,743 INFO [default] [Texture] Bound texture ID: 1 to GL_TEXTURE_2D.
+2025-05-04 15:44:19,743 INFO [default] [Texture] Texture parameters (MIN_FILTER, MAG_FILTER, WRAP_S, WRAP_T) set to GL_NEAREST and GL_CLAMP_TO_EDGE.
+2025-05-04 15:44:19,744 INFO [default] [Texture] Texture image uploaded to GPU with dimensions: 1536x96
+2025-05-04 15:44:19,745 INFO [default] [Texture] Mipmaps generated.
+2025-05-04 15:44:19,745 INFO [default] [Texture] Image data freed from memory after upload.
+2025-05-04 15:44:19,745 TRACE [default] [int Echo2D::Texture::GetWidth() const] [/Users/mrphoonmoji/Projects/gitrepos/Echo-2D/src/engine/Texture.cpp:159] [Texture] GetWidth called, returning width: 1536
+2025-05-04 15:44:19,745 TRACE [default] [int Echo2D::Texture::GetHeight() const] [/Users/mrphoonmoji/Projects/gitrepos/Echo-2D/src/engine/Texture.cpp:149] [Texture] GetHeight called, returning height: 96
+2025-05-04 15:44:19,746 INFO [default] [Texture] Loaded texture from assets/Sprites/IDLE.png with dimensions: 960x96 and 4 bits per channel.
+2025-05-04 15:44:19,747 INFO [default] [Texture] glCreateTextures returned ID: 2
+2025-05-04 15:44:19,747 INFO [default] [Texture] Bound texture ID: 2 to GL_TEXTURE_2D.
+2025-05-04 15:44:19,747 INFO [default] [Texture] Texture parameters (MIN_FILTER, MAG_FILTER, WRAP_S, WRAP_T) set to GL_NEAREST and GL_CLAMP_TO_EDGE.
+2025-05-04 15:44:19,747 INFO [default] [Texture] Texture image uploaded to GPU with dimensions: 960x96
+2025-05-04 15:44:19,748 INFO [default] [Texture] Mipmaps generated.
+2025-05-04 15:44:19,748 INFO [default] [Texture] Image data freed from memory after upload.
+2025-05-04 15:44:19,748 TRACE [default] [int Echo2D::Texture::GetWidth() const] [/Users/mrphoonmoji/Projects/gitrepos/Echo-2D/src/engine/Texture.cpp:159] [Texture] GetWidth called, returning width: 960
+2025-05-04 15:44:19,748 TRACE [default] [int Echo2D::Texture::GetHeight() const] [/Users/mrphoonmoji/Projects/gitrepos/Echo-2D/src/engine/Texture.cpp:149] [Texture] GetHeight called, returning height: 96
+2025-05-04 15:44:19,750 INFO [default] [Texture] Loaded texture from assets/Sprites/HURT.png with dimensions: 384x96 and 4 bits per channel.
+2025-05-04 15:44:19,750 INFO [default] [Texture] glCreateTextures returned ID: 3
+2025-05-04 15:44:19,750 INFO [default] [Texture] Bound texture ID: 3 to GL_TEXTURE_2D.
+2025-05-04 15:44:19,750 INFO [default] [Texture] Texture parameters (MIN_FILTER, MAG_FILTER, WRAP_S, WRAP_T) set to GL_NEAREST and GL_CLAMP_TO_EDGE.
+2025-05-04 15:44:19,750 INFO [default] [Texture] Texture image uploaded to GPU with dimensions: 384x96
+2025-05-04 15:44:19,751 INFO [default] [Texture] Mipmaps generated.
+2025-05-04 15:44:19,751 INFO [default] [Texture] Image data freed from memory after upload.
+2025-05-04 15:44:19,751 TRACE [default] [int Echo2D::Texture::GetWidth() const] [/Users/mrphoonmoji/Projects/gitrepos/Echo-2D/src/engine/Texture.cpp:159] [Texture] GetWidth called, returning width: 384
+2025-05-04 15:44:19,751 TRACE [default] [int Echo2D::Texture::GetHeight() const] [/Users/mrphoonmoji/Projects/gitrepos/Echo-2D/src/engine/Texture.cpp:149] [Texture] GetHeight called, returning height: 96
+2025-05-04 15:44:19,752 INFO [default] [Texture] Loaded texture from assets/Sprites/ATTACK.png with dimensions: 672x96 and 4 bits per channel.
+2025-05-04 15:44:19,752 INFO [default] [Texture] glCreateTextures returned ID: 4
+2025-05-04 15:44:19,752 INFO [default] [Texture] Bound texture ID: 4 to GL_TEXTURE_2D.
+2025-05-04 15:44:19,753 INFO [default] [Texture] Texture parameters (MIN_FILTER, MAG_FILTER, WRAP_S, WRAP_T) set to GL_NEAREST and GL_CLAMP_TO_EDGE.
+2025-05-04 15:44:19,753 INFO [default] [Texture] Texture image uploaded to GPU with dimensions: 672x96
+2025-05-04 15:44:19,753 INFO [default] [Texture] Mipmaps generated.
+2025-05-04 15:44:19,753 INFO [default] [Texture] Image data freed from memory after upload.
+2025-05-04 15:44:19,754 TRACE [default] [int Echo2D::Texture::GetWidth() const] [/Users/mrphoonmoji/Projects/gitrepos/Echo-2D/src/engine/Texture.cpp:159] [Texture] GetWidth called, returning width: 672
+2025-05-04 15:44:19,754 TRACE [default] [int Echo2D::Texture::GetHeight() const] [/Users/mrphoonmoji/Projects/gitrepos/Echo-2D/src/engine/Texture.cpp:149] [Texture] GetHeight called, returning height: 96
+2025-05-04 15:44:24,323 INFO [default] [Application] Destroying application and window.
+2025-05-04 15:44:24,337 INFO [default] [WindowHandler] GLFW window destroyed and resources cleaned up.
+2025-05-04 15:47:59,167 INFO [default] [WindowHandler] Window created with dimensions: 800x600
+2025-05-04 15:47:59,167 INFO [default] [InputHandler] Initialized input callbacks for GLFW window.
+2025-05-04 15:47:59,175 INFO [default] [WindowHandler] GLAD initialized successfully.
+2025-05-04 15:47:59,178 INFO [default] [WindowHandler] ImGui initialized successfully.
+2025-05-04 15:47:59,178 INFO [default] [Application] Created with dimensions (800x600) and title: Spritesheet Test
+2025-05-04 15:47:59,180 INFO [default] [Texture] Loaded texture from assets/Sprites/RUN.png with dimensions: 1536x96 and 4 bits per channel.
+2025-05-04 15:47:59,180 INFO [default] [Texture] glCreateTextures returned ID: 1
+2025-05-04 15:47:59,180 INFO [default] [Texture] Bound texture ID: 1 to GL_TEXTURE_2D.
+2025-05-04 15:47:59,180 INFO [default] [Texture] Texture parameters (MIN_FILTER, MAG_FILTER, WRAP_S, WRAP_T) set to GL_NEAREST and GL_CLAMP_TO_EDGE.
+2025-05-04 15:47:59,181 INFO [default] [Texture] Texture image uploaded to GPU with dimensions: 1536x96
+2025-05-04 15:47:59,182 INFO [default] [Texture] Mipmaps generated.
+2025-05-04 15:47:59,182 INFO [default] [Texture] Image data freed from memory after upload.
+2025-05-04 15:47:59,182 TRACE [default] [int Echo2D::Texture::GetWidth() const] [/Users/mrphoonmoji/Projects/gitrepos/Echo-2D/src/engine/Texture.cpp:159] [Texture] GetWidth called, returning width: 1536
+2025-05-04 15:47:59,182 TRACE [default] [int Echo2D::Texture::GetHeight() const] [/Users/mrphoonmoji/Projects/gitrepos/Echo-2D/src/engine/Texture.cpp:149] [Texture] GetHeight called, returning height: 96
+2025-05-04 15:47:59,183 INFO [default] [Texture] Loaded texture from assets/Sprites/IDLE.png with dimensions: 960x96 and 4 bits per channel.
+2025-05-04 15:47:59,183 INFO [default] [Texture] glCreateTextures returned ID: 2
+2025-05-04 15:47:59,183 INFO [default] [Texture] Bound texture ID: 2 to GL_TEXTURE_2D.
+2025-05-04 15:47:59,183 INFO [default] [Texture] Texture parameters (MIN_FILTER, MAG_FILTER, WRAP_S, WRAP_T) set to GL_NEAREST and GL_CLAMP_TO_EDGE.
+2025-05-04 15:47:59,183 INFO [default] [Texture] Texture image uploaded to GPU with dimensions: 960x96
+2025-05-04 15:47:59,184 INFO [default] [Texture] Mipmaps generated.
+2025-05-04 15:47:59,184 INFO [default] [Texture] Image data freed from memory after upload.
+2025-05-04 15:47:59,184 TRACE [default] [int Echo2D::Texture::GetWidth() const] [/Users/mrphoonmoji/Projects/gitrepos/Echo-2D/src/engine/Texture.cpp:159] [Texture] GetWidth called, returning width: 960
+2025-05-04 15:47:59,184 TRACE [default] [int Echo2D::Texture::GetHeight() const] [/Users/mrphoonmoji/Projects/gitrepos/Echo-2D/src/engine/Texture.cpp:149] [Texture] GetHeight called, returning height: 96
+2025-05-04 15:47:59,185 INFO [default] [Texture] Loaded texture from assets/Sprites/HURT.png with dimensions: 384x96 and 4 bits per channel.
+2025-05-04 15:47:59,185 INFO [default] [Texture] glCreateTextures returned ID: 3
+2025-05-04 15:47:59,185 INFO [default] [Texture] Bound texture ID: 3 to GL_TEXTURE_2D.
+2025-05-04 15:47:59,185 INFO [default] [Texture] Texture parameters (MIN_FILTER, MAG_FILTER, WRAP_S, WRAP_T) set to GL_NEAREST and GL_CLAMP_TO_EDGE.
+2025-05-04 15:47:59,185 INFO [default] [Texture] Texture image uploaded to GPU with dimensions: 384x96
+2025-05-04 15:47:59,185 INFO [default] [Texture] Mipmaps generated.
+2025-05-04 15:47:59,185 INFO [default] [Texture] Image data freed from memory after upload.
+2025-05-04 15:47:59,186 TRACE [default] [int Echo2D::Texture::GetWidth() const] [/Users/mrphoonmoji/Projects/gitrepos/Echo-2D/src/engine/Texture.cpp:159] [Texture] GetWidth called, returning width: 384
+2025-05-04 15:47:59,186 TRACE [default] [int Echo2D::Texture::GetHeight() const] [/Users/mrphoonmoji/Projects/gitrepos/Echo-2D/src/engine/Texture.cpp:149] [Texture] GetHeight called, returning height: 96
+2025-05-04 15:47:59,186 INFO [default] [Texture] Loaded texture from assets/Sprites/ATTACK.png with dimensions: 672x96 and 4 bits per channel.
+2025-05-04 15:47:59,186 INFO [default] [Texture] glCreateTextures returned ID: 4
+2025-05-04 15:47:59,186 INFO [default] [Texture] Bound texture ID: 4 to GL_TEXTURE_2D.
+2025-05-04 15:47:59,187 INFO [default] [Texture] Texture parameters (MIN_FILTER, MAG_FILTER, WRAP_S, WRAP_T) set to GL_NEAREST and GL_CLAMP_TO_EDGE.
+2025-05-04 15:47:59,187 INFO [default] [Texture] Texture image uploaded to GPU with dimensions: 672x96
+2025-05-04 15:47:59,187 INFO [default] [Texture] Mipmaps generated.
+2025-05-04 15:47:59,187 INFO [default] [Texture] Image data freed from memory after upload.
+2025-05-04 15:47:59,187 TRACE [default] [int Echo2D::Texture::GetWidth() const] [/Users/mrphoonmoji/Projects/gitrepos/Echo-2D/src/engine/Texture.cpp:159] [Texture] GetWidth called, returning width: 672
+2025-05-04 15:47:59,187 TRACE [default] [int Echo2D::Texture::GetHeight() const] [/Users/mrphoonmoji/Projects/gitrepos/Echo-2D/src/engine/Texture.cpp:149] [Texture] GetHeight called, returning height: 96
+2025-05-04 15:48:12,945 INFO [default] [Application] Destroying application and window.
+2025-05-04 15:48:12,953 INFO [default] [WindowHandler] GLFW window destroyed and resources cleaned up.
+2025-05-04 15:52:44,272 INFO [default] [WindowHandler] Window created with dimensions: 800x600
+2025-05-04 15:52:44,272 INFO [default] [InputHandler] Initialized input callbacks for GLFW window.
+2025-05-04 15:52:44,279 INFO [default] [WindowHandler] GLAD initialized successfully.
+2025-05-04 15:52:44,283 INFO [default] [WindowHandler] ImGui initialized successfully.
+2025-05-04 15:52:44,283 INFO [default] [Application] Created with dimensions (800x600) and title: Spritesheet Test
+2025-05-04 15:52:44,285 INFO [default] [Texture] Loaded texture from assets/Sprites/RUN.png with dimensions: 1536x96 and 4 bits per channel.
+2025-05-04 15:52:44,285 INFO [default] [Texture] glCreateTextures returned ID: 1
+2025-05-04 15:52:44,285 INFO [default] [Texture] Bound texture ID: 1 to GL_TEXTURE_2D.
+2025-05-04 15:52:44,285 INFO [default] [Texture] Texture parameters (MIN_FILTER, MAG_FILTER, WRAP_S, WRAP_T) set to GL_NEAREST and GL_CLAMP_TO_EDGE.
+2025-05-04 15:52:44,286 INFO [default] [Texture] Texture image uploaded to GPU with dimensions: 1536x96
+2025-05-04 15:52:44,286 INFO [default] [Texture] Mipmaps generated.
+2025-05-04 15:52:44,286 INFO [default] [Texture] Image data freed from memory after upload.
+2025-05-04 15:52:44,286 TRACE [default] [int Echo2D::Texture::GetWidth() const] [/Users/mrphoonmoji/Projects/gitrepos/Echo-2D/src/engine/Texture.cpp:159] [Texture] GetWidth called, returning width: 1536
+2025-05-04 15:52:44,286 TRACE [default] [int Echo2D::Texture::GetHeight() const] [/Users/mrphoonmoji/Projects/gitrepos/Echo-2D/src/engine/Texture.cpp:149] [Texture] GetHeight called, returning height: 96
+2025-05-04 15:52:44,287 INFO [default] [Texture] Loaded texture from assets/Sprites/IDLE.png with dimensions: 960x96 and 4 bits per channel.
+2025-05-04 15:52:44,288 INFO [default] [Texture] glCreateTextures returned ID: 2
+2025-05-04 15:52:44,288 INFO [default] [Texture] Bound texture ID: 2 to GL_TEXTURE_2D.
+2025-05-04 15:52:44,288 INFO [default] [Texture] Texture parameters (MIN_FILTER, MAG_FILTER, WRAP_S, WRAP_T) set to GL_NEAREST and GL_CLAMP_TO_EDGE.
+2025-05-04 15:52:44,288 INFO [default] [Texture] Texture image uploaded to GPU with dimensions: 960x96
+2025-05-04 15:52:44,288 INFO [default] [Texture] Mipmaps generated.
+2025-05-04 15:52:44,288 INFO [default] [Texture] Image data freed from memory after upload.
+2025-05-04 15:52:44,289 TRACE [default] [int Echo2D::Texture::GetWidth() const] [/Users/mrphoonmoji/Projects/gitrepos/Echo-2D/src/engine/Texture.cpp:159] [Texture] GetWidth called, returning width: 960
+2025-05-04 15:52:44,289 TRACE [default] [int Echo2D::Texture::GetHeight() const] [/Users/mrphoonmoji/Projects/gitrepos/Echo-2D/src/engine/Texture.cpp:149] [Texture] GetHeight called, returning height: 96
+2025-05-04 15:52:44,289 INFO [default] [Texture] Loaded texture from assets/Sprites/HURT.png with dimensions: 384x96 and 4 bits per channel.
+2025-05-04 15:52:44,289 INFO [default] [Texture] glCreateTextures returned ID: 3
+2025-05-04 15:52:44,289 INFO [default] [Texture] Bound texture ID: 3 to GL_TEXTURE_2D.
+2025-05-04 15:52:44,289 INFO [default] [Texture] Texture parameters (MIN_FILTER, MAG_FILTER, WRAP_S, WRAP_T) set to GL_NEAREST and GL_CLAMP_TO_EDGE.
+2025-05-04 15:52:44,289 INFO [default] [Texture] Texture image uploaded to GPU with dimensions: 384x96
+2025-05-04 15:52:44,290 INFO [default] [Texture] Mipmaps generated.
+2025-05-04 15:52:44,290 INFO [default] [Texture] Image data freed from memory after upload.
+2025-05-04 15:52:44,290 TRACE [default] [int Echo2D::Texture::GetWidth() const] [/Users/mrphoonmoji/Projects/gitrepos/Echo-2D/src/engine/Texture.cpp:159] [Texture] GetWidth called, returning width: 384
+2025-05-04 15:52:44,290 TRACE [default] [int Echo2D::Texture::GetHeight() const] [/Users/mrphoonmoji/Projects/gitrepos/Echo-2D/src/engine/Texture.cpp:149] [Texture] GetHeight called, returning height: 96
+2025-05-04 15:52:44,291 INFO [default] [Texture] Loaded texture from assets/Sprites/ATTACK.png with dimensions: 672x96 and 4 bits per channel.
+2025-05-04 15:52:44,291 INFO [default] [Texture] glCreateTextures returned ID: 4
+2025-05-04 15:52:44,291 INFO [default] [Texture] Bound texture ID: 4 to GL_TEXTURE_2D.
+2025-05-04 15:52:44,291 INFO [default] [Texture] Texture parameters (MIN_FILTER, MAG_FILTER, WRAP_S, WRAP_T) set to GL_NEAREST and GL_CLAMP_TO_EDGE.
+2025-05-04 15:52:44,291 INFO [default] [Texture] Texture image uploaded to GPU with dimensions: 672x96
+2025-05-04 15:52:44,292 INFO [default] [Texture] Mipmaps generated.
+2025-05-04 15:52:44,292 INFO [default] [Texture] Image data freed from memory after upload.
+2025-05-04 15:52:44,292 TRACE [default] [int Echo2D::Texture::GetWidth() const] [/Users/mrphoonmoji/Projects/gitrepos/Echo-2D/src/engine/Texture.cpp:159] [Texture] GetWidth called, returning width: 672
+2025-05-04 15:52:44,292 TRACE [default] [int Echo2D::Texture::GetHeight() const] [/Users/mrphoonmoji/Projects/gitrepos/Echo-2D/src/engine/Texture.cpp:149] [Texture] GetHeight called, returning height: 96
+2025-05-04 15:52:48,399 INFO [default] [Application] Destroying application and window.
+2025-05-04 15:52:48,412 INFO [default] [WindowHandler] GLFW window destroyed and resources cleaned up.
